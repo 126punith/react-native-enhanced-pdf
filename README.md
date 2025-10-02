@@ -44,13 +44,13 @@
 
 ```bash
 # Using npm
-npm install react-native-pdf-enhanced react-native-blob-util --save
+npm install react-native-pdf-jsi react-native-blob-util --save
 
 # or using yarn:
-yarn add react-native-pdf-enhanced react-native-blob-util
+yarn add react-native-pdf-jsi react-native-blob-util
 ```
 
-Then follow the instructions for your platform to link react-native-pdf-enhanced into your project:
+Then follow the instructions for your platform to link react-native-pdf-jsi into your project:
 
 ### iOS installation
 <details>
@@ -64,7 +64,7 @@ Run `pod install` in the `ios` directory. Linking is not required in React Nativ
 
 ```bash
 react-native link react-native-blob-util
-react-native link react-native-pdf-enhanced
+react-native link react-native-pdf-jsi
 ```
 </details>
 
@@ -91,7 +91,7 @@ android {
 **React Native 0.59.0 and below**
 ```bash
 react-native link react-native-blob-util
-react-native link react-native-pdf-enhanced
+react-native link react-native-pdf-jsi
 ```
 
 
@@ -138,7 +138,7 @@ Add to your `android/build.gradle`:
 android {
     externalNativeBuild {
         cmake {
-            path "node_modules/react-native-pdf-enhanced/android/src/main/cpp/CMakeLists.txt"
+            path "node_modules/react-native-pdf-jsi/android/src/main/cpp/CMakeLists.txt"
             version "3.22.1"
         }
     }
