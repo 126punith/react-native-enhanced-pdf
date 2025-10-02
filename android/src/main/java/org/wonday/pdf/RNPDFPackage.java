@@ -22,7 +22,11 @@ public class RNPDFPackage implements ReactPackage {
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+        List<NativeModule> modules = new ArrayList<>();
+        // Add JSI modules for enhanced PDF performance
+        modules.add(new PDFJSIManager(reactContext));
+        modules.add(new EnhancedPdfJSIBridge(reactContext));
+        return modules;
     }
 
     // Deprecated as of RN 0.47.0

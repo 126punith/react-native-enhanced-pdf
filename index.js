@@ -1,5 +1,8 @@
 /**
- * Copyright (c) 2017-present, Wonday (@wonday.org)
+ * Copyright (c) 2025-present, Punith M (punithm300@gmail.com)
+ * Enhanced version with JSI integration for high-performance PDF operations
+ * 
+ * Original work Copyright (c) 2017-present, Wonday (@wonday.org)
  * All rights reserved.
  *
  * This source code is licensed under the MIT-style license found in the
@@ -24,6 +27,7 @@ import ReactNativeBlobUtil from 'react-native-blob-util'
 import {ViewPropTypes} from 'deprecated-react-native-prop-types';
 const SHA1 = require('crypto-js/sha1');
 import PdfView from './PdfView';
+import PDFJSI from './src/PDFJSI';
 
 export default class Pdf extends Component {
 
@@ -116,11 +120,30 @@ export default class Pdf extends Component {
             path: '',
             isDownloaded: false,
             progress: 0,
+            jsiAvailable: false,
         };
 
         this.lastRNBFTask = null;
+        this.pdfJSI = new PDFJSI();
+        this.initializeJSI();
 
     }
+
+    initializeJSI = async () => {
+        try {
+            const isAvailable = await this.pdfJSI.checkJSIAvailability();
+            if (this._mounted) {
+                this.setState({ jsiAvailable: isAvailable });
+            }
+            if (isAvailable) {
+                console.log('🚀 PDFJSI: High-performance JSI mode enabled');
+            } else {
+                console.log('📱 PDFJSI: Using standard bridge mode');
+            }
+        } catch (error) {
+            console.warn('PDFJSI: Failed to initialize JSI', error);
+        }
+    };
 
     componentDidUpdate(prevProps) {
 
@@ -348,6 +371,18 @@ export default class Pdf extends Component {
         if ( (pageNumber === null) || (isNaN(pageNumber)) ) {
             throw new Error('Specified pageNumber is not a number');
         }
+        
+        // Use JSI for enhanced performance if available
+        if (this.state.jsiAvailable && this.state.path) {
+            try {
+                const pdfId = this.generatePdfId();
+                this.pdfJSI.setCurrentPage(pdfId, pageNumber);
+                console.log(`🚀 JSI: Set page ${pageNumber} for PDF ${pdfId}`);
+            } catch (error) {
+                console.warn('JSI setPage failed, falling back to standard method:', error);
+            }
+        }
+        
         if (!!global?.nativeFabricUIManager ) {
             if (this._root) {
                 PdfViewCommands.setNativePage(
@@ -362,6 +397,97 @@ export default class Pdf extends Component {
           }
         
     }
+
+    // 🚀 JSI Enhanced Methods
+    
+    generatePdfId = () => {
+        // Generate a unique ID for this PDF instance
+        return `pdf_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    };
+
+    // Enhanced page rendering with JSI
+    renderPageWithJSI = async (pageNumber, scale = 1.0) => {
+        if (!this.state.jsiAvailable || !this.state.path) {
+            console.warn('JSI not available, using standard rendering');
+            return null;
+        }
+
+        try {
+            const pdfId = this.generatePdfId();
+            const result = await this.pdfJSI.renderPageDirect(
+                pdfId,
+                pageNumber,
+                scale,
+                this.state.path
+            );
+            console.log(`🚀 JSI: Rendered page ${pageNumber} in ${result.renderTimeMs}ms`);
+            return result;
+        } catch (error) {
+            console.error('JSI renderPageDirect failed:', error);
+            return null;
+        }
+    };
+
+    // Get page metrics via JSI
+    getPageMetricsWithJSI = async (pageNumber) => {
+        if (!this.state.jsiAvailable) {
+            return null;
+        }
+
+        try {
+            const pdfId = this.generatePdfId();
+            return await this.pdfJSI.getPageMetrics(pdfId, pageNumber);
+        } catch (error) {
+            console.error('JSI getPageMetrics failed:', error);
+            return null;
+        }
+    };
+
+    // Preload pages via JSI
+    preloadPagesWithJSI = async (startPage, endPage) => {
+        if (!this.state.jsiAvailable) {
+            return false;
+        }
+
+        try {
+            const pdfId = this.generatePdfId();
+            const success = await this.pdfJSI.preloadPagesDirect(pdfId, startPage, endPage);
+            console.log(`🚀 JSI: Preloaded pages ${startPage}-${endPage}: ${success}`);
+            return success;
+        } catch (error) {
+            console.error('JSI preloadPagesDirect failed:', error);
+            return false;
+        }
+    };
+
+    // Get JSI performance metrics
+    getJSIPerformanceMetrics = async () => {
+        if (!this.state.jsiAvailable) {
+            return null;
+        }
+
+        try {
+            const pdfId = this.generatePdfId();
+            return await this.pdfJSI.getPerformanceMetrics(pdfId);
+        } catch (error) {
+            console.error('JSI getPerformanceMetrics failed:', error);
+            return null;
+        }
+    };
+
+    // Get JSI stats
+    getJSIStats = async () => {
+        if (!this.state.jsiAvailable) {
+            return null;
+        }
+
+        try {
+            return await this.pdfJSI.getJSIStats();
+        } catch (error) {
+            console.error('JSI getJSIStats failed:', error);
+            return null;
+        }
+    };
 
     _onChange = (event) => {
 

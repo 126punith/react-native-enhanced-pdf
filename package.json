@@ -1,13 +1,13 @@
 {
     "name": "react-native-pdf",
-    "version": "6.7.7",
-    "summary": "A react native PDF view component",
-    "description": "A react native PDF view component, support ios and android platform",
+    "version": "1.0.0",
+    "summary": "A react native PDF view component with JSI performance enhancements",
+    "description": "A high-performance react native PDF view component with JSI (JavaScript Interface) integration for enhanced speed and efficiency. Supports iOS, Android, and Windows platforms with zero-bridge overhead operations.",
     "main": "index.js",
     "typings": "./index.d.ts",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/wonday/react-native-pdf.git"
+        "url": "git+https://github.com/126punith/react-native-pdf-enhanced.git"
     },
     "keywords": [
         "react-component",
@@ -16,16 +16,23 @@
         "ios",
         "pdf",
         "view",
-        "viewer"
+        "viewer",
+        "jsi",
+        "performance",
+        "enhanced",
+        "native",
+        "bridge",
+        "high-performance"
     ],
     "author": {
-        "name": "Wonday",
-        "url": "https://github.com/wonday"
+        "name": "Punith M",
+        "email": "punithm300@gmail.com",
+        "url": "https://github.com/126punith"
     },
     "license": "MIT",
-    "homepage": "https://github.com/wonday/react-native-pdf",
+    "homepage": "https://github.com/126punith/react-native-pdf-enhanced",
     "bugs": {
-        "url": "https://github.com/wonday/react-native-pdf/issues"
+        "url": "https://github.com/126punith/react-native-pdf-enhanced/issues"
     },
     "dependencies": {
         "crypto-js": "4.2.0",
@@ -45,6 +52,7 @@
         "android/",
         "ios/",
         "windows/",
+        "src/",
         "DoubleTapView.js",
         "index.d.ts",
         "index.js",
@@ -55,7 +63,9 @@
         "PdfViewFlatList.js",
         "PinchZoomView.js",
         "react-native-pdf.podspec",
-        "fabric/"
+        "fabric/",
+        "README_JSI.md",
+        "INTEGRATION_GUIDE.md"
     ],
     "codegenConfig": {
         "name": "rnpdf",
