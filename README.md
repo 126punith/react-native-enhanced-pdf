@@ -436,7 +436,11 @@ if (stats.jsiEnabled) {
 
 ## 📝 Changelog
 
-### v1.0.1 (2025) - Latest
+### v1.0.2 (2025) - Latest
+- 📚 **Documentation Fix**: Updated README with correct package name and installation instructions
+- 🔧 **Package Clarity**: Clear distinction between npm package name (`react-native-pdf-jsi`) and import names (`react-native-pdf-enhanced`)
+
+### v1.0.1 (2025)
 - 🔧 **Enhanced JSI Integration**: Comprehensive Android and iOS JSI enhancements
 - 📱 **iOS Progressive Loading**: Smart caching, preloading queue, and performance tracking
 - 🤖 **Android JSI Optimization**: Complete native C++ implementation with batch operations
@@ -687,7 +691,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v1.0.1 - Enhanced JSI Integration**  
+**v1.0.2 - Enhanced JSI Integration**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
