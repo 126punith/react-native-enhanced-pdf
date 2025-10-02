@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2025-present, Punith M (punithm300@gmail.com)
+ * Enhanced PDF JSI Bridge with high-performance operations
  * All rights reserved.
  * 
  * JNI Bridge between Java and C++ JSI implementation

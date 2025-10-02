@@ -1,21 +1,21 @@
 /**
  * Copyright (c) 2025-present, Punith M (punithm300@gmail.com)
+ * Enhanced PDF JSI Integration - Main Export
  * All rights reserved.
  * 
- * Main entry point for Enhanced PDF JSI functionality
- * Provides both traditional PDF viewing and high-performance JSI operations
+ * Main export file for enhanced PDF JSI components and utilities
  */
 
-// Export the main PDF component (existing functionality)
-export { default as Pdf } from '../PdfView';
-
-// Export JSI functionality
+// Core JSI functionality
 export { default as PDFJSI } from './PDFJSI';
-export { default as EnhancedPdfView } from './EnhancedPdfView';
-export { default as PDFJSIComponent } from './EnhancedPdfView';
+
+// Enhanced PDF View component
+export { default as EnhancedPdfView, EnhancedPdfUtils } from './EnhancedPdfView';
+
+// React hooks
 export { default as usePDFJSI } from './hooks/usePDFJSI';
 
-// Export individual JSI methods for convenience
+// Re-export individual JSI methods for convenience
 export {
     renderPageDirect,
     getPageMetrics,
@@ -30,6 +30,3 @@ export {
     getPerformanceHistory,
     clearPerformanceHistory
 } from './PDFJSI';
-
-// Export JSI availability checker
-export { default as checkJSIAvailability } from './PDFJSI';

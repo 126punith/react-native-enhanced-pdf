@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2025-present, Punith M (punithm300@gmail.com)
+ * Enhanced PDF View with JSI integration
  * All rights reserved.
  * 
  * Enhanced PDF View component that automatically uses JSI when available
@@ -8,7 +9,7 @@
 
 import React, { Component } from 'react';
 import { Platform, Alert } from 'react-native';
-import Pdf from '../PdfView';
+import Pdf from '../index';
 import PDFJSI from './PDFJSI';
 
 export default class EnhancedPdfView extends Component {

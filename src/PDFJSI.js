@@ -9,7 +9,7 @@
 
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
-const { PDFJSIManager: PDFJSIManagerNative, EnhancedPdfJSIBridge } = NativeModules;
+const { PDFJSIManager: PDFJSIManagerNative, EnhancedPdfJSIBridge, RNPDFPdfViewManager } = NativeModules;
 
 /**
  * Enhanced PDF JSI Manager
@@ -42,15 +42,21 @@ class PDFJSIManager {
      */
     async checkJSIAvailability() {
         try {
-            if (Platform.OS !== 'android') {
-                console.log('📱 PDFJSI: JSI only available on Android');
+            let isAvailable = false;
+            
+            if (Platform.OS === 'android') {
+                isAvailable = await PDFJSIManagerNative.isJSIAvailable();
+            } else if (Platform.OS === 'ios') {
+                // For iOS, we use the native module methods directly
+                isAvailable = await RNPDFPdfViewManager.checkJSIAvailability();
+            } else {
+                console.log('📱 PDFJSI: Platform not supported:', Platform.OS);
                 return false;
             }
             
-            const isAvailable = await PDFJSIManagerNative.isJSIAvailable();
             this.isJSIAvailable = isAvailable;
             
-            console.log(`📱 PDFJSI: JSI availability: ${isAvailable ? 'AVAILABLE' : 'NOT AVAILABLE'}`);
+            console.log(`📱 PDFJSI: JSI availability on ${Platform.OS}: ${isAvailable ? 'AVAILABLE' : 'NOT AVAILABLE'}`);
             return isAvailable;
             
         } catch (error) {
@@ -78,7 +84,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Rendering page ${pageNumber} at scale ${scale} for PDF ${pdfId}`);
             
-            const result = await PDFJSIManagerNative.renderPageDirect(pdfId, pageNumber, scale, base64Data);
+            let result;
+            if (Platform.OS === 'android') {
+                result = await PDFJSIManagerNative.renderPageDirect(pdfId, pageNumber, scale, base64Data);
+            } else if (Platform.OS === 'ios') {
+                result = await RNPDFPdfViewManager.renderPageDirect(pdfId, pageNumber, scale, base64Data);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             const endTime = performance.now();
             const renderTime = endTime - startTime;
@@ -127,7 +140,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Getting metrics for page ${pageNumber} of PDF ${pdfId}`);
             
-            const metrics = await PDFJSIManagerNative.getPageMetrics(pdfId, pageNumber);
+            let metrics;
+            if (Platform.OS === 'android') {
+                metrics = await PDFJSIManagerNative.getPageMetrics(pdfId, pageNumber);
+            } else if (Platform.OS === 'ios') {
+                metrics = await RNPDFPdfViewManager.getPageMetrics(pdfId, pageNumber);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             console.log(`📱 PDFJSI: Page metrics retrieved:`, metrics);
             
@@ -156,7 +176,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Preloading pages ${startPage}-${endPage} for PDF ${pdfId}`);
             
-            const success = await PDFJSIManagerNative.preloadPagesDirect(pdfId, startPage, endPage);
+            let success;
+            if (Platform.OS === 'android') {
+                success = await PDFJSIManagerNative.preloadPagesDirect(pdfId, startPage, endPage);
+            } else if (Platform.OS === 'ios') {
+                success = await RNPDFPdfViewManager.preloadPagesDirect(pdfId, startPage, endPage);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             const endTime = performance.now();
             const preloadTime = endTime - startTime;
@@ -194,7 +221,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Getting cache metrics for PDF ${pdfId}`);
             
-            const metrics = await PDFJSIManagerNative.getCacheMetrics(pdfId);
+            let metrics;
+            if (Platform.OS === 'android') {
+                metrics = await PDFJSIManagerNative.getCacheMetrics(pdfId);
+            } else if (Platform.OS === 'ios') {
+                metrics = await RNPDFPdfViewManager.getCacheMetrics();
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             // Cache the metrics
             this.cacheMetrics.set(pdfId, metrics);
@@ -223,7 +257,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Clearing cache type '${cacheType}' for PDF ${pdfId}`);
             
-            const success = await PDFJSIManagerNative.clearCacheDirect(pdfId, cacheType);
+            let success;
+            if (Platform.OS === 'android') {
+                success = await PDFJSIManagerNative.clearCacheDirect(pdfId, cacheType);
+            } else if (Platform.OS === 'ios') {
+                success = await RNPDFPdfViewManager.clearCacheDirect(pdfId, cacheType);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             // Clear local cache metrics
             if (success) {
@@ -253,7 +294,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Optimizing memory for PDF ${pdfId}`);
             
-            const success = await PDFJSIManagerNative.optimizeMemory(pdfId);
+            let success;
+            if (Platform.OS === 'android') {
+                success = await PDFJSIManagerNative.optimizeMemory(pdfId);
+            } else if (Platform.OS === 'ios') {
+                success = await RNPDFPdfViewManager.optimizeMemory(pdfId);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             console.log(`📱 PDFJSI: Memory optimization completed, Success: ${success}`);
             
@@ -283,7 +331,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Searching for '${searchTerm}' in pages ${startPage}-${endPage}`);
             
-            const results = await PDFJSIManagerNative.searchTextDirect(pdfId, searchTerm, startPage, endPage);
+            let results;
+            if (Platform.OS === 'android') {
+                results = await PDFJSIManagerNative.searchTextDirect(pdfId, searchTerm, startPage, endPage);
+            } else if (Platform.OS === 'ios') {
+                results = await RNPDFPdfViewManager.searchTextDirect(pdfId, searchTerm);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             const endTime = performance.now();
             const searchTime = endTime - startTime;
@@ -322,7 +377,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Getting performance metrics for PDF ${pdfId}`);
             
-            const metrics = await PDFJSIManagerNative.getPerformanceMetrics(pdfId);
+            let metrics;
+            if (Platform.OS === 'android') {
+                metrics = await PDFJSIManagerNative.getPerformanceMetrics(pdfId);
+            } else if (Platform.OS === 'ios') {
+                metrics = await RNPDFPdfViewManager.getPerformanceMetricsDirect(pdfId);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             console.log(`📱 PDFJSI: Performance metrics retrieved:`, metrics);
             
@@ -352,7 +414,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Setting render quality to ${quality} for PDF ${pdfId}`);
             
-            const success = await PDFJSIManagerNative.setRenderQuality(pdfId, quality);
+            let success;
+            if (Platform.OS === 'android') {
+                success = await PDFJSIManagerNative.setRenderQuality(pdfId, quality);
+            } else if (Platform.OS === 'ios') {
+                success = await RNPDFPdfViewManager.setRenderQuality(pdfId, quality);
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             console.log(`📱 PDFJSI: Render quality set, Success: ${success}`);
             
@@ -372,7 +441,14 @@ class PDFJSIManager {
         try {
             console.log(`📱 PDFJSI: Getting JSI stats`);
             
-            const stats = await EnhancedPdfJSIBridge.getJSIStats();
+            let stats;
+            if (Platform.OS === 'android') {
+                stats = await EnhancedPdfJSIBridge.getJSIStats();
+            } else if (Platform.OS === 'ios') {
+                stats = await RNPDFPdfViewManager.getJSIStats();
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
             
             console.log(`📱 PDFJSI: JSI stats retrieved:`, stats);
             

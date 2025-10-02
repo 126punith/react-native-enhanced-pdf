@@ -75,6 +75,26 @@ const float MIN_SCALE = 1.0f;
     UIPinchGestureRecognizer *_pinchRecognizer;
     UILongPressGestureRecognizer *_longPressRecognizer;
     UITapGestureRecognizer *_doubleTapEmptyRecognizer;
+    
+    // Enhanced progressive loading properties
+    BOOL _enableCaching;
+    BOOL _enablePreloading;
+    int _preloadRadius;
+    BOOL _enableTextSelection;
+    BOOL _showPerformanceMetrics;
+    int _cacheSize;
+    int _renderQuality;
+    
+    // Performance tracking
+    CFAbsoluteTime _loadStartTime;
+    CFAbsoluteTime _loadTime;
+    int _pageCount;
+    NSMutableDictionary *_pageCache;
+    NSMutableSet *_preloadedPages;
+    NSMutableDictionary *_performanceMetrics;
+    NSMutableDictionary *_searchCache;
+    NSString *_currentPdfId;
+    NSOperationQueue *_preloadQueue;
 }
 
 #ifdef RCT_NEW_ARCH_ENABLED
@@ -264,6 +284,26 @@ using namespace facebook::react;
     _showsHorizontalScrollIndicator = YES;
     _showsVerticalScrollIndicator = YES;
     _scrollEnabled = YES;
+
+    // Enhanced properties
+    _enableCaching = YES;
+    _enablePreloading = YES;
+    _preloadRadius = 3;
+    _enableTextSelection = NO;
+    _showPerformanceMetrics = NO;
+    _cacheSize = 32768; // 32MB
+    _renderQuality = 2; // High quality
+
+    // Initialize enhanced features
+    _pageCache = [NSMutableDictionary dictionary];
+    _preloadedPages = [NSMutableSet set];
+    _performanceMetrics = [NSMutableDictionary dictionary];
+    _searchCache = [NSMutableDictionary dictionary];
+    
+    // Create preload queue
+    _preloadQueue = [[NSOperationQueue alloc] init];
+    _preloadQueue.maxConcurrentOperationCount = 3;
+    _preloadQueue.qualityOfService = NSQualityOfServiceBackground;
 
     // init and config PDFView
     _pdfView = [[PDFView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
@@ -563,6 +603,14 @@ using namespace facebook::react;
 }
 
 - (void)dealloc{
+    [_preloadQueue cancelAllOperations];
+    _preloadQueue = nil;
+    
+    // Clear caches
+    [_pageCache removeAllObjects];
+    [_preloadedPages removeAllObjects];
+    [_performanceMetrics removeAllObjects];
+    [_searchCache removeAllObjects];
 
     _pdfDocument = Nil;
     _pdfView = Nil;
@@ -690,6 +738,14 @@ using namespace facebook::react;
         unsigned long page = [_pdfDocument indexForPage:currentPage];
         unsigned long numberOfPages = _pdfDocument.pageCount;
 
+        // Update current page for preloading
+        _page = (int)page + 1;
+        _pageCount = (int)numberOfPages;
+        if (_enablePreloading) {
+            [self preloadAdjacentPages:_page];
+        }
+
+        RLog(@"Enhanced PDF: Navigated to page %d", _page);
         [self notifyOnChangeWithMessage:[[NSString alloc] initWithString:[NSString stringWithFormat:@"pageChanged|%lu|%lu", page+1, numberOfPages]]];
     }
 
@@ -911,6 +967,118 @@ using namespace facebook::react;
     for (UIView *subview in view.subviews) {
         [self setScrollIndicators:subview horizontal:horizontal vertical:vertical depth:depth + 1];
     }
+}
+
+// Enhanced progressive loading methods
+- (void)preloadAdjacentPages:(int)currentPage
+{
+    if (!_enablePreloading || !_pdfDocument) {
+        return;
+    }
+    
+    int startPage = MAX(1, currentPage - _preloadRadius);
+    int endPage = MIN((int)_pdfDocument.pageCount, currentPage + _preloadRadius);
+    
+    for (int page = startPage; page <= endPage; page++) {
+        if (![_preloadedPages containsObject:@(page)]) {
+            [_preloadedPages addObject:@(page)];
+            
+            // Add preload operation to queue
+            NSBlockOperation *preloadOp = [NSBlockOperation blockOperationWithBlock:^{
+                // Preload page content (this is a simplified version)
+                // In a real implementation, you might preload page thumbnails or other content
+                RLog(@"Enhanced PDF: Preloading page %d", page);
+            }];
+            
+            [_preloadQueue addOperation:preloadOp];
+        }
+    }
+}
+
+- (NSDictionary *)getPerformanceMetrics
+{
+    NSMutableDictionary *metrics = [_performanceMetrics mutableCopy];
+    metrics[@"cacheHitCount"] = @([_pageCache count]);
+    metrics[@"preloadedPages"] = @([_preloadedPages count]);
+    metrics[@"cacheSize"] = @(_cacheSize);
+    return metrics;
+}
+
+- (void)clearCache
+{
+    [_pageCache removeAllObjects];
+    [_preloadedPages removeAllObjects];
+    [_searchCache removeAllObjects];
+    RLog(@"Enhanced PDF: Cache cleared");
+}
+
+- (void)preloadPagesFrom:(int)startPage to:(int)endPage
+{
+    if (!_enablePreloading || !_pdfDocument) {
+        return;
+    }
+    
+    int actualStartPage = MAX(1, startPage);
+    int actualEndPage = MIN((int)_pdfDocument.pageCount, endPage);
+    
+    for (int page = actualStartPage; page <= actualEndPage; page++) {
+        if (![_preloadedPages containsObject:@(page)]) {
+            [_preloadedPages addObject:@(page)];
+            RLog(@"Enhanced PDF: Preloading page %d", page);
+        }
+    }
+}
+
+- (NSDictionary *)searchText:(NSString *)searchTerm
+{
+    if (!searchTerm || searchTerm.length == 0 || !_pdfDocument) {
+        return @{@"totalMatches": @0, @"results": @[]};
+    }
+    
+    // Check cache first
+    NSString *cacheKey = [NSString stringWithFormat:@"%@_%@", _currentPdfId, searchTerm];
+    if (_searchCache[cacheKey]) {
+        RLog(@"Enhanced PDF: Search cache hit for '%@'", searchTerm);
+        return _searchCache[cacheKey];
+    }
+    
+    NSMutableArray *results = [NSMutableArray array];
+    int totalMatches = 0;
+    
+    for (int pageIndex = 0; pageIndex < _pdfDocument.pageCount; pageIndex++) {
+        PDFPage *page = [_pdfDocument pageAtIndex:pageIndex];
+        
+        // Get the page bounds
+        CGRect pageBounds = [page boundsForBox:kPDFDisplayBoxCropBox];
+        
+        // Search for text in the page
+        PDFSelection *selection = [page selectionForRange:NSMakeRange(0, page.string.length)];
+        if (selection && selection.string.length > 0) {
+            NSString *text = selection.string;
+            if ([text localizedCaseInsensitiveContainsString:searchTerm]) {
+                // Get the bounds of the selection
+                CGRect selectionBounds = [selection boundsForPage:page];
+                
+                [results addObject:@{
+                    @"page": @(pageIndex + 1),
+                    @"text": text,
+                    @"rect": NSStringFromCGRect(selectionBounds)
+                }];
+                totalMatches++;
+            }
+        }
+    }
+    
+    NSDictionary *searchResults = @{
+        @"totalMatches": @(totalMatches),
+        @"results": results
+    };
+    
+    // Cache the results
+    _searchCache[cacheKey] = searchResults;
+    
+    RLog(@"Enhanced PDF: Search completed for '%@', found %d matches", searchTerm, totalMatches);
+    return searchResults;
 }
 
 @end

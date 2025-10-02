@@ -52,6 +52,11 @@ UIView
 
 @property(nonatomic, copy) RCTBubblingEventBlock onChange;
 
+// Enhanced progressive loading method declarations
+- (NSDictionary *)getPerformanceMetrics;
+- (void)clearCache;
+- (void)preloadPagesFrom:(int)startPage to:(int)endPage;
+- (NSDictionary *)searchText:(NSString *)searchTerm;
 
 @end
 
