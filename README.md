@@ -29,11 +29,15 @@
 * **Memory Optimization** - Automatic memory management and cleanup
 * **Real-time Performance Metrics** - Monitor and optimize PDF operations
 * **Graceful Fallback** - Seamless bridge mode when JSI unavailable
+* **Progressive Loading** - Smart preloading with background queue processing
+* **Advanced Search** - Cached text search with bounds detection
+* **React Hooks** - Easy integration with `usePDFJSI` hook
+* **Enhanced Components** - Drop-in replacement with automatic JSI detection
 
 ## 📱 Supported Platforms
 
-- ✅ **Android** (with JSI acceleration)
-- ✅ **iOS** (standard bridge mode)
+- ✅ **Android** (with full JSI acceleration - up to 80x faster)
+- ✅ **iOS** (enhanced bridge mode with smart caching and progressive loading)
 - ✅ **Windows** (standard bridge mode)
 
 ## 🛠 Installation
@@ -215,40 +219,123 @@ const styles = StyleSheet.create({
 
 ### 🚀 JSI Enhanced Usage
 
+#### Using Enhanced PDF View Component
+```js
+import React from 'react';
+import { View } from 'react-native';
+import { EnhancedPdfView } from 'react-native-pdf-enhanced';
+
+export default function EnhancedPDFExample() {
+    return (
+        <View style={{ flex: 1 }}>
+            <EnhancedPdfView
+                source={{ uri: 'http://example.com/document.pdf' }}
+                onLoadComplete={(pages) => {
+                    console.log(`🚀 Loaded ${pages} pages with JSI acceleration`);
+                }}
+                style={{ flex: 1 }}
+            />
+        </View>
+    );
+}
+```
+
+#### Using React Hooks for JSI Operations
+```js
+import React, { useEffect } from 'react';
+import { View, Button } from 'react-native';
+import { usePDFJSI } from 'react-native-pdf-enhanced';
+
+export default function JSIHookExample() {
+    const {
+        isJSIAvailable,
+        renderPage,
+        preloadPages,
+        getPerformanceMetrics,
+        getPerformanceHistory
+    } = usePDFJSI({
+        autoInitialize: true,
+        enablePerformanceTracking: true
+    });
+
+    const handleJSIOperations = async () => {
+        try {
+            // High-performance page rendering
+            const result = await renderPage('pdf_123', 1, 2.0, 'base64data');
+            console.log('🚀 JSI Render result:', result);
+
+            // Preload pages for faster access
+            const preloadSuccess = await preloadPages('pdf_123', 1, 5);
+            console.log('🚀 Preload success:', preloadSuccess);
+
+            // Get performance metrics
+            const metrics = await getPerformanceMetrics('pdf_123');
+            console.log('🚀 Performance metrics:', metrics);
+
+        } catch (error) {
+            console.log('JSI operations failed:', error);
+        }
+    };
+
+    return (
+        <View style={{ flex: 1, padding: 20 }}>
+            <Button
+                title={`JSI Available: ${isJSIAvailable ? '✅' : '❌'}`}
+                onPress={handleJSIOperations}
+            />
+        </View>
+    );
+}
+```
+
+#### Advanced JSI Operations
 ```js
 import React, { useRef, useEffect } from 'react';
 import { View } from 'react-native';
 import Pdf from 'react-native-pdf-enhanced';
 
-export default function EnhancedPDFExample() {
+export default function AdvancedJSIExample() {
     const pdfRef = useRef(null);
 
     useEffect(() => {
-        // Check JSI availability
+        // Check JSI availability and performance
         if (pdfRef.current) {
             pdfRef.current.getJSIStats().then(stats => {
                 console.log('🚀 JSI Stats:', stats);
+                console.log('Performance Level:', stats.performanceLevel);
+                console.log('Direct Memory Access:', stats.directMemoryAccess);
             });
         }
     }, []);
 
-    const handleJSIOperations = async () => {
+    const handleAdvancedOperations = async () => {
         if (pdfRef.current) {
             try {
-                // High-performance page rendering
-                const result = await pdfRef.current.renderPageWithJSI(1, 2.0);
-                console.log('🚀 JSI Render result:', result);
+                // Batch operations for better performance
+                const operations = [
+                    { type: 'renderPage', page: 1, scale: 1.5 },
+                    { type: 'preloadPages', start: 2, end: 5 },
+                    { type: 'getMetrics', page: 1 }
+                ];
 
-                // Preload pages for faster access
-                const preloadSuccess = await pdfRef.current.preloadPagesWithJSI(1, 5);
-                console.log('🚀 Preload success:', preloadSuccess);
-
-                // Get performance metrics
-                const metrics = await pdfRef.current.getJSIPerformanceMetrics();
-                console.log('🚀 Performance metrics:', metrics);
+                // Execute operations
+                for (const op of operations) {
+                    switch (op.type) {
+                        case 'renderPage':
+                            await pdfRef.current.renderPageWithJSI(op.page, op.scale);
+                            break;
+                        case 'preloadPages':
+                            await pdfRef.current.preloadPagesWithJSI(op.start, op.end);
+                            break;
+                        case 'getMetrics':
+                            const metrics = await pdfRef.current.getJSIPerformanceMetrics();
+                            console.log('📊 Performance:', metrics);
+                            break;
+                    }
+                }
 
             } catch (error) {
-                console.log('JSI operations failed, using standard mode:', error);
+                console.log('Advanced operations failed:', error);
             }
         }
     };
@@ -260,8 +347,7 @@ export default function EnhancedPDFExample() {
                 source={{ uri: 'http://example.com/document.pdf' }}
                 onLoadComplete={(pages) => {
                     console.log(`Loaded ${pages} pages`);
-                    // Automatically try JSI operations
-                    handleJSIOperations();
+                    handleAdvancedOperations();
                 }}
                 style={{ flex: 1 }}
             />
@@ -350,6 +436,15 @@ if (stats.jsiEnabled) {
 
 ## 📝 Changelog
 
+### v1.0.1 (2025) - Latest
+- 🔧 **Enhanced JSI Integration**: Comprehensive Android and iOS JSI enhancements
+- 📱 **iOS Progressive Loading**: Smart caching, preloading queue, and performance tracking
+- 🤖 **Android JSI Optimization**: Complete native C++ implementation with batch operations
+- 📦 **JavaScript Components**: Enhanced PDF view, React hooks, and utility functions
+- 🚀 **Performance Monitoring**: Real-time metrics, memory optimization, and cache management
+- 🛠 **Developer Tools**: Complete example implementation and benchmarking utilities
+- 📊 **Cross-Platform**: Seamless JSI detection with graceful fallback mechanisms
+
 ### v1.0.0 (2025)
 - 🚀 **Major Release**: First stable version with JSI integration
 - ⚡ **Performance**: Up to 80x faster operations on Android
@@ -377,6 +472,58 @@ import Pdf from 'react-native-pdf-enhanced';
 // JSI enhancements are automatic on Android
 ```
 
+## 📦 Available Exports
+
+### Core Components
+```js
+// Standard PDF component (enhanced with JSI)
+import Pdf from 'react-native-pdf-enhanced';
+
+// Enhanced PDF view with automatic JSI detection
+import { EnhancedPdfView } from 'react-native-pdf-enhanced';
+
+// React hook for JSI operations
+import { usePDFJSI } from 'react-native-pdf-enhanced';
+
+// Direct JSI interface
+import { PDFJSI } from 'react-native-pdf-enhanced';
+```
+
+### Individual JSI Methods
+```js
+import {
+    renderPageDirect,
+    getPageMetrics,
+    preloadPagesDirect,
+    getCacheMetrics,
+    clearCacheDirect,
+    optimizeMemory,
+    searchTextDirect,
+    getPerformanceMetrics,
+    setRenderQuality,
+    getJSIStats,
+    getPerformanceHistory,
+    clearPerformanceHistory
+} from 'react-native-pdf-enhanced';
+```
+
+### Utility Functions
+```js
+import { EnhancedPdfUtils } from 'react-native-pdf-enhanced';
+
+// Check JSI availability
+const isAvailable = await EnhancedPdfUtils.isJSIAvailable();
+
+// Get performance benchmark
+const benchmark = await EnhancedPdfUtils.getPerformanceBenchmark();
+
+// Clear all caches
+await EnhancedPdfUtils.clearAllCaches();
+
+// Optimize memory
+await EnhancedPdfUtils.optimizeAllMemory();
+```
+
 ## 📊 Performance Characteristics
 
 ### Memory Usage
@@ -384,12 +531,20 @@ import Pdf from 'react-native-pdf-enhanced';
 - **Per PDF**: ~500KB average
 - **Cache Overhead**: ~100KB per cached page
 - **Automatic Cleanup**: Memory optimized every 30 seconds
+- **iOS Enhanced**: Smart caching with configurable limits (default 32MB)
 
 ### JSI Benefits
 - **Zero Bridge Overhead**: Direct memory access between JavaScript and native code
 - **Sub-millisecond Operations**: Critical PDF operations execute in microseconds
 - **Enhanced Caching**: Intelligent multi-level caching system
 - **Batch Operations**: Process multiple operations efficiently
+- **Progressive Loading**: Background preloading queue with smart scheduling
+- **Memory Optimization**: Automatic cleanup and garbage collection
+
+### Platform-Specific Optimizations
+- **Android**: Full JSI acceleration with native C++ implementation
+- **iOS**: Enhanced bridge mode with smart caching and progressive loading
+- **Cross-Platform**: Automatic feature detection and appropriate optimization selection
 
 ## ⚙️ Configuration
 
@@ -532,6 +687,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
+**v1.0.1 - Enhanced JSI Integration**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
