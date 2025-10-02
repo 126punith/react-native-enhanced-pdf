@@ -1,13 +1,13 @@
 {
     "name": "react-native-pdf-jsi",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "summary": "A react native PDF view component with JSI performance enhancements",
     "description": "A high-performance react native PDF view component with JSI (JavaScript Interface) integration for enhanced speed and efficiency. Supports iOS, Android, and Windows platforms with zero-bridge overhead operations.",
     "main": "index.js",
     "typings": "./index.d.ts",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/126punith/react-native-pdf-enhanced.git"
+        "url": "git+https://github.com/126punith/react-native-enhanced-pdf.git"
     },
     "keywords": [
         "react-component",
@@ -30,9 +30,9 @@
         "url": "https://github.com/126punith"
     },
     "license": "MIT",
-    "homepage": "https://github.com/126punith/react-native-pdf-enhanced",
+        "homepage": "https://github.com/126punith/react-native-enhanced-pdf",
     "bugs": {
-        "url": "https://github.com/126punith/react-native-pdf-enhanced/issues"
+        "url": "https://github.com/126punith/react-native-enhanced-pdf/issues"
     },
     "dependencies": {
         "crypto-js": "4.2.0",

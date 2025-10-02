@@ -436,7 +436,12 @@ if (stats.jsiEnabled) {
 
 ## 📝 Changelog
 
-### v1.0.2 (2025) - Latest
+### v1.0.3 (2025) - Latest
+- 🔗 **GitHub URL Fix**: Corrected repository URLs to point to the actual GitHub repository
+- 📚 **Documentation Fix**: Updated README with correct package name and installation instructions
+- 🔧 **Package Clarity**: Clear distinction between npm package name (`react-native-pdf-jsi`) and import names (`react-native-pdf-enhanced`)
+
+### v1.0.2 (2025)
 - 📚 **Documentation Fix**: Updated README with correct package name and installation instructions
 - 🔧 **Package Clarity**: Clear distinction between npm package name (`react-native-pdf-jsi`) and import names (`react-native-pdf-enhanced`)
 
@@ -671,16 +676,16 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🔗 Links
 
-- 📖 [Documentation](https://github.com/126punith/react-native-pdf-enhanced/wiki)
-- 🐛 [Report Issues](https://github.com/126punith/react-native-pdf-enhanced/issues)
-- 💬 [Discussions](https://github.com/126punith/react-native-pdf-enhanced/discussions)
-- 📦 [NPM Package](https://www.npmjs.com/package/react-native-pdf-enhanced)
+- 📖 [Documentation](https://github.com/126punith/react-native-enhanced-pdf/wiki)
+- 🐛 [Report Issues](https://github.com/126punith/react-native-enhanced-pdf/issues)
+- 💬 [Discussions](https://github.com/126punith/react-native-enhanced-pdf/discussions)
+- 📦 [NPM Package](https://www.npmjs.com/package/react-native-pdf-jsi)
 - 🚀 [JSI Documentation](README_JSI.md)
 
 ## 📞 Support
 
 For issues and questions:
-- GitHub Issues: [react-native-pdf-enhanced](https://github.com/126punith/react-native-pdf-enhanced)
+- GitHub Issues: [react-native-enhanced-pdf](https://github.com/126punith/react-native-enhanced-pdf)
 - Performance Issues: Include JSI stats and performance history
 - Build Issues: Include CMake logs and Android NDK version
 - Contact: punithm300@gmail.com
@@ -691,7 +696,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v1.0.2 - Enhanced JSI Integration**  
+**v1.0.3 - Enhanced JSI Integration**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
