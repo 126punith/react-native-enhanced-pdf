@@ -1,0 +1,68 @@
+{
+    "name": "react-native-pdf",
+    "version": "6.7.7",
+    "summary": "A react native PDF view component",
+    "description": "A react native PDF view component, support ios and android platform",
+    "main": "index.js",
+    "typings": "./index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wonday/react-native-pdf.git"
+    },
+    "keywords": [
+        "react-component",
+        "react-native",
+        "android",
+        "ios",
+        "pdf",
+        "view",
+        "viewer"
+    ],
+    "author": {
+        "name": "Wonday",
+        "url": "https://github.com/wonday"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/wonday/react-native-pdf",
+    "bugs": {
+        "url": "https://github.com/wonday/react-native-pdf/issues"
+    },
+    "dependencies": {
+        "crypto-js": "4.2.0",
+        "deprecated-react-native-prop-types": "^2.3.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.20.2",
+        "@babel/runtime": "^7.20.1",
+        "prop-types": "^15.7.2"
+    },
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*",
+        "react-native-blob-util": ">=0.13.7"
+    },
+    "files": [
+        "android/",
+        "ios/",
+        "windows/",
+        "DoubleTapView.js",
+        "index.d.ts",
+        "index.js",
+        "index.js.flow",
+        "PdfManager.js",
+        "PdfPageView.js",
+        "PdfView.js",
+        "PdfViewFlatList.js",
+        "PinchZoomView.js",
+        "react-native-pdf.podspec",
+        "fabric/"
+    ],
+    "codegenConfig": {
+        "name": "rnpdf",
+        "type": "components",
+        "jsSrcsDir": "./fabric",
+        "android": {
+          "javaPackageName": "org.wonday.pdf"
+        }
+      }
+}
