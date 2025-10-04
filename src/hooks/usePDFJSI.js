@@ -291,6 +291,54 @@ export const usePDFJSI = (options = {}) => {
         return Array.from(pdfInstancesRef.current.values());
     }, []);
     
+    /**
+     * Lazy load pages for large PDF files
+     */
+    const lazyLoadPages = useCallback(async (pdfId, currentPage, preloadRadius = 3, totalPages = null) => {
+        try {
+            if (isJSIAvailable) {
+                return await PDFJSI.lazyLoadPages(pdfId, currentPage, preloadRadius, totalPages);
+            } else {
+                throw new Error('JSI not available');
+            }
+        } catch (error) {
+            console.error('📱 usePDFJSI: Error lazy loading pages:', error);
+            throw error;
+        }
+    }, [isJSIAvailable]);
+    
+    /**
+     * Progressive loading for large PDF files
+     */
+    const progressiveLoadPages = useCallback(async (pdfId, startPage = 1, batchSize = 5, onProgress = null) => {
+        try {
+            if (isJSIAvailable) {
+                return await PDFJSI.progressiveLoadPages(pdfId, startPage, batchSize, onProgress);
+            } else {
+                throw new Error('JSI not available');
+            }
+        } catch (error) {
+            console.error('📱 usePDFJSI: Error progressive loading pages:', error);
+            throw error;
+        }
+    }, [isJSIAvailable]);
+    
+    /**
+     * Smart caching for frequently accessed pages
+     */
+    const smartCacheFrequentPages = useCallback(async (pdfId, frequentPages = []) => {
+        try {
+            if (isJSIAvailable) {
+                return await PDFJSI.smartCacheFrequentPages(pdfId, frequentPages);
+            } else {
+                throw new Error('JSI not available');
+            }
+        } catch (error) {
+            console.error('📱 usePDFJSI: Error smart caching pages:', error);
+            throw error;
+        }
+    }, [isJSIAvailable]);
+    
     // Initialize JSI on mount if autoInitialize is enabled
     useEffect(() => {
         if (autoInitialize && !isInitialized) {
@@ -337,6 +385,11 @@ export const usePDFJSI = (options = {}) => {
         createPDFInstance,
         removePDFInstance,
         getPDFInstances,
+        
+        // Lazy loading and advanced features
+        lazyLoadPages,
+        progressiveLoadPages,
+        smartCacheFrequentPages,
         
         // Utilities
         initializeJSI

@@ -1,6 +1,5 @@
 /**
- * Copyright (c) 2025-present, Punith M (punithm300@gmail.com)
- * Enhanced PDF JSI JavaScript Bridge with high-performance operations
+ * Copyright (c) 2025-present, Enhanced PDF JSI JavaScript Bridge
  * All rights reserved.
  * 
  * JavaScript interface for high-performance PDF operations via JSI
@@ -495,6 +494,248 @@ class PDFJSIManager {
         this.performanceMetrics.clear();
         console.log('📱 PDFJSI: Performance history cleared');
     }
+    
+    /**
+     * Lazy load PDF pages for large files
+     * @param {string} pdfId - PDF identifier
+     * @param {number} currentPage - Current page number
+     * @param {number} preloadRadius - Number of pages to preload around current page
+     * @param {number} totalPages - Total number of pages in PDF
+     * @returns {Promise<Object>} Lazy load result
+     */
+    async lazyLoadPages(pdfId, currentPage, preloadRadius = 3, totalPages = null) {
+        if (!this.isJSIAvailable) {
+            throw new Error('JSI not available - falling back to bridge mode');
+        }
+        
+        const startTime = performance.now();
+        
+        try {
+            console.log(`📱 PDFJSI: Lazy loading pages around page ${currentPage} for PDF ${pdfId}`);
+            
+            // Calculate pages to preload
+            const startPage = Math.max(1, currentPage - preloadRadius);
+            const endPage = totalPages ? Math.min(totalPages, currentPage + preloadRadius) : currentPage + preloadRadius;
+            
+            // Preload pages in background
+            const preloadResult = await this.preloadPagesDirect(pdfId, startPage, endPage);
+            
+            const endTime = performance.now();
+            const lazyLoadTime = endTime - startTime;
+            
+            // Track performance
+            this.trackPerformance('lazyLoadPages', lazyLoadTime, {
+                pdfId,
+                currentPage,
+                startPage,
+                endPage,
+                preloadRadius,
+                success: preloadResult
+            });
+            
+            console.log(`📱 PDFJSI: Lazy loaded pages ${startPage}-${endPage} in ${lazyLoadTime.toFixed(2)}ms`);
+            
+            return {
+                success: preloadResult,
+                currentPage,
+                preloadedRange: { startPage, endPage },
+                lazyLoadTime,
+                preloadRadius
+            };
+            
+        } catch (error) {
+            const endTime = performance.now();
+            const lazyLoadTime = endTime - startTime;
+            
+            console.error(`📱 PDFJSI: Error lazy loading pages in ${lazyLoadTime.toFixed(2)}ms:`, error);
+            
+            this.trackPerformance('lazyLoadPages', lazyLoadTime, {
+                pdfId,
+                currentPage,
+                preloadRadius,
+                success: false,
+                error: error.message
+            });
+            
+            throw error;
+        }
+    }
+    
+    /**
+     * Progressive loading for large PDF files
+     * @param {string} pdfId - PDF identifier
+     * @param {number} startPage - Starting page number
+     * @param {number} batchSize - Number of pages to load in each batch
+     * @param {Function} onProgress - Progress callback function
+     * @returns {Promise<Object>} Progressive load result
+     */
+    async progressiveLoadPages(pdfId, startPage = 1, batchSize = 5, onProgress = null) {
+        if (!this.isJSIAvailable) {
+            throw new Error('JSI not available - falling back to bridge mode');
+        }
+        
+        const startTime = performance.now();
+        
+        try {
+            console.log(`📱 PDFJSI: Progressive loading starting from page ${startPage} for PDF ${pdfId}`);
+            
+            let currentPage = startPage;
+            let totalLoaded = 0;
+            const loadResults = [];
+            
+            // Load pages in batches
+            while (true) {
+                const batchStartPage = currentPage;
+                const batchEndPage = currentPage + batchSize - 1;
+                
+                console.log(`📱 PDFJSI: Loading batch ${batchStartPage}-${batchEndPage}`);
+                
+                const batchResult = await this.preloadPagesDirect(pdfId, batchStartPage, batchEndPage);
+                
+                if (!batchResult) {
+                    console.log(`📱 PDFJSI: Batch loading failed at page ${currentPage}`);
+                    break;
+                }
+                
+                loadResults.push({
+                    startPage: batchStartPage,
+                    endPage: batchEndPage,
+                    success: batchResult
+                });
+                
+                totalLoaded += batchSize;
+                currentPage += batchSize;
+                
+                // Call progress callback if provided
+                if (onProgress && typeof onProgress === 'function') {
+                    onProgress({
+                        currentPage,
+                        totalLoaded,
+                        batchStartPage,
+                        batchEndPage,
+                        success: batchResult
+                    });
+                }
+                
+                // Small delay between batches to prevent blocking
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
+            const endTime = performance.now();
+            const progressiveLoadTime = endTime - startTime;
+            
+            // Track performance
+            this.trackPerformance('progressiveLoadPages', progressiveLoadTime, {
+                pdfId,
+                startPage,
+                batchSize,
+                totalLoaded,
+                batchesLoaded: loadResults.length
+            });
+            
+            console.log(`📱 PDFJSI: Progressive loading completed: ${totalLoaded} pages in ${progressiveLoadTime.toFixed(2)}ms`);
+            
+            return {
+                success: true,
+                totalLoaded,
+                batchesLoaded: loadResults.length,
+                loadResults,
+                progressiveLoadTime
+            };
+            
+        } catch (error) {
+            const endTime = performance.now();
+            const progressiveLoadTime = endTime - startTime;
+            
+            console.error(`📱 PDFJSI: Error in progressive loading in ${progressiveLoadTime.toFixed(2)}ms:`, error);
+            
+            this.trackPerformance('progressiveLoadPages', progressiveLoadTime, {
+                pdfId,
+                startPage,
+                batchSize,
+                success: false,
+                error: error.message
+            });
+            
+            throw error;
+        }
+    }
+    
+    /**
+     * Smart caching for frequently accessed pages
+     * @param {string} pdfId - PDF identifier
+     * @param {Array<number>} frequentPages - Array of frequently accessed page numbers
+     * @returns {Promise<Object>} Smart cache result
+     */
+    async smartCacheFrequentPages(pdfId, frequentPages = []) {
+        if (!this.isJSIAvailable) {
+            throw new Error('JSI not available - falling back to bridge mode');
+        }
+        
+        const startTime = performance.now();
+        
+        try {
+            console.log(`📱 PDFJSI: Smart caching ${frequentPages.length} frequent pages for PDF ${pdfId}`);
+            
+            const cacheResults = [];
+            
+            // Cache each frequent page
+            for (const pageNumber of frequentPages) {
+                try {
+                    const cacheResult = await this.preloadPagesDirect(pdfId, pageNumber, pageNumber);
+                    cacheResults.push({
+                        pageNumber,
+                        success: cacheResult
+                    });
+                } catch (error) {
+                    console.warn(`📱 PDFJSI: Failed to cache page ${pageNumber}:`, error);
+                    cacheResults.push({
+                        pageNumber,
+                        success: false,
+                        error: error.message
+                    });
+                }
+            }
+            
+            const endTime = performance.now();
+            const smartCacheTime = endTime - startTime;
+            
+            const successfulCaches = cacheResults.filter(result => result.success).length;
+            
+            // Track performance
+            this.trackPerformance('smartCacheFrequentPages', smartCacheTime, {
+                pdfId,
+                totalPages: frequentPages.length,
+                successfulCaches,
+                cacheResults
+            });
+            
+            console.log(`📱 PDFJSI: Smart caching completed: ${successfulCaches}/${frequentPages.length} pages cached in ${smartCacheTime.toFixed(2)}ms`);
+            
+            return {
+                success: true,
+                totalPages: frequentPages.length,
+                successfulCaches,
+                cacheResults,
+                smartCacheTime
+            };
+            
+        } catch (error) {
+            const endTime = performance.now();
+            const smartCacheTime = endTime - startTime;
+            
+            console.error(`📱 PDFJSI: Error in smart caching in ${smartCacheTime.toFixed(2)}ms:`, error);
+            
+            this.trackPerformance('smartCacheFrequentPages', smartCacheTime, {
+                pdfId,
+                totalPages: frequentPages.length,
+                success: false,
+                error: error.message
+            });
+            
+            throw error;
+        }
+    }
 }
 
 // Create singleton instance
@@ -515,5 +756,8 @@ export const {
     setRenderQuality,
     getJSIStats,
     getPerformanceHistory,
-    clearPerformanceHistory
+    clearPerformanceHistory,
+    lazyLoadPages,
+    progressiveLoadPages,
+    smartCacheFrequentPages
 } = pdfJSIManager;

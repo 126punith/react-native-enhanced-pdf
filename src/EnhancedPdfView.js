@@ -1,6 +1,5 @@
 /**
- * Copyright (c) 2025-present, Punith M (punithm300@gmail.com)
- * Enhanced PDF View with JSI integration
+ * Copyright (c) 2025-present, Enhanced PDF View with JSI
  * All rights reserved.
  * 
  * Enhanced PDF View component that automatically uses JSI when available
@@ -270,6 +269,57 @@ export default class EnhancedPdfView extends Component {
             Alert.alert('Enhanced PDF Performance', message);
         } catch (error) {
             Alert.alert('Performance Info', `Render Mode: ${this.state.renderMode.toUpperCase()}\nJSI Available: ${this.state.isJSIAvailable ? 'Yes' : 'No'}`);
+        }
+    };
+    
+    /**
+     * Lazy load pages for large PDF files
+     */
+    lazyLoadPages = async (currentPage, preloadRadius = 3, totalPages = null) => {
+        try {
+            const pdfId = `pdf_${Date.now()}`;
+            const result = await PDFJSI.lazyLoadPages(pdfId, currentPage, preloadRadius, totalPages);
+            
+            if (result.success) {
+                console.log(`📱 EnhancedPdfView: Lazy loaded pages around ${currentPage} via JSI`);
+            }
+            
+            return result;
+        } catch (error) {
+            console.error('📱 EnhancedPdfView: JSI lazy load error:', error);
+            throw error;
+        }
+    };
+    
+    /**
+     * Progressive loading for large PDF files
+     */
+    progressiveLoadPages = async (startPage = 1, batchSize = 5, onProgress = null) => {
+        try {
+            const pdfId = `pdf_${Date.now()}`;
+            const result = await PDFJSI.progressiveLoadPages(pdfId, startPage, batchSize, onProgress);
+            
+            console.log(`📱 EnhancedPdfView: Progressive loaded ${result.totalLoaded} pages via JSI`);
+            return result;
+        } catch (error) {
+            console.error('📱 EnhancedPdfView: JSI progressive load error:', error);
+            throw error;
+        }
+    };
+    
+    /**
+     * Smart caching for frequently accessed pages
+     */
+    smartCacheFrequentPages = async (frequentPages = []) => {
+        try {
+            const pdfId = `pdf_${Date.now()}`;
+            const result = await PDFJSI.smartCacheFrequentPages(pdfId, frequentPages);
+            
+            console.log(`📱 EnhancedPdfView: Smart cached ${result.successfulCaches}/${result.totalPages} frequent pages via JSI`);
+            return result;
+        } catch (error) {
+            console.error('📱 EnhancedPdfView: JSI smart cache error:', error);
+            throw error;
         }
     };
     

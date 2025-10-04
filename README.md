@@ -1,7 +1,23 @@
-# React Native PDF Enhanced
-[![npm](https://img.shields.io/npm/v/react-native-pdf-enhanced.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pdf-enhanced)
+# react-native-pdf-jsi 🚀
+[![npm](https://img.shields.io/npm/v/react-native-pdf-jsi.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![Downloads](https://img.shields.io/npm/dm/react-native-pdf-jsi.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-enhanced-pdf.svg?style=flat-square)](https://github.com/126punith/react-native-enhanced-pdf)
 
-**A high-performance React Native PDF viewer with JSI integration, delivering up to 80x faster operations on Android.**
+**The fastest React Native PDF viewer with JSI acceleration - up to 80x faster than traditional bridge!**
+
+A high-performance React Native PDF viewer component with JSI (JavaScript Interface) integration for enhanced speed and efficiency. Perfect for large PDF files with lazy loading, smart caching, progressive loading, and zero-bridge overhead operations.
+
+## 🎉 Version 2.0.0 - Major Release!
+
+**We've completely rewritten the core architecture with revolutionary performance improvements!**
+
+- **🚀 Complete JSI Integration**: Full native C++ implementation for Android and iOS
+- **📄 Lazy Loading System**: Revolutionary approach to handling large PDF files
+- **🎯 Smart Caching Engine**: 30-day persistent cache with intelligent management
+- **📊 Progressive Loading**: Batch-based loading for optimal user experience
+- **💾 Advanced Memory Management**: Intelligent memory optimization for large documents
+
+*This is a drop-in replacement for react-native-pdf with significant performance improvements.*
 
 ## 🚀 Performance Breakthrough
 
@@ -11,6 +27,27 @@
 | Page Metrics | 12ms | 0.5ms | **24x faster** |
 | Cache Access | 8ms | 0.1ms | **80x faster** |
 | Text Search | 120ms | 15ms | **8x faster** |
+
+## 🔥 Why Choose react-native-pdf-jsi?
+
+- **⚡ Up to 80x Faster**: Direct JavaScript-to-Native communication via JSI
+- **📄 Lazy Loading**: Optimized loading for large PDF files with configurable preload radius  
+- **🎯 Smart Caching**: 30-day persistent cache with intelligent memory management
+- **📱 Cross-Platform**: Full support for iOS, Android, and Windows
+- **🔄 Progressive Loading**: Batch-based loading with configurable batch sizes
+- **💾 Memory Optimized**: Advanced memory management for large documents
+- **🔍 Advanced Search**: Cached text search with bounds detection
+- **📊 Performance Metrics**: Real-time performance monitoring and analytics
+
+## 🆚 Alternative to react-native-pdf
+
+**react-native-pdf-jsi** is the enhanced, high-performance alternative to the standard `react-native-pdf` package. If you're experiencing slow loading times with large PDF files or need better performance, this package provides:
+
+- **Zero Bridge Overhead**: Direct native communication via JSI
+- **Lazy Loading Support**: Perfect for large PDF files that take too long to load
+- **Persistent Caching**: 30-day cache with automatic cleanup
+- **Memory Optimization**: Intelligent memory management for better performance
+- **Drop-in Replacement**: Compatible with existing react-native-pdf code
 
 ## ✨ Features
 
@@ -30,6 +67,7 @@
 * **Real-time Performance Metrics** - Monitor and optimize PDF operations
 * **Graceful Fallback** - Seamless bridge mode when JSI unavailable
 * **Progressive Loading** - Smart preloading with background queue processing
+* **Lazy Loading** - Optimized loading for large PDF files with configurable preload radius
 * **Advanced Search** - Cached text search with bounds detection
 * **React Hooks** - Easy integration with `usePDFJSI` hook
 * **Enhanced Components** - Drop-in replacement with automatic JSI detection
@@ -436,7 +474,21 @@ if (stats.jsiEnabled) {
 
 ## 📝 Changelog
 
-### v1.0.3 (2025) - Latest
+### v2.0.0 (2025) - Latest 🚀 MAJOR RELEASE
+- 🎉 **Major Version Release**: Significant performance improvements and new features
+- 🚀 **Complete JSI Integration**: Full Android and iOS JSI implementation with native C++ optimizations
+- 📄 **Lazy Loading System**: Revolutionary lazy loading for large PDF files with configurable preload radius
+- 🎯 **Smart Caching Engine**: 30-day persistent cache with LRU eviction and background cleanup
+- 📊 **Progressive Loading**: Batch-based progressive loading with configurable batch sizes
+- 💾 **Advanced Memory Management**: Intelligent memory optimization for large documents
+- 🔍 **Enhanced Search**: Cached text search with bounds detection and performance tracking
+- 📱 **Native Cache Managers**: Complete Android and iOS native cache implementations
+- 🔧 **Performance Monitoring**: Real-time performance metrics and analytics
+- 📚 **Comprehensive Examples**: Updated examples with lazy loading and advanced features
+- 🏷️ **SEO Optimization**: Enhanced discoverability with 40+ keywords and better descriptions
+- 📈 **Better Documentation**: Improved README with performance comparisons and usage examples
+
+### v1.0.3 (2025)
 - 🔗 **GitHub URL Fix**: Corrected repository URLs to point to the actual GitHub repository
 - 📚 **Documentation Fix**: Updated README with correct package name and installation instructions
 - 🔧 **Package Clarity**: Clear distinction between npm package name (`react-native-pdf-jsi`) and import names (`react-native-pdf-enhanced`)
@@ -531,6 +583,71 @@ await EnhancedPdfUtils.clearAllCaches();
 
 // Optimize memory
 await EnhancedPdfUtils.optimizeAllMemory();
+```
+
+### Lazy Loading for Large PDF Files
+
+```jsx
+import React, { useRef, useEffect } from 'react';
+import { View } from 'react-native';
+import Pdf from 'react-native-pdf-enhanced';
+
+export default function LazyLoadingExample() {
+    const pdfRef = useRef(null);
+
+    const handlePageChange = async (page) => {
+        if (pdfRef.current) {
+            try {
+                // Lazy load pages around current page
+                const result = await pdfRef.current.lazyLoadPages(page, 3, 100);
+                console.log('🚀 Lazy loaded pages:', result.preloadedRange);
+                
+                // Progressive loading for large PDFs
+                const progressiveResult = await pdfRef.current.progressiveLoadPages(
+                    1, // start page
+                    5, // batch size
+                    (progress) => {
+                        console.log(`📄 Loaded batch ${progress.batchStartPage}-${progress.batchEndPage}`);
+                    }
+                );
+                
+                console.log('📊 Progressive loading completed:', progressiveResult.totalLoaded, 'pages');
+                
+            } catch (error) {
+                console.error('❌ Lazy loading error:', error);
+            }
+        }
+    };
+
+    const handleSmartCache = async () => {
+        if (pdfRef.current) {
+            try {
+                // Cache frequently accessed pages
+                const frequentPages = [1, 2, 10, 50, 100]; // Example pages
+                const result = await pdfRef.current.smartCacheFrequentPages(frequentPages);
+                console.log('🎯 Smart cached pages:', result.successfulCaches);
+            } catch (error) {
+                console.error('❌ Smart cache error:', error);
+            }
+        }
+    };
+
+        return (
+        <View style={{ flex: 1 }}>
+            <Pdf
+                ref={pdfRef}
+                source={{ uri: 'http://example.com/large-document.pdf' }}
+                onPageChanged={handlePageChange}
+                onLoadComplete={(numberOfPages) => {
+                    console.log(`📄 PDF loaded: ${numberOfPages} pages`);
+                    // Initialize smart caching after load
+                    handleSmartCache();
+                }}
+                style={{ flex: 1 }}
+            />
+            </View>
+    );
+}
 ```
 
 ## 📊 Performance Characteristics
