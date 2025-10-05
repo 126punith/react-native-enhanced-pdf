@@ -101,7 +101,7 @@ public class PDFJSIModule extends ReactContextBaseJavaModule {
             
             WritableMap stats = Arguments.createMap();
             stats.putString("version", "1.0.0");
-            stats.putString("buildDate", "2025-01-01");
+            stats.putString("buildDate", "2024-01-01");
             stats.putBoolean("jsiEnabled", true);
             stats.putBoolean("bridgeOptimized", true);
             stats.putBoolean("directMemoryAccess", true);
@@ -162,12 +162,17 @@ public class PDFJSIModule extends ReactContextBaseJavaModule {
     }
     
     /**
-     * Cleanup resources
+     * Cleanup resources - Updated for React Native 0.72+
      */
-    // Note: onCatalystInstanceDestroy is deprecated, using onCatalystInstanceDestroy for compatibility
     @Override
     public void onCatalystInstanceDestroy() {
-        super.onCatalystInstanceDestroy();
+        // Note: onCatalystInstanceDestroy is deprecated in RN 0.72+, but we keep it for compatibility
+        // The new architecture will handle cleanup automatically
+        try {
+            super.onCatalystInstanceDestroy();
+        } catch (Exception e) {
+            Log.w(TAG, "PDFJSIModule: onCatalystInstanceDestroy compatibility warning: " + e.getMessage());
+        }
         
         if (backgroundExecutor != null && !backgroundExecutor.isShutdown()) {
             backgroundExecutor.shutdown();

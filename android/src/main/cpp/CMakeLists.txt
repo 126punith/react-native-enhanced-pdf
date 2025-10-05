@@ -53,8 +53,9 @@ target_compile_definitions(
     pdfjsi
     PRIVATE
     -DANDROID
-    -DREACT_NATIVE_VERSION="0.72.0"
-    -DPDFJSI_VERSION="1.0.0"
+    -DPDFJSI_VERSION="2.0.0"
+    -DANDROID_PAGE_SIZE_AGNOSTIC=ON
+    -DANDROID_16KB_PAGES=ON
 )
 
 # Optimization flags

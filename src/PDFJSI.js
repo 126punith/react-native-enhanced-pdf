@@ -736,6 +736,41 @@ class PDFJSIManager {
             throw error;
         }
     }
+
+    /**
+     * Check 16KB page size support (Google Play requirement)
+     * @returns {Promise<Object>} 16KB page size support status
+     */
+    async check16KBSupport() {
+        try {
+            let result;
+            if (Platform.OS === 'android') {
+                result = await PDFJSIManagerNative.check16KBSupport();
+            } else if (Platform.OS === 'ios') {
+                result = await RNPDFPdfViewManager.check16KBSupport();
+            } else {
+                throw new Error(`Platform ${Platform.OS} not supported`);
+            }
+
+            return {
+                supported: result && result.supported,
+                platform: result?.platform || Platform.OS,
+                message: result?.message || '16KB page size support check completed',
+                googlePlayCompliant: result?.googlePlayCompliant || false,
+                ndkVersion: result?.ndkVersion || '27.0.12077973',
+                buildFlags: result?.buildFlags || 'ANDROID_PAGE_SIZE_AGNOSTIC=ON'
+            };
+        } catch (error) {
+            console.warn('📱 PDFJSI: 16KB support check failed:', error);
+            return {
+                supported: false,
+                platform: Platform.OS,
+                message: '16KB page size support check failed',
+                googlePlayCompliant: false,
+                error: error.message
+            };
+        }
+    }
 }
 
 // Create singleton instance
@@ -759,5 +794,6 @@ export const {
     clearPerformanceHistory,
     lazyLoadPages,
     progressiveLoadPages,
-    smartCacheFrequentPages
+    smartCacheFrequentPages,
+    check16KBSupport
 } = pdfJSIManager;
