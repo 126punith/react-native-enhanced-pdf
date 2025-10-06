@@ -35,7 +35,7 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
-## 🎉 Version 2.0.0 - Major Release!
+## 🎉 Version 2.1.0 - Enhanced 16KB Compliance & Documentation!
 
 **We've completely rewritten the core architecture with revolutionary performance improvements!**
 
@@ -148,17 +148,25 @@ yarn add react-native-pdf-jsi react-native-blob-util
 ## 🚀 **Quick Start**
 
 ```jsx
-// Replace your existing import
-import Pdf from 'react-native-pdf';  // Old library
+// Import the Pdf component from react-native-pdf-jsi
+const PdfModule = require('react-native-pdf-jsi');
+const Pdf = PdfModule.default;
 
-// With our enhanced version
-import Pdf from 'react-native-pdf-enhanced';  // Enhanced with JSI
-
-// Same API, improved performance
-<Pdf source={{ uri: 'https://example.com/document.pdf' }} />
+// Use the component with the same API as react-native-pdf
+<Pdf 
+  source={{ uri: 'https://example.com/document.pdf' }} 
+  style={{ flex: 1 }}
+  onLoadComplete={(numberOfPages, filePath) => {
+    console.log(`PDF loaded: ${numberOfPages} pages`);
+  }}
+  onPageChanged={(page, numberOfPages) => {
+    console.log(`Current page: ${page} of ${numberOfPages}`);
+  }}
+  trustAllCerts={false}
+/>
 ```
 
-**Simple migration with improved performance and Google Play compliance.**
+**Drop-in replacement for react-native-pdf with enhanced performance and Google Play compliance.**
 
 Then follow the instructions for your platform to link react-native-pdf-jsi into your project:
 
@@ -275,127 +283,285 @@ protected List<ReactPackage> getPackages() {
 
 ### Basic Usage
 
-```js
-import React from 'react';
-import { StyleSheet, Dimensions, View } from 'react-native';
-import Pdf from 'react-native-pdf-enhanced';
+```jsx
+import React, { useState } from 'react';
+import { StyleSheet, Dimensions, View, Modal, TouchableOpacity, Text } from 'react-native';
 
-export default class PDFExample extends React.Component {
-    render() {
-        const source = { uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', cache: true };
-        //const source = require('./test.pdf');  // ios only
-        //const source = {uri:'bundle-assets://test.pdf' };
-        //const source = {uri:'file:///sdcard/test.pdf'};
-        //const source = {uri:"data:application/pdf;base64,JVBERi0xLjcKJc..."};
-        //const source = {uri:"content://com.example.blobs/xxxxxxxx-...?offset=0&size=xxx"};
-        //const source = {uri:"blob:xxxxxxxx-...?offset=0&size=xxx"};
+// Import the Pdf component from react-native-pdf-jsi
+const PdfModule = require('react-native-pdf-jsi');
+const Pdf = PdfModule.default;
 
-        return (
-            <View style={styles.container}>
-                <Pdf
-                    source={source}
-                    onLoadComplete={(numberOfPages,filePath) => {
-                        console.log(`Number of pages: ${numberOfPages}`);
-                    }}
-                    onPageChanged={(page,numberOfPages) => {
-                        console.log(`Current page: ${page}`);
-                    }}
-                    onError={(error) => {
-                        console.log(error);
-                    }}
-                    onPressLink={(uri) => {
-                        console.log(`Link pressed: ${uri}`);
-                    }}
-                    style={styles.pdf}/>
-            </View>
-        )
-    }
+export default function PDFExample() {
+    const [visible, setVisible] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+
+    const source = { 
+        uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', 
+        cache: true 
+    };
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity 
+                style={styles.button}
+                onPress={() => setVisible(true)}
+            >
+                <Text style={styles.buttonText}>Open PDF</Text>
+            </TouchableOpacity>
+
+            <Modal
+                visible={visible}
+                animationType="slide"
+                onRequestClose={() => setVisible(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.header}>
+                        <Text style={styles.pageInfo}>
+                            Page {currentPage} of {totalPages}
+                        </Text>
+                        <TouchableOpacity 
+                            style={styles.closeButton}
+                            onPress={() => setVisible(false)}
+                        >
+                            <Text style={styles.closeButtonText}>Close</Text>
+                        </TouchableOpacity>
+                    </View>
+                    
+                    <Pdf
+                        source={source}
+                        style={styles.pdf}
+                        onLoadComplete={(numberOfPages, filePath) => {
+                            console.log(`📄 PDF loaded: ${numberOfPages} pages`);
+                            setTotalPages(numberOfPages);
+                        }}
+                        onPageChanged={(page, numberOfPages) => {
+                            console.log(`📄 Current page: ${page}`);
+                            setCurrentPage(page);
+                        }}
+                        onError={(error) => {
+                            console.error('📄 PDF Error:', error);
+                        }}
+                        trustAllCerts={false}
+                    />
+                </View>
+            </Modal>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 25,
+        padding: 20,
+    },
+    button: {
+        backgroundColor: '#007AFF',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 8,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    modalContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 15,
+        backgroundColor: '#f5f5f5',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+    },
+    pageInfo: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    closeButton: {
+        backgroundColor: '#FF3B30',
+        paddingHorizontal: 15,
+        paddingVertical: 8,
+        borderRadius: 6,
+    },
+    closeButtonText: {
+        color: 'white',
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     pdf: {
-        flex:1,
-        width:Dimensions.get('window').width,
-        height:Dimensions.get('window').height,
+        flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height - 100,
     }
 });
 ```
 
 ### 🚀 JSI Enhanced Usage
 
-#### Using Enhanced PDF View Component
-```js
-import React from 'react';
-import { View } from 'react-native';
-import { EnhancedPdfView } from 'react-native-pdf-enhanced';
+#### Real-World JSI Integration Pattern
+```jsx
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+// Import JSI modules with proper error handling
+let PDFJSI = null;
+let usePDFJSI = null;
+
+try {
+  // Import JSI functionality with dynamic imports for release mode compatibility
+  const PDFJSIModule = require('react-native-pdf-jsi/src/PDFJSI');
+  const usePDFJSIModule = require('react-native-pdf-jsi/src/hooks/usePDFJSI');
+
+  PDFJSI = PDFJSIModule.default;
+  usePDFJSI = usePDFJSIModule.default;
+
+  console.log(`🔍 PDFJSI found: ${PDFJSI ? '✅' : '❌'} (type: ${typeof PDFJSI})`);
+  console.log(`🔍 usePDFJSI found: ${usePDFJSI ? '✅' : '❌'} (type: ${typeof usePDFJSI})`);
+
+} catch (error) {
+  console.log('📱 JSI: PDFJSI not available, using fallback - Error:', error.message);
+}
+
+// Create fallback functions for release builds
+if (!PDFJSI || !usePDFJSI) {
+  console.log('🛡️ Creating JSI fallback functions for stability');
+  
+  PDFJSI = {
+    checkJSIAvailability: async () => false,
+    getJSIStats: async () => ({ jsiEnabled: false }),
+    // ... other fallback methods
+  };
+
+  usePDFJSI = (options) => ({
+    isJSIAvailable: false,
+    isInitialized: true,
+    renderPage: () => Promise.resolve({ success: false, error: 'JSI not available' }),
+    // ... other fallback methods
+  });
+}
 
 export default function EnhancedPDFExample() {
-    return (
-        <View style={{ flex: 1 }}>
-            <EnhancedPdfView
-                source={{ uri: 'http://example.com/document.pdf' }}
-                onLoadComplete={(pages) => {
-                    console.log(`🚀 Loaded ${pages} pages with JSI acceleration`);
-                }}
-                style={{ flex: 1 }}
-            />
-        </View>
-    );
-}
-```
+    const [isJSIAvailable, setIsJSIAvailable] = useState(false);
+    const [jsiStats, setJsiStats] = useState(null);
+    const [isInitialized, setIsInitialized] = useState(false);
 
-#### Using React Hooks for JSI Operations
-```js
-import React, { useEffect } from 'react';
-import { View, Button } from 'react-native';
-import { usePDFJSI } from 'react-native-pdf-enhanced';
-
-export default function JSIHookExample() {
-    const {
-        isJSIAvailable,
-        renderPage,
-        preloadPages,
-        getPerformanceMetrics,
-        getPerformanceHistory
-    } = usePDFJSI({
+    // 🚀 JSI Hook Integration with Fallback
+    const jsiHookResult = usePDFJSI({
         autoInitialize: true,
-        enablePerformanceTracking: true
+        enablePerformanceTracking: true,
+        enableCaching: true,
+        maxCacheSize: 200,
     });
+
+    useEffect(() => {
+        initializeJSI();
+    }, []);
+
+    const initializeJSI = async () => {
+        try {
+            if (PDFJSI && typeof PDFJSI.checkJSIAvailability === 'function') {
+                const isAvailable = await PDFJSI.checkJSIAvailability();
+                setIsJSIAvailable(isAvailable);
+                
+                if (isAvailable) {
+                    const stats = await PDFJSI.getJSIStats();
+                    setJsiStats(stats);
+                    console.log('🚀 JSI Stats:', stats);
+                }
+            }
+        } catch (error) {
+            console.log('📱 JSI initialization failed:', error);
+        }
+    };
 
     const handleJSIOperations = async () => {
         try {
-            // High-performance page rendering
-            const result = await renderPage('pdf_123', 1, 2.0, 'base64data');
-            console.log('🚀 JSI Render result:', result);
+            if (jsiHookResult.isJSIAvailable) {
+                // High-performance page rendering
+                const result = await jsiHookResult.renderPage('pdf_123', 1, 2.0, 'base64data');
+                console.log('🚀 JSI Render result:', result);
 
-            // Preload pages for faster access
-            const preloadSuccess = await preloadPages('pdf_123', 1, 5);
-            console.log('🚀 Preload success:', preloadSuccess);
+                // Preload pages for faster access
+                const preloadSuccess = await jsiHookResult.preloadPages('pdf_123', 1, 5);
+                console.log('🚀 Preload success:', preloadSuccess);
 
-            // Get performance metrics
-            const metrics = await getPerformanceMetrics('pdf_123');
-            console.log('🚀 Performance metrics:', metrics);
-
+                // Get performance metrics
+                const metrics = await jsiHookResult.getPerformanceMetrics('pdf_123');
+                console.log('🚀 Performance metrics:', metrics);
+            } else {
+                console.log('📱 JSI not available, using standard methods');
+            }
         } catch (error) {
             console.log('JSI operations failed:', error);
         }
     };
 
     return (
-        <View style={{ flex: 1, padding: 20 }}>
-            <Button
-                title={`JSI Available: ${isJSIAvailable ? '✅' : '❌'}`}
+        <View style={styles.container}>
+            <View style={styles.statusContainer}>
+                <Text style={styles.statusText}>
+                    JSI Status: {isJSIAvailable ? '✅ Available' : '❌ Not Available'}
+                </Text>
+                {jsiStats && (
+                    <Text style={styles.statsText}>
+                        Performance Level: {jsiStats.performanceLevel}
+                    </Text>
+                )}
+            </View>
+            
+            <TouchableOpacity 
+                style={styles.button}
                 onPress={handleJSIOperations}
-            />
+            >
+                <Text style={styles.buttonText}>
+                    Test JSI Operations
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        justifyContent: 'center',
+    },
+    statusContainer: {
+        backgroundColor: '#f5f5f5',
+        padding: 15,
+        borderRadius: 8,
+        marginBottom: 20,
+    },
+    statusText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    statsText: {
+        fontSize: 14,
+        color: '#666',
+    },
+    button: {
+        backgroundColor: '#007AFF',
+        padding: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+});
 ```
 
 #### Advanced JSI Operations
@@ -466,6 +632,125 @@ export default function AdvancedJSIExample() {
 }
 ```
 
+## 🛡️ **ProGuard Configuration (Required for Production)**
+
+**IMPORTANT**: For production builds, you MUST add ProGuard rules to prevent obfuscation of JSI classes. Without these rules, your app will crash in release mode.
+
+### **Add to `android/app/proguard-rules.pro`:**
+
+```proguard
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in /usr/local/Cellar/android-sdk/24.3.3/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the proguardFiles
+# directive in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# 🚀 JSI Module ProGuard Rules - Prevent obfuscation of JSI classes
+# react-native-pdf-jsi package classes
+-keep class org.wonday.pdf.PDFJSIManager { *; }
+-keep class org.wonday.pdf.PDFJSIModule { *; }
+-keep class org.wonday.pdf.EnhancedPdfJSIBridge { *; }
+-keep class org.wonday.pdf.RNPDFPackage { *; }
+-keep class org.wonday.pdf.PdfManager { *; }
+-keep class org.wonday.pdf.PDFNativeCacheManager { *; }
+-keep class org.wonday.pdf.PdfView { *; }
+-keep class org.wonday.pdf.events.TopChangeEvent { *; }
+
+# Keep all JSI native methods
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# Keep JSI bridge methods
+-keepclassmembers class * {
+    @com.facebook.react.bridge.ReactMethod <methods>;
+}
+
+# Keep React Native bridge classes
+-keep class com.facebook.react.bridge.** { *; }
+-keep class com.facebook.react.turbomodule.** { *; }
+
+# Keep native library loading
+-keep class com.facebook.soloader.** { *; }
+
+# Keep JSI related classes
+-keep class com.facebook.jni.** { *; }
+
+# Prevent obfuscation of PDF JSI native methods
+-keepclassmembers class org.wonday.pdf.PDFJSIManager {
+    native void nativeInitializeJSI(java.lang.Object);
+    native boolean nativeIsJSIAvailable();
+    native com.facebook.react.bridge.WritableMap nativeRenderPageDirect(java.lang.String, int, float, java.lang.String);
+    native com.facebook.react.bridge.WritableMap nativeGetPageMetrics(java.lang.String, int);
+    native boolean nativePreloadPagesDirect(java.lang.String, int, int);
+    native com.facebook.react.bridge.WritableMap nativeGetCacheMetrics(java.lang.String);
+    native boolean nativeClearCacheDirect(java.lang.String, java.lang.String);
+    native boolean nativeOptimizeMemory(java.lang.String);
+    native com.facebook.react.bridge.ReadableArray nativeSearchTextDirect(java.lang.String, java.lang.String, int, int);
+    native com.facebook.react.bridge.WritableMap nativeGetPerformanceMetrics(java.lang.String);
+    native boolean nativeSetRenderQuality(java.lang.String, int);
+    native void nativeCleanupJSI();
+}
+
+# Keep all PDF related classes
+-keep class org.wonday.pdf.** { *; }
+
+# Keep React Native modules
+-keep class * extends com.facebook.react.bridge.ReactContextBaseJavaModule { *; }
+-keep class * extends com.facebook.react.ReactPackage { *; }
+
+# Keep native library names
+-keepnames class * {
+    native <methods>;
+}
+
+# Keep crypto-js classes (dependency of react-native-pdf-jsi)
+-keep class com.google.crypto.** { *; }
+-keep class javax.crypto.** { *; }
+
+# Keep JSI specific classes and methods
+-keepclassmembers class org.wonday.pdf.** {
+    public <methods>;
+    protected <methods>;
+}
+
+# Keep all event classes
+-keep class org.wonday.pdf.events.** { *; }
+
+# Keep React Native JSI specific classes
+-keep class com.facebook.jsi.** { *; }
+-keep class com.facebook.hermes.** { *; }
+```
+
+### **Why These Rules Are Essential:**
+
+1. **JSI Class Protection**: Prevents ProGuard from obfuscating JSI-related classes
+2. **Native Method Preservation**: Keeps native method signatures intact
+3. **Bridge Method Safety**: Protects React Native bridge methods
+4. **Event System**: Maintains event handling functionality
+5. **Crypto Dependencies**: Preserves cryptographic functionality
+
+### **Build Configuration:**
+
+Make sure your `android/app/build.gradle` has ProGuard enabled:
+
+```gradle
+android {
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // ... other release config
+        }
+    }
+}
+```
+
 ## 🚨 Expo Support
 
 This package is not available in the [Expo Go](https://expo.dev/client) app. Learn how you can use this package in [Custom Dev Clients](https://docs.expo.dev/development/getting-started/) via the out-of-tree [Expo Config Plugin](https://github.com/expo/config-plugins/tree/master/packages/react-native-pdf). Example: [`with-pdf`](https://github.com/expo/examples/tree/master/with-pdf).
@@ -526,27 +811,115 @@ react-native run-ios
 
 **Q6. How do I enable JSI mode?**  
 A6: JSI mode is automatically enabled on Android. Check JSI availability with:
-```js
-const stats = await pdfRef.current.getJSIStats();
-console.log('JSI Available:', stats.jsiEnabled);
+```jsx
+// Import JSI modules
+let PDFJSI = null;
+try {
+  const PDFJSIModule = require('react-native-pdf-jsi/src/PDFJSI');
+  PDFJSI = PDFJSIModule.default;
+} catch (error) {
+  console.log('JSI not available');
+}
+
+// Check availability
+const isAvailable = await PDFJSI?.checkJSIAvailability();
+console.log('JSI Available:', isAvailable);
 ```
 
 **Q7. What if JSI is not available?**  
-A7: The package automatically falls back to standard bridge mode. You can check availability and handle accordingly:
-```js
-if (stats.jsiEnabled) {
-    // Use JSI methods
-    await pdfRef.current.renderPageWithJSI(1, 2.0);
-} else {
-    // Use standard methods
-    pdfRef.current.setPage(1);
+A7: The package automatically falls back to standard bridge mode. Always implement fallbacks:
+```jsx
+// Import with fallback
+let PDFJSI = null;
+let usePDFJSI = null;
+
+try {
+  const PDFJSIModule = require('react-native-pdf-jsi/src/PDFJSI');
+  const usePDFJSIModule = require('react-native-pdf-jsi/src/hooks/usePDFJSI');
+  
+  PDFJSI = PDFJSIModule.default;
+  usePDFJSI = usePDFJSIModule.default;
+} catch (error) {
+  console.log('JSI not available, using fallback');
 }
+
+// Use with fallback
+const jsiHookResult = usePDFJSI ? usePDFJSI({
+  autoInitialize: true,
+  enablePerformanceTracking: true,
+}) : { isJSIAvailable: false, isInitialized: true };
+```
+
+**Q8. My app crashes in release mode with JSI errors**  
+A8: You need to add ProGuard rules. Add the complete ProGuard configuration from the documentation to your `android/app/proguard-rules.pro` file.
+
+**Q9. How do I migrate from react-native-pdf?**  
+A9: Follow the migration steps in the documentation:
+1. Update package: `npm install react-native-pdf-jsi`
+2. Update imports: Use `require('react-native-pdf-jsi')`
+3. Add ProGuard rules
+4. Update component usage (same API)
+5. Optionally add JSI integration
+
+**Q10. The shimmer loader gets stuck and documents don't load**  
+A10: This usually means JSI initialization is failing. Ensure:
+- ProGuard rules are properly configured
+- JSI modules are imported correctly with error handling
+- Fallback mechanisms are in place
+- Check console logs for JSI availability status
+
+**Q11. TypeError: constructor is not callable**  
+A11: This error occurs when the Pdf component is not imported correctly. Use:
+```jsx
+const PdfModule = require('react-native-pdf-jsi');
+const Pdf = PdfModule.default;
+// NOT: const Pdf = require('react-native-pdf-jsi');
 ```
 </details>
 
 ## 📝 Changelog
 
-### v2.0.1 (2025) - Latest ✅ GOOGLE PLAY COMPLIANT
+### v2.1.0 (2025) - Latest ✅ ENHANCED 16KB COMPLIANCE & DOCUMENTATION
+
+#### 🚀 **16KB Page Alignment Enhancements**
+- **Dependency Updates**: Updated `io.legere:pdfiumandroid` from v1.0.24 to v1.0.32 for optimal 16KB support
+- **Gson Update**: Updated `com.google.code.gson:gson` from v2.8.5 to v2.11.0 for compatibility
+- **Build Configuration**: Updated `compileSdkVersion` and `targetSdkVersion` from 34 to 35 for Android 15+ compatibility
+- **CMakeLists Enhancement**: Added missing executable linker flag `-Wl,-z,max-page-size=16384` for complete 16KB page alignment
+- **Dependency Management**: Added exclusion for bundled PdfiumAndroid to prevent conflicts with specific version
+
+#### 📚 **Documentation Overhaul**
+- **README Rewrite**: Complete rewrite of README with real-world usage examples from production projects
+- **Import Patterns**: Updated all examples to show correct import patterns using `require('react-native-pdf-jsi')`
+- **Error Handling**: Added comprehensive error handling and fallback mechanisms in all examples
+- **Modal Implementation**: Added complete modal-based PDF viewer example matching production usage
+- **JSI Integration**: Updated JSI usage examples with proper initialization and error handling patterns
+
+#### 🛡️ **Production Safety & ProGuard**
+- **ProGuard Rules**: Added comprehensive ProGuard configuration documentation with complete rule set
+- **Release Build Safety**: Added critical warnings about ProGuard rules preventing production crashes
+- **JSI Class Protection**: Documented all necessary ProGuard rules for JSI class preservation
+- **Native Method Safety**: Added rules for preserving native method signatures and React Native bridge methods
+
+#### 📖 **Migration & FAQ Enhancement**
+- **Step-by-Step Migration**: Complete migration guide from react-native-pdf with 5 clear steps
+- **Common Issues**: Added solutions for shimmer loader stuck, constructor errors, and JSI initialization failures
+- **Production Troubleshooting**: Added FAQ entries for release build crashes and ProGuard configuration
+- **Error Solutions**: Documented solutions for "TypeError: constructor is not callable" and other common errors
+
+#### ⚡ **Performance & Reliability**
+- **JSI Fallback Patterns**: Enhanced JSI integration with robust fallback mechanisms for production stability
+- **Error Handling**: Added comprehensive try-catch patterns for JSI module loading
+- **Release Build Compatibility**: Ensured compatibility with both debug and release builds
+- **Memory Management**: Enhanced memory optimization patterns for large PDF files
+
+#### 📊 **Google Play Compliance**
+- **16KB Verification**: Complete implementation of Google Play 16KB page size requirements
+- **Android 15+ Ready**: Full compatibility with Android 15+ requirements
+- **Future-Proof**: Ensures long-term compatibility with Google Play policy changes
+- **Compliance Testing**: Added verification methods for 16KB page size support
+
+### v2.0.1 (2025) - ✅ GOOGLE PLAY COMPLIANT
 - 🚨 **Google Play 16KB Compliance**: Added full support for Google Play's 16KB page size requirement
 - 🔧 **NDK r27+ Support**: Updated to NDK version 27.0.12077973 for Android 15+ compatibility
 - 📱 **16KB Page Size Check**: Added `check16KBSupport()` method to verify compliance
@@ -602,67 +975,189 @@ if (stats.jsiEnabled) {
 
 ## 🔄 Migration from react-native-pdf
 
-```js
-// Old import
+### **Step 1: Update Package**
+
+```bash
+# Remove old package
+npm uninstall react-native-pdf
+
+# Install new package
+npm install react-native-pdf-jsi react-native-blob-util
+```
+
+### **Step 2: Update Imports**
+
+```jsx
+// ❌ Old import
 import Pdf from 'react-native-pdf';
 
-// New import (same API, enhanced performance)
-import Pdf from 'react-native-pdf-enhanced';
-
-// All existing code works without changes
-// JSI enhancements are automatic on Android
+// ✅ New import
+const PdfModule = require('react-native-pdf-jsi');
+const Pdf = PdfModule.default;
 ```
+
+### **Step 3: Add ProGuard Rules**
+
+Add the ProGuard rules from the section above to your `android/app/proguard-rules.pro`.
+
+### **Step 4: Update Component Usage**
+
+```jsx
+// ❌ Old usage
+<Pdf 
+  source={{ uri: 'https://example.com/document.pdf' }} 
+/>
+
+// ✅ New usage (same API, enhanced performance)
+<Pdf 
+  source={{ uri: 'https://example.com/document.pdf' }} 
+  style={{ flex: 1 }}
+  onLoadComplete={(numberOfPages, filePath) => {
+    console.log(`📄 PDF loaded: ${numberOfPages} pages`);
+  }}
+  onPageChanged={(page, numberOfPages) => {
+    console.log(`📄 Current page: ${page}`);
+  }}
+  trustAllCerts={false}
+/>
+```
+
+### **Step 5: Add JSI Integration (Optional)**
+
+For enhanced performance, add JSI integration:
+
+```jsx
+// Import JSI modules with error handling
+let PDFJSI = null;
+let usePDFJSI = null;
+
+try {
+  const PDFJSIModule = require('react-native-pdf-jsi/src/PDFJSI');
+  const usePDFJSIModule = require('react-native-pdf-jsi/src/hooks/usePDFJSI');
+  
+  PDFJSI = PDFJSIModule.default;
+  usePDFJSI = usePDFJSIModule.default;
+} catch (error) {
+  console.log('JSI not available, using fallback');
+}
+
+// Use JSI hook
+const jsiHookResult = usePDFJSI ? usePDFJSI({
+  autoInitialize: true,
+  enablePerformanceTracking: true,
+}) : { isJSIAvailable: false };
+```
+
+### **Migration Benefits:**
+
+- ✅ **Same API**: No code changes required for basic usage
+- ✅ **Enhanced Performance**: Up to 80x faster on Android
+- ✅ **Google Play Compliant**: 16KB page size support
+- ✅ **Future-Proof**: Built with latest NDK and modern toolchain
+- ✅ **Better Caching**: Advanced persistent cache system
 
 ## 📦 Available Exports
 
-### Core Components
-```js
+### **Core Components**
+```jsx
 // Standard PDF component (enhanced with JSI)
-import Pdf from 'react-native-pdf-enhanced';
+const PdfModule = require('react-native-pdf-jsi');
+const Pdf = PdfModule.default;
 
-// Enhanced PDF view with automatic JSI detection
-import { EnhancedPdfView } from 'react-native-pdf-enhanced';
-
-// React hook for JSI operations
-import { usePDFJSI } from 'react-native-pdf-enhanced';
-
-// Direct JSI interface
-import { PDFJSI } from 'react-native-pdf-enhanced';
+// Usage
+<Pdf 
+  source={{ uri: 'https://example.com/document.pdf' }} 
+  style={{ flex: 1 }}
+  onLoadComplete={(numberOfPages, filePath) => {
+    console.log(`📄 PDF loaded: ${numberOfPages} pages`);
+  }}
+  trustAllCerts={false}
+/>
 ```
 
-### Individual JSI Methods
-```js
-import {
-    renderPageDirect,
-    getPageMetrics,
-    preloadPagesDirect,
-    getCacheMetrics,
-    clearCacheDirect,
-    optimizeMemory,
-    searchTextDirect,
-    getPerformanceMetrics,
-    setRenderQuality,
-    getJSIStats,
-    getPerformanceHistory,
-    clearPerformanceHistory
-} from 'react-native-pdf-enhanced';
+### **JSI Modules (Advanced Usage)**
+```jsx
+// Import JSI functionality with error handling
+let PDFJSI = null;
+let usePDFJSI = null;
+
+try {
+  const PDFJSIModule = require('react-native-pdf-jsi/src/PDFJSI');
+  const usePDFJSIModule = require('react-native-pdf-jsi/src/hooks/usePDFJSI');
+  
+  PDFJSI = PDFJSIModule.default;
+  usePDFJSI = usePDFJSIModule.default;
+} catch (error) {
+  console.log('JSI not available, using fallback');
+}
+
+// Use JSI hook for enhanced operations
+const jsiHookResult = usePDFJSI ? usePDFJSI({
+  autoInitialize: true,
+  enablePerformanceTracking: true,
+  enableCaching: true,
+  maxCacheSize: 200,
+}) : { 
+  isJSIAvailable: false,
+  isInitialized: true 
+};
 ```
 
-### Utility Functions
-```js
-import { EnhancedPdfUtils } from 'react-native-pdf-enhanced';
+### **JSI Methods Available**
+```jsx
+// When JSI is available, these methods provide enhanced performance:
+const methods = {
+  // High-performance page rendering
+  renderPage: (pdfId, pageNumber, scale, base64Data) => Promise,
+  
+  // Get page metrics
+  getPageMetrics: (pdfId, pageNumber) => Promise,
+  
+  // Preload pages for faster access
+  preloadPages: (pdfId, startPage, endPage) => Promise,
+  
+  // Cache management
+  getCacheMetrics: (pdfId) => Promise,
+  clearCache: (pdfId, cacheType) => Promise,
+  
+  // Memory optimization
+  optimizeMemory: (pdfId) => Promise,
+  
+  // Text search
+  searchText: (pdfId, query, startPage, endPage) => Promise,
+  
+  // Performance monitoring
+  getPerformanceMetrics: (pdfId) => Promise,
+  
+  // Render quality control
+  setRenderQuality: (pdfId, quality) => Promise,
+  
+  // JSI availability check
+  checkJSIAvailability: () => Promise,
+  
+  // Get JSI statistics
+  getJSIStats: () => Promise
+};
+```
 
-// Check JSI availability
-const isAvailable = await EnhancedPdfUtils.isJSIAvailable();
-
-// Get performance benchmark
-const benchmark = await EnhancedPdfUtils.getPerformanceBenchmark();
-
-// Clear all caches
-await EnhancedPdfUtils.clearAllCaches();
-
-// Optimize memory
-await EnhancedPdfUtils.optimizeAllMemory();
+### **Error Handling Pattern**
+```jsx
+// Always wrap JSI operations in try-catch with fallbacks
+const handleJSIOperation = async () => {
+  try {
+    if (PDFJSI && jsiHookResult.isJSIAvailable) {
+      // Use JSI for enhanced performance
+      const result = await PDFJSI.renderPageDirect('pdf_123', 1, 2.0, 'base64data');
+      console.log('🚀 JSI operation successful:', result);
+    } else {
+      // Fallback to standard methods
+      console.log('📱 Using standard PDF methods');
+    }
+  } catch (error) {
+    console.log('❌ Operation failed:', error);
+    // Handle error gracefully
+  }
+};
 ```
 
 ### Check Google Play 16KB Compliance
@@ -937,7 +1432,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v1.0.3 - Enhanced JSI Integration**  
+**v2.1.0 - Enhanced 16KB Compliance & Documentation**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*

@@ -93,14 +93,15 @@ android {
     if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
         namespace "org.wonday.pdf"
     }
-    compileSdkVersion safeExtGet('compileSdkVersion', 34)
+    compileSdkVersion safeExtGet('compileSdkVersion', 35)
     
     // 🚀 NDK Configuration for 16KB Page Size Support
-    ndkVersion "27.0.12077973" // NDK r27+ required for 16KB page support
+    // Use NDK r28 which provides proper 16KB page alignment toolchain
+    ndkVersion "28.0.12674087"
 
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
-        targetSdkVersion safeExtGet('targetSdkVersion', 34)
+        targetSdkVersion safeExtGet('targetSdkVersion', 35)
         buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString())
         
         // 🚀 JSI Configuration with 16KB Page Support
