@@ -124,7 +124,7 @@ export default class Pdf extends Component {
         };
 
         this.lastRNBFTask = null;
-        this.pdfJSI = new PDFJSI();
+        this.pdfJSI = PDFJSI;
         this.initializeJSI();
 
     }

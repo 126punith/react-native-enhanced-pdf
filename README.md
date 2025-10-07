@@ -35,6 +35,16 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
+## 🎉 Version 2.2.3 - Bug Fix Release!
+
+**Critical bug fix for React Native 0.81 JSI initialization on Android!**
+
+### 🚀 **What's New in v2.2.3:**
+- **🐛 JSI Initialization Fix** - Resolved crash when calling initializeJSI() on React Native 0.81 Android
+- **✅ Error Handling** - Added proper error handling for JSI initialization
+- **✅ RN 0.81 Compatibility** - Full compatibility with React Native 0.81 on Android
+- **✅ Stability Improvements** - Enhanced stability and error recovery
+
 ## 🎉 Version 2.2.2 - Production Ready with Latest NDK!
 
 **Includes all the fixes from the GitHub community with the latest NDK r28.2 - tested and verified in production apps!**
@@ -890,7 +900,20 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.2.2 (2025) - Latest ✅ PRODUCTION READY WITH LATEST NDK
+### v2.2.3 (2025) - Latest ✅ BUG FIX RELEASE
+
+#### 🐛 **Critical Bug Fixes**
+- **JSI Initialization Fix**: Resolved crash when calling `initializeJSI()` on React Native 0.81 Android
+- **Error Handling**: Added comprehensive error handling for JSI initialization process
+- **Stability**: Enhanced error recovery and graceful fallback mechanisms
+- **Compatibility**: Full compatibility with React Native 0.81 on Android platform
+
+#### 📊 **Issue Resolution**
+- **GitHub Issue Fix**: Addressed user-reported crash on PDF opening in RN 0.81
+- **Android Stability**: Improved Android JSI initialization reliability
+- **Error Messages**: Better error messages for debugging JSI issues
+
+### v2.2.2 (2025) - ✅ PRODUCTION READY WITH LATEST NDK
 
 #### 🚀 **Latest NDK Integration**
 - **NDK r28.2 Update**: Updated to NDK 28.2.13676358 (matches @IsengardZA's exact solution)
@@ -1230,7 +1253,7 @@ const ComplianceChecker = () => {
                     {compliance.message}
                 </Text>
             )}
-        </View>
+            </View>
     );
 };
 ```
@@ -1463,7 +1486,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v2.2.2 - Production Ready with Latest NDK**  
+**v2.2.3 - Bug Fix Release**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
