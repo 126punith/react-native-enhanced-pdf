@@ -35,6 +35,17 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
+## 🎉 Version 2.2.4 - Critical 16KB Bug Fix!
+
+**Resolves 16KB page size compatibility issues for Google Play compliance!**
+
+### 🚀 **What's New in v2.2.4:**
+- **🐛 16KB Page Size Fix** - Resolved critical 16KB page size compatibility issues
+- **✅ NDK r28.2 Update** - Updated to NDK 28.2.13676358 with proper 16KB page alignment
+- **✅ CMake Configuration** - Added ANDROID_PAGE_SIZE_AGNOSTIC=ON flag for compliance
+- **✅ Dependency Updates** - Updated pdfiumandroid to v1.0.32 and gson to v2.11.0
+- **✅ Android 15+ Ready** - Full Google Play compliance for Android 15+ requirements
+
 ## 🎉 Version 2.2.3 - Bug Fix Release!
 
 **Critical bug fix for React Native 0.81 JSI initialization on Android!**
@@ -900,7 +911,27 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.2.3 (2025) - Latest ✅ BUG FIX RELEASE
+### v2.2.4 (2025) - Latest ✅ CRITICAL 16KB BUG FIX
+
+#### 🐛 **16KB Page Size Compatibility Fix**
+- **Critical Bug Fix**: Resolved 16KB page size compatibility issues for Google Play compliance
+- **NDK r28.2 Update**: Updated to NDK 28.2.13676358 with proper 16KB page alignment toolchain
+- **CMake Configuration**: Added ANDROID_PAGE_SIZE_AGNOSTIC=ON flag for full compliance
+- **Linker Flags**: Added 16KB page size alignment flags (-Wl,-z,max-page-size=16384)
+- **Dependency Updates**: Updated pdfiumandroid to v1.0.32 and gson to v2.11.0
+
+#### 📊 **Google Play Compliance**
+- **Full Compliance**: Meets all Google Play 16KB page size requirements
+- **Android 15+ Ready**: Built with SDK 35 for Android 15+ compatibility
+- **Policy Aligned**: Ensures app updates won't be blocked after November 1, 2025
+- **Production Tested**: Verified working in Android Studio APK analyzer
+
+#### 🚀 **Technical Improvements**
+- **Build Configuration**: Updated compileSdkVersion and targetSdkVersion to 35
+- **Native Library Support**: Enhanced native library compatibility with 16KB pages
+- **Memory Alignment**: Proper memory page alignment for optimal performance
+
+### v2.2.3 (2025) - ✅ BUG FIX RELEASE
 
 #### 🐛 **Critical Bug Fixes**
 - **JSI Initialization Fix**: Resolved crash when calling `initializeJSI()` on React Native 0.81 Android
@@ -1486,7 +1517,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v2.2.3 - Bug Fix Release**  
+**v2.2.4 - Critical 16KB Bug Fix**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
