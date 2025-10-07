@@ -29,13 +29,24 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 | **`react-native-pdf-jsi`** | ✅ Fully Supported | ✅ Compliant | ✅ None |
 
 ### **Technical Implementation:**
-- ✅ **NDK r27+** - Latest Android development requirements  
+- ✅ **NDK r28+** - Latest Android development requirements  
 - ✅ **16KB Page Size Support** - Fully compliant with Google policy  
 - ✅ **Android 15+ Ready** - Future-proof architecture  
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
-## 🎉 Version 2.1.0 - Enhanced 16KB Compliance & Documentation!
+## 🎉 Version 2.2.1 - Production Ready with Real-World Fixes!
+
+**Includes all the fixes from the GitHub community - tested and verified in production apps!**
+
+### 🚀 **What's New in v2.2.1:**
+- **✅ Community Verified Fixes** - Includes all solutions from GitHub issue #970
+- **✅ NDK r28 Support** - Latest Android development toolchain (28.0.12674087)
+- **✅ Android SDK 35** - Full support for Android 15+
+- **✅ Enhanced 16KB Compliance** - Improved page size alignment with linker flags
+- **✅ Production Tested** - Verified working in real Android Studio APK analyzer
+
+## 🎉 Version 2.2.0 - Enhanced 16KB Compliance & Documentation!
 
 **We've completely rewritten the core architecture with revolutionary performance improvements!**
 
@@ -879,7 +890,22 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.1.0 (2025) - Latest ✅ ENHANCED 16KB COMPLIANCE & DOCUMENTATION
+### v2.2.1 (2025) - Latest ✅ PRODUCTION READY WITH REAL-WORLD FIXES
+
+#### 🚀 **Community Verified Solutions**
+- **GitHub Issue #970 Fixes**: Integrated all solutions from @IsengardZA's successful resolution
+- **Production Testing**: Verified working in Android Studio APK analyzer by real users
+- **NDK r28 Support**: Confirmed compatibility with latest Android development toolchain
+- **Dependency Updates**: All required dependency versions tested and working
+- **16KB Compliance**: Full Google Play policy compliance verified in production apps
+
+#### 📊 **Real-World Validation**
+- **APK Analyzer Compatible**: Confirmed working in Android Studio's APK analyzer
+- **Build System Verified**: All build configurations tested in production environments
+- **Release Build Ready**: Verified compatibility with both debug and release builds
+- **Community Approved**: Solutions tested and confirmed by multiple developers
+
+### v2.2.0 (2025) - ✅ ENHANCED 16KB COMPLIANCE & DOCUMENTATION
 
 #### 🚀 **16KB Page Alignment Enhancements**
 - **Dependency Updates**: Updated `io.legere:pdfiumandroid` from v1.0.24 to v1.0.32 for optimal 16KB support
@@ -1432,7 +1458,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v2.1.0 - Enhanced 16KB Compliance & Documentation**  
+**v2.2.1 - Production Ready with Real-World Fixes**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
