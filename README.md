@@ -29,19 +29,19 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 | **`react-native-pdf-jsi`** | ✅ Fully Supported | ✅ Compliant | ✅ None |
 
 ### **Technical Implementation:**
-- ✅ **NDK r28+** - Latest Android development requirements  
+- ✅ **NDK r28.2** - Latest Android development toolchain  
 - ✅ **16KB Page Size Support** - Fully compliant with Google policy  
 - ✅ **Android 15+ Ready** - Future-proof architecture  
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
-## 🎉 Version 2.2.1 - Production Ready with Real-World Fixes!
+## 🎉 Version 2.2.2 - Production Ready with Latest NDK!
 
-**Includes all the fixes from the GitHub community - tested and verified in production apps!**
+**Includes all the fixes from the GitHub community with the latest NDK r28.2 - tested and verified in production apps!**
 
-### 🚀 **What's New in v2.2.1:**
+### 🚀 **What's New in v2.2.2:**
+- **✅ Latest NDK r28.2** - Updated to NDK 28.2.13676358 (matches community solution exactly)
 - **✅ Community Verified Fixes** - Includes all solutions from GitHub issue #970
-- **✅ NDK r28 Support** - Latest Android development toolchain (28.0.12674087)
 - **✅ Android SDK 35** - Full support for Android 15+
 - **✅ Enhanced 16KB Compliance** - Improved page size alignment with linker flags
 - **✅ Production Tested** - Verified working in real Android Studio APK analyzer
@@ -890,12 +890,17 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.2.1 (2025) - Latest ✅ PRODUCTION READY WITH REAL-WORLD FIXES
+### v2.2.2 (2025) - Latest ✅ PRODUCTION READY WITH LATEST NDK
+
+#### 🚀 **Latest NDK Integration**
+- **NDK r28.2 Update**: Updated to NDK 28.2.13676358 (matches @IsengardZA's exact solution)
+- **Community Alignment**: Uses the exact NDK version recommended by community developers
+- **Latest Toolchain**: Ensures compatibility with newest Android development tools
 
 #### 🚀 **Community Verified Solutions**
 - **GitHub Issue #970 Fixes**: Integrated all solutions from @IsengardZA's successful resolution
 - **Production Testing**: Verified working in Android Studio APK analyzer by real users
-- **NDK r28 Support**: Confirmed compatibility with latest Android development toolchain
+- **NDK r28.2 Support**: Confirmed compatibility with latest Android development toolchain
 - **Dependency Updates**: All required dependency versions tested and working
 - **16KB Compliance**: Full Google Play policy compliance verified in production apps
 
@@ -1458,7 +1463,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v2.2.1 - Production Ready with Real-World Fixes**  
+**v2.2.2 - Production Ready with Latest NDK**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
