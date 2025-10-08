@@ -6,13 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#if __has_include(<React/RCTAssert.h>)
-#import <React/RCTViewManager.h>
-#else
-#import "RCTViewManager.h"
-#endif
-
-
-@interface RNPDFPdfViewManager : RCTViewManager
-
-@end
+ #if __has_include(<React/RCTAssert.h>)
+ #import <React/RCTViewManager.h>
+ #else
+ #import "RCTViewManager.h"
+ #endif
+ 
+ 
+ @interface RNPDFPdfViewManager : RCTViewManager
+ 
+ // JSI availability check
+ - (void)checkJSIAvailability:(RCTPromiseResolveBlock)resolve
+                     rejecter:(RCTPromiseRejectBlock)reject;
+ 
+ @end
+ 

@@ -35,6 +35,17 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
+## 🎉 Version 2.2.6 - Enhanced iOS JSI Integration!
+
+**Major improvements to iOS JSI functionality and method forwarding!**
+
+### 🚀 **What's New in v2.2.6:**
+- **🚀 iOS JSI Enhancement** - Comprehensive JSI method declarations and forwarding
+- **✅ JSI Availability Check** - Added checkJSIAvailability method for iOS
+- **✅ Method Forwarding** - All JSI methods now properly forwarded on iOS
+- **✅ Better Integration** - Enhanced iOS bridge integration with PDFJSIManager
+- **✅ Error Handling** - Improved error handling for iOS JSI operations
+
 ## 🎉 Version 2.2.5 - iOS Pod Install Fix!
 
 **Resolves iOS pod installation issues with correct podspec configuration!**
@@ -921,7 +932,21 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.2.5 (2025) - Latest ✅ IOS POD INSTALL FIX
+### v2.2.6 (2025) - Latest ✅ ENHANCED IOS JSI INTEGRATION
+
+#### 🚀 **iOS JSI Enhancements**
+- **JSI Method Declarations**: Added comprehensive JSI method declarations in PDFJSIManager.h
+- **Method Forwarding**: Implemented JSI method forwarding in RNPDFPdfViewManager
+- **JSI Availability Check**: Added checkJSIAvailability method for iOS JSI detection
+- **All JSI Methods**: Forward renderPageDirect, getPageMetrics, preloadPagesDirect, getCacheMetrics, clearCacheDirect, optimizeMemory, searchTextDirect, getPerformanceMetrics, setRenderQuality
+
+#### 📊 **iOS Integration Improvements**
+- **Bridge Integration**: Enhanced iOS bridge integration with PDFJSIManager
+- **Error Handling**: Improved error handling for iOS JSI operations
+- **JSI Stats**: Added getJSIStats method for iOS JSI status
+- **Logging**: Better logging for JSI availability and operations
+
+### v2.2.5 (2025) - ✅ IOS POD INSTALL FIX
 
 #### 🐛 **iOS Pod Installation Fix**
 - **Pod Install Error Fix**: Resolved pod installation errors on iOS
@@ -1541,7 +1566,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v2.2.5 - iOS Pod Install Fix**  
+**v2.2.6 - Enhanced iOS JSI Integration**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
