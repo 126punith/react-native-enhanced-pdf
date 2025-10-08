@@ -35,6 +35,16 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
+## 🎉 Version 2.2.5 - iOS Pod Install Fix!
+
+**Resolves iOS pod installation issues with correct podspec configuration!**
+
+### 🚀 **What's New in v2.2.5:**
+- **🐛 iOS Pod Install Fix** - Resolved pod installation errors on iOS
+- **✅ Podspec Update** - Fixed react-native-pdf-jsi.podspec configuration
+- **✅ iOS Compatibility** - Improved iOS installation and build process
+- **✅ CocoaPods Support** - Enhanced CocoaPods integration
+
 ## 🎉 Version 2.2.4 - Critical 16KB Bug Fix!
 
 **Resolves 16KB page size compatibility issues for Google Play compliance!**
@@ -911,7 +921,21 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.2.4 (2025) - Latest ✅ CRITICAL 16KB BUG FIX
+### v2.2.5 (2025) - Latest ✅ IOS POD INSTALL FIX
+
+#### 🐛 **iOS Pod Installation Fix**
+- **Pod Install Error Fix**: Resolved pod installation errors on iOS
+- **Podspec Configuration**: Fixed react-native-pdf-jsi.podspec file configuration
+- **CocoaPods Integration**: Enhanced CocoaPods integration and compatibility
+- **iOS Build Process**: Improved iOS installation and build process
+
+#### 📊 **iOS Compatibility**
+- **Installation Fixed**: Pod install now works correctly on iOS
+- **Build Success**: iOS builds complete successfully without errors
+- **CocoaPods Support**: Full CocoaPods support for iOS projects
+- **React Native Compatibility**: Improved compatibility with React Native iOS projects
+
+### v2.2.4 (2025) - ✅ CRITICAL 16KB BUG FIX
 
 #### 🐛 **16KB Page Size Compatibility Fix**
 - **Critical Bug Fix**: Resolved 16KB page size compatibility issues for Google Play compliance
@@ -1517,7 +1541,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v2.2.4 - Critical 16KB Bug Fix**  
+**v2.2.5 - iOS Pod Install Fix**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
