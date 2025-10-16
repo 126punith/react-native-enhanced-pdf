@@ -35,6 +35,17 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
 
+## 🎉 Version 2.2.7 - iOS Codegen Fix & New Architecture Support!
+
+**Critical fix for React Native 0.79+ compatibility and iOS codegen integration!**
+
+### 🚀 **What's New in v2.2.7:**
+- **🔧 iOS Component Provider** - Added ios.componentProvider to codegenConfig for React Native 0.79+ compatibility
+- **✅ Codegen Compliance** - Resolved [DEPRECATED] warning during pod install
+- **✅ New Architecture Ready** - Full compatibility with React Native's New Architecture
+- **✅ Podspec Fix** - Corrected podspec filename reference in package.json
+- **✅ Future-Proof** - Ensures compatibility with future React Native versions
+
 ## 🎉 Version 2.2.6 - Enhanced iOS JSI Integration!
 
 **Major improvements to iOS JSI functionality and method forwarding!**
@@ -932,7 +943,21 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.2.6 (2025) - Latest ✅ ENHANCED IOS JSI INTEGRATION
+### v2.2.7 (2025) - Latest ✅ IOS CODEGEN FIX & NEW ARCHITECTURE SUPPORT
+
+#### 🔧 **iOS Codegen & New Architecture Fixes**
+- **Component Provider**: Added `ios.componentProvider: "RNPDFPdfView"` to codegenConfig in package.json
+- **Codegen Compliance**: Resolved React Native 0.79+ deprecation warning: "react-native-pdf-jsi should add the 'ios.componentProvider' property in their codegenConfig"
+- **Podspec Reference**: Fixed podspec filename from `react-native-pdf.podspec` to `react-native-pdf-jsi.podspec` in files array
+- **New Architecture Ready**: Full compatibility with React Native's New Architecture and Fabric components
+
+#### 📊 **Compatibility Improvements**
+- **React Native 0.79+**: Full support for latest React Native versions
+- **Pod Install Fix**: No more deprecation warnings during `pod install`
+- **Codegen Integration**: Proper iOS component provider configuration for codegen system
+- **Future-Proof**: Ensures compatibility with upcoming React Native releases
+
+### v2.2.6 (2025) - ✅ ENHANCED IOS JSI INTEGRATION
 
 #### 🚀 **iOS JSI Enhancements**
 - **JSI Method Declarations**: Added comprehensive JSI method declarations in PDFJSIManager.h
@@ -1566,7 +1591,7 @@ For issues and questions:
 
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
-**v2.2.6 - Enhanced iOS JSI Integration**  
+**v2.2.7 - iOS Codegen Fix & New Architecture Support**  
 **Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
 
 *Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
