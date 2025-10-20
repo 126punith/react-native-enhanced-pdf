@@ -9,6 +9,7 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import NativeLicenseVerifier from './NativeLicenseVerifier';
 
 const LICENSE_STORAGE_KEY = '@react-native-pdf-jsi/pro-license';
 const VALIDATION_ENDPOINT = 'https://react-native-pdf-jsi.vercel.app/api/validate-license';
@@ -123,6 +124,15 @@ class LicenseManager {
             this.expiresAt = validationResult.expiresAt;
             this.lastValidation = new Date();
 
+            // Set license in native layer
+            const licenseInfo = {
+                key: licenseKey,
+                tier: this.licenseTier,
+                email: validationResult.email || 'unknown@example.com',
+                expiresAt: this.expiresAt
+            };
+            await NativeLicenseVerifier.setLicenseInfo(licenseInfo);
+
             // Save to storage
             if (saveToStorage) {
                 await AsyncStorage.setItem(LICENSE_STORAGE_KEY, JSON.stringify({
@@ -162,6 +172,10 @@ class LicenseManager {
         this.licenseTier = LicenseTier.FREE;
         this.isActive = false;
         this.expiresAt = null;
+        
+        // Clear native license
+        await NativeLicenseVerifier.clearLicense();
+        
         await AsyncStorage.removeItem(LICENSE_STORAGE_KEY);
         console.log('📋 LicenseManager: License deactivated');
     }

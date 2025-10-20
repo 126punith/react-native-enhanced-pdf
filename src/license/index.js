@@ -12,6 +12,9 @@ export { default as licenseManager, LicenseManager, LicenseTier, ProFeature } fr
 // UI Components
 export { LicensePrompt, ProBadge, FeatureGate } from './components/LicensePrompt';
 
+// Native License Verification
+export { default as NativeLicenseVerifier } from './NativeLicenseVerifier';
+
 // Convenience function for activation
 import licenseManager from './LicenseManager';
 

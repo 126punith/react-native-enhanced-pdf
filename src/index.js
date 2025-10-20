@@ -57,5 +57,5 @@ export { AnalyticsDashboard } from './analytics/components/AnalyticsDashboard';
 
 // License Management
 export { default as licenseManager, LicenseManager } from './license/LicenseManager';
-export { activateLicense, isProActive, getLicenseInfo } from './license';
+export { activateLicense, isProActive, getLicenseInfo, NativeLicenseVerifier } from './license';
 export { LicensePrompt, ProBadge, FeatureGate } from './license/components/LicensePrompt';
