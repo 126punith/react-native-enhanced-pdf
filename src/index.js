@@ -30,3 +30,32 @@ export {
     getPerformanceHistory,
     clearPerformanceHistory
 } from './PDFJSI';
+
+// ============================================
+// ENHANCED FEATURES (Free & Pro)
+// ============================================
+
+// Advanced Search (FREE)
+export { default as searchEngine, SearchEngine } from './search/SearchEngine';
+export { useSearch } from './search/hooks/useSearch';
+export { SearchBar } from './search/components/SearchBar';
+
+// Smart Bookmarks (FREE for basic, PRO for colors/analytics)
+export { default as bookmarkManager, BookmarkManager } from './bookmarks/BookmarkManager';
+export { useBookmarks } from './bookmarks/hooks/useBookmarks';
+export { BookmarksList } from './bookmarks/components/BookmarksList';
+
+// Export & Conversion (FREE for text, PRO for images/operations)
+export { default as exportManager, ExportManager } from './export/ExportManager';
+export { useExport } from './export/hooks/useExport';
+export { ExportMenu } from './export/components/ExportMenu';
+
+// Reading Analytics (PRO feature)
+export { default as analyticsManager, AnalyticsManager } from './analytics/AnalyticsManager';
+export { useAnalytics } from './analytics/hooks/useAnalytics';
+export { AnalyticsDashboard } from './analytics/components/AnalyticsDashboard';
+
+// License Management
+export { default as licenseManager, LicenseManager } from './license/LicenseManager';
+export { activateLicense, isProActive, getLicenseInfo } from './license';
+export { LicensePrompt, ProBadge, FeatureGate } from './license/components/LicensePrompt';
