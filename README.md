@@ -199,6 +199,161 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **iOS** (enhanced bridge mode with smart caching and progressive loading)
 - ✅ **Windows** (standard bridge mode)
 
+---
+
+## 🎬 Pro Features - Coming Soon!
+
+> **Production-ready PDF manipulation features launching in the next few weeks!**
+
+### Watch the Demo
+
+[![Pro Features Demo](https://img.youtube.com/vi/OmCUq9wLoHo/maxresdefault.jpg)](https://www.youtube.com/shorts/OmCUq9wLoHo)
+
+**[▶️ Watch on YouTube Shorts (60 seconds)](https://www.youtube.com/shorts/OmCUq9wLoHo)**
+
+*See bookmark management, export to images, PDF operations, and reading analytics in action!*
+
+### 🚀 Features Launching Soon
+
+#### 📚 Advanced Bookmark Management
+- ✅ Create bookmarks with custom names, colors (10 options), and notes
+- ✅ Swipeable list with tap-to-navigate functionality
+- ✅ Current page highlighting with visual indicators
+- ✅ Swipe-to-delete with confirmation dialogs
+- ✅ Persistent storage with AsyncStorage
+- ✅ Jump directly to any bookmarked page
+- ✅ Edit bookmarks with full metadata support
+
+#### 🖼️ Export to Images
+- ✅ Export PDF pages to PNG or JPEG formats
+- ✅ Three quality levels: High (90%), Medium (75%), Low (50%)
+- ✅ Single page or batch export with progress tracking
+- ✅ Automatic download to public storage (MediaStore API)
+- ✅ Android notifications with "Open Folder" action
+- ✅ Timestamped filenames to prevent overwrites
+- ✅ Share single or multiple exported files
+- ✅ Files immediately visible in file manager
+
+#### ✂️ PDF Operations
+- ✅ Split PDF into multiple parts with custom page ranges
+- ✅ Extract specific pages to create new PDF
+- ✅ Merge multiple PDFs (framework ready)
+- ✅ All operations with real-time progress indicators
+- ✅ Auto-save to Downloads/[YourApp] folder
+- ✅ Success dialogs with "Open Folder" and "Share" buttons
+- ✅ Proper file naming with timestamps
+
+#### 📊 Reading Analytics
+- ✅ Session tracking (start/end times, duration)
+- ✅ Total time spent reading per PDF
+- ✅ Pages read counter and progress percentage
+- ✅ Reading speed calculation (pages/minute)
+- ✅ Complete session history
+- ✅ AsyncStorage persistence across app restarts
+- ✅ Beautiful analytics panel with real-time stats
+
+#### 🔧 Technical Excellence
+- ✅ **JSI Integration** - Leverages existing JSI for native performance
+- ✅ **MediaStore API** - Proper Android file management (Android 10+)
+- ✅ **Runtime Permissions** - Handles Android 13+ notification permissions
+- ✅ **Gesture-Based UI** - PanResponder for swipe gestures
+- ✅ **Material Design** - Professional UI components
+- ✅ **Error Handling** - Comprehensive error recovery
+- ✅ **TypeScript Support** - Full type definitions included
+- ✅ **Production Logging** - Debug-friendly with detailed logs
+
+### 💰 Pricing
+
+| Plan | Target Users | India Price | Global Price | What's Included |
+|------|--------------|-------------|--------------|-----------------|
+| **Free** | Everyone | ₹0 | $0 | ✅ Basic PDF viewing<br>✅ All core features<br>✅ Community support |
+| **Indie** | Freelancers, Students | **₹2,999/year**<br>($36/year) | **$99/year** | ✅ All Pro features<br>✅ 1 app license<br>✅ Unlimited updates<br>✅ Email support<br>✅ Perfect for freelance projects |
+| **Startup** | Small Teams (2-10 devs) | **₹9,999/year**<br>($120/year) | **$299/year** | ✅ All Pro features<br>✅ Up to 5 apps<br>✅ Priority email support<br>✅ Team license<br>✅ Quarterly feature updates |
+| **Business** | Companies (10+ devs) | **₹24,999/year**<br>($300/year) | **$799/year** | ✅ All Pro features<br>✅ Unlimited apps<br>✅ Priority support (24h response)<br>✅ Custom feature development<br>✅ Source code access option |
+
+**🇮🇳 Regional Pricing Available** - Special rates for India, Southeast Asia, Latin America, and emerging markets.
+
+**🎁 Launch Offer:** First 50 customers get **30% OFF** any plan! Use code `EARLYBIRD30` at checkout.
+
+### 🎯 Early Access
+
+**🚀 Launching in the next few weeks!**
+
+Want early access or have questions about Pro features?
+
+- 📧 **Email:** punithm300@gmail.com (Subject: "Pro Features Early Access")
+- ⭐ **Star this repo** to get notified when we launch
+- 🔔 **Watch** the repository for release announcements
+- 📦 **GitHub:** [react-native-enhanced-pdf](https://github.com/126punith/react-native-enhanced-pdf)
+- 📥 **NPM:** [react-native-pdf-jsi](https://www.npmjs.com/package/react-native-pdf-jsi)
+
+### ✨ Why Choose Pro Features?
+
+> **Unlike other React Native PDF libraries**, we offer true production-grade features with professional UX patterns, proper file management, and enterprise-level performance.
+
+**What makes it different:**
+
+| Feature | react-native-pdf-jsi Pro | Other Libraries |
+|---------|--------------------------|-----------------|
+| **File Management** | MediaStore API (files visible immediately) | Cache only (files hidden) |
+| **Bookmarks** | Colors, notes, swipeable list | Basic or none |
+| **Export** | PNG/JPEG with quality control | Limited or none |
+| **PDF Operations** | Split, extract, merge with UI | None |
+| **Analytics** | Full session tracking & history | Page count only |
+| **Notifications** | Native Android notifications | None |
+| **Gestures** | Swipe-to-delete, tap-to-navigate | None |
+| **Share** | Batch sharing with dialogs | Basic or none |
+
+**Technical Advantages:**
+- 🚀 **Up to 80x faster** with existing JSI integration
+- 📱 **Proper file storage** - Files appear in Downloads immediately
+- 🎨 **Professional UI** - Material Design with animations
+- 🔔 **System integration** - Notifications, intents, MediaStore
+- 💪 **Battle-tested** - Production-ready code
+- 📖 **Complete docs** - Integration guides included
+
+### 🎬 Feature Highlights from Demo
+
+**What you'll see in the [60-second demo](https://www.youtube.com/shorts/OmCUq9wLoHo):**
+
+1. **Bookmark System** (0:00-0:20)
+   - Create bookmark with name, color & notes
+   - Swipeable list showing all bookmarks
+   - Tap to jump to page 4 → 11 instantly
+   - Swipe left to delete
+
+2. **Export to Images** (0:20-0:35)
+   - Export page as PNG (high quality)
+   - Android notification appears
+   - File visible in Downloads folder
+   - Share exported image
+
+3. **PDF Operations** (0:35-0:50)
+   - Split PDF into 2 parts (pages 1-10, 11-21)
+   - Files automatically downloaded
+   - "Open Folder" button works
+
+4. **Reading Analytics** (0:50-1:00)
+   - Session tracking active
+   - Progress percentage shown
+   - Reading stats displayed
+
+### 📢 Stay Updated
+
+**Coming Soon:**
+- 📖 Comprehensive documentation
+- 🎥 Tutorial videos
+- 📱 Example app repository
+- 🔌 Integration templates
+- 💬 Discord community
+
+**Follow the journey:**
+- 🐦 Twitter: Share your feedback!
+- ⭐ GitHub Stars help us reach more developers
+- 📧 Direct contact: punithm300@gmail.com
+
+---
+
 ## 🛠 Installation
 
 ```bash
@@ -281,7 +436,7 @@ react-native link react-native-pdf-jsi
 
 ### Windows installation
 <details>
-  <sumary>Windows details</summary>
+  <summary>Windows details</summary>
 
 - Open your solution in Visual Studio 2019 (eg. `windows\yourapp.sln`)
 - Right-click Solution icon in Solution Explorer > Add > Existing Project...
@@ -824,10 +979,10 @@ This package is not available in the [Expo Go](https://expo.dev/client) app. Lea
   <summary>FAQ details</summary>
 
 Q1. After installation and running, I can not see the pdf file.  
-A1: maybe you forgot to excute ```react-native link``` or it does not run correctly.
+A1: maybe you forgot to execute ```react-native link``` or it does not run correctly.
 You can add it manually. For detail you can see the issue [`#24`](https://github.com/wonday/react-native-pdf/issues/24) and [`#2`](https://github.com/wonday/react-native-pdf/issues/2)
 
-Q2. When running, it shows ```'Pdf' has no propType for native prop RCTPdf.acessibilityLabel of native type 'String'```  
+Q2. When running, it shows ```'Pdf' has no propType for native prop RCTPdf.accessibilityLabel of native type 'String'```  
 A2. Your react-native version is too old, please upgrade it to 0.47.0+ see also [`#39`](https://github.com/wonday/react-native-pdf/issues/39)
 
 Q3. When I run the example app I get a white/gray screen / the loading bar isn't progressing .  
@@ -1470,10 +1625,10 @@ export default function LazyLoadingExample() {
 | style                          |                            object                             | {backgroundColor:"#eee"} | support normal view style, you can use this to set border/spacing color...                                                                                                    | ✔   | ✔       | ✔                           | <3.0 
 | progressContainerStyle         |                            object                             | {backgroundColor:"#eee"} | support normal view style, you can use this to set border/spacing color...                                                                                             | ✔   | ✔       | ✔                           | 6.9.0                     |
 | renderActivityIndicator        |                    (progress) => Component                    |      <ProgressBar/>      | when loading show it as an indicator, you can use your component                                                                                                              | ✔   | ✔       | ✖                           | <3.0                     |
-| enableAntialiasing             |                             bool                              |           true           | improve rendering a little bit on low-res screens, but maybe course some problem on Android 4.4, so add a switch                                                              | ✖   | ✔       | ✖                           | <3.0                     |
+| enableAntialiasing             |                             bool                              |           true           | improve rendering a little bit on low-res screens, but may cause some problems on Android 4.4, so add a switch                                                              | ✖   | ✔       | ✖                           | <3.0                     |
 | enablePaging                   |                             bool                              |          false           | only show one page in screen                                                                                                                                                  | ✔   | ✔       | ✔                           | 5.0.1                    |
 | enableRTL                      |                             bool                              |          false           | scroll page as "page3, page2, page1"                                                                                                                                          | ✔   | ✖       | ✔                           | 5.0.1                    |
-| enableAnnotationRendering      |                             bool                              |           true           | enable rendering annotation, notice:iOS only support initial setting,not support realtime changing                                                                            | ✔   | ✔       | ✖                           | 5.0.3                    |
+| enableAnnotationRendering      |                             bool                              |           true           | enable rendering annotation, notice: iOS only supports initial setting, not real-time changing                                                                            | ✔   | ✔       | ✖                           | 5.0.3                    |
 | enableDoubleTapZoom            |                             bool                              |           true           | Enable double tap to zoom gesture                                                                                                                                             | ✔   | ✔       | ✖                           | 6.8.0                    |
 | trustAllCerts                  |                             bool                              |           true           | Allow connections to servers with self-signed certification                                                                                                                   | ✔   | ✔       | ✖                           | 6.0.?                    |
 | singlePage                     |                             bool                              |          false           | Only show first page, useful for thumbnail views                                                                                                                              | ✔   | ✔       | ✔                           | 6.2.1                    |
@@ -1489,7 +1644,7 @@ export default function LazyLoadingExample() {
 
 | parameter    | Description | default | iOS | Android | Windows |
 | ------------ | ----------- | ------- | --- | ------- | ------- |
-| uri          | pdf source, see the forllowing for detail.| required | ✔   | ✔ | ✔ |
+| uri          | pdf source, see the following for detail.| required | ✔   | ✔ | ✔ |
 | cache        | use cache or not | false | ✔ | ✔ | ✖ |
 | cacheFileName | specific file name for cached pdf file | SHA1(uri) result | ✔ | ✔ | ✖ |
 | expiration   | cache file expired seconds (0 is not expired) | 0 | ✔ | ✔ | ✖ |
@@ -1592,6 +1747,4 @@ For issues and questions:
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
 **v2.2.7 - iOS Codegen Fix & New Architecture Support**  
-**Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
-
-*Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*
+**Copyright (c) 2025-present, Punith M (punithm300@gmail.com). All rights reserved.**
