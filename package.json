@@ -1,6 +1,6 @@
 {
     "name": "react-native-pdf-jsi",
-     "version": "2.2.7",
+    "version": "2.2.8",
     "summary": "High-performance React Native PDF viewer with JSI acceleration - up to 80x faster than traditional bridge",
     "description": "🚀 Ultra-fast React Native PDF viewer with JSI (JavaScript Interface) integration for maximum performance. Features lazy loading, smart caching, progressive loading, and zero-bridge overhead operations. Perfect for large PDF files with 30-day persistent cache and advanced memory optimization. Google Play 16KB page size compliant for Android 15+. Supports iOS, Android, and Windows platforms.",
     "main": "index.js",
@@ -58,7 +58,7 @@
         "url": "https://github.com/126punith"
     },
     "license": "MIT",
-        "homepage": "https://github.com/126punith/react-native-enhanced-pdf",
+    "homepage": "https://github.com/126punith/react-native-enhanced-pdf",
     "bugs": {
         "url": "https://github.com/126punith/react-native-enhanced-pdf/issues"
     },
@@ -100,10 +100,10 @@
         "type": "components",
         "jsSrcsDir": "./fabric",
         "android": {
-          "javaPackageName": "org.wonday.pdf"
+            "javaPackageName": "org.wonday.pdf"
         },
         "ios": {
-          "componentProvider": "RNPDFPdfView"
+            "componentProvider": "RNPDFPdfView"
         }
-      }
+    }
 }
