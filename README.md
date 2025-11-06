@@ -3,18 +3,40 @@
 [![npm](https://img.shields.io/npm/v/react-native-pdf-jsi.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pdf-jsi)
 [![Downloads](https://img.shields.io/npm/dm/react-native-pdf-jsi.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pdf-jsi)
 [![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-enhanced-pdf.svg?style=flat-square)](https://github.com/126punith/react-native-enhanced-pdf)
+[![Documentation](https://img.shields.io/badge/docs-online-blue.svg?style=flat-square)](https://euphonious-faun-24f4bc.netlify.app/)
 
 **The fastest React Native PDF viewer with JSI acceleration - up to 80x faster than traditional bridge!**
 
+## 🆓 100% FREE - All Features Included!
+
+**Every feature is FREE and MIT licensed - no hidden costs, no Pro tier, no subscriptions!**
+
+All advanced features that were previously paid are now completely FREE:
+- ✅ **Bookmarks with 10 Colors** - Create, organize with custom colors
+- ✅ **Reading Analytics** - Track progress, sessions, and insights  
+- ✅ **Export to Images** - PNG/JPEG export with quality control
+- ✅ **PDF Operations** - Split, merge, extract, rotate, delete pages
+- ✅ **PDF Compression** - Reduce file sizes with smart presets
+- ✅ **Text Extraction** - Extract and search text from PDFs
+- ✅ **File Management** - Download to storage, open folders (Android)
+- ✅ **All Performance Features** - JSI acceleration, smart caching
+
+**Use commercially without restrictions - MIT License!**
+
+📚 **[Complete Documentation Website](https://euphonious-faun-24f4bc.netlify.app/)** - API Reference, Guides, and Examples
+
 ### Key Advantages:
+- 🆓 **100% FREE** - All features MIT licensed, no subscriptions or hidden fees
 - ✅ **Google Play 16KB Compliant** - Ready for Android 15+ requirements
-- ⚡ **High Performance** - JSI integration for faster rendering
+- ⚡ **High Performance** - JSI integration for faster rendering (80x faster)
 - 🚀 **Easy Migration** - Drop-in replacement for existing PDF libraries
-- 📄 **Lazy Loading** - Optimized loading for large PDF files
+- 📄 **Advanced Features** - Bookmarks, analytics, export, compression all FREE
 - 🎯 **Smart Caching** - 30-day persistent cache system
-- 🛡️ **Future-Proof** - Built with latest NDK r27+ and modern toolchain
+- 🛡️ **Future-Proof** - Built with latest NDK r28.2+ and modern toolchain
 
 A high-performance React Native PDF viewer component with JSI (JavaScript Interface) integration for enhanced speed and efficiency. Perfect for large PDF files with lazy loading, smart caching, progressive loading, and zero-bridge overhead operations.
+
+**🎓 [Read Full Documentation](https://euphonious-faun-24f4bc.netlify.app/)** - Complete guides, API reference, and examples
 
 ## ✅ **Google Play 16KB Page Size Compliance**
 
@@ -34,6 +56,35 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - ✅ **Android 15+ Ready** - Future-proof architecture  
 - ✅ **Google Play Approved** - Meets all current and future requirements  
 - ✅ **Drop-in Replacement** - Easy migration from existing libraries
+
+## 🎉 Version 3.0.0 - Major Release with Complete Feature Sync!
+
+**Complete synchronization of all features from development package with enhanced Android capabilities!**
+
+### 🚀 **What's New in v3.0.0:**
+- **📦 Complete Feature Sync** - All features from local development package now in production
+- **📥 FileDownloader Module** - Native Android module for downloading files to public storage using MediaStore API
+- **📂 FileManager Module** - Native Android module for opening Downloads folder with multiple fallback strategies
+- **🔧 PDFTextExtractor Utility** - JavaScript wrapper for native text extraction with search capabilities
+- **✅ Enhanced Structure** - Complete src/utils directory with all utility modules
+- **✅ Android 10+ Support** - Scoped Storage compliant with MediaStore API for Android 10+
+- **✅ Legacy Support** - Backward compatible with Android 9 and below using legacy storage
+- **✅ Smart Notifications** - Download completion notifications with "Open Folder" action
+- **✅ Text Search & Statistics** - Advanced text extraction with search and statistics features
+- **✅ Production Ready** - All development features now available in stable release
+
+## 🎉 Version 2.2.8 - Android File Download & Management Features!
+
+**New Android native modules for file download and folder management with MediaStore API support!**
+
+### 🚀 **What's New in v2.2.8:**
+- **📥 FileDownloader Module** - Native Android module for downloading files to public storage using MediaStore API
+- **📂 FileManager Module** - Native Android module for opening Downloads folder with multiple fallback strategies
+- **✅ Android 10+ Support** - Scoped Storage compliant with MediaStore API for Android 10+
+- **✅ Legacy Support** - Backward compatible with Android 9 and below using legacy storage
+- **✅ Smart Notifications** - Download completion notifications with "Open Folder" action
+- **✅ Immediate Visibility** - Files are immediately visible in file managers after export
+- **✅ Multi-Strategy Folder Opening** - Multiple fallback strategies for maximum device compatibility
 
 ## 🎉 Version 2.2.7 - iOS Codegen Fix & New Architecture Support!
 
@@ -170,9 +221,11 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 - **Enhanced Features**: Additional functionality out of the box
 - **Easy Upgrade**: Minimal code changes required
 
-## ✨ Features
+## ✨ Features - All FREE!
 
-### Core Features
+**📚 [Explore All Features in Documentation](https://euphonious-faun-24f4bc.netlify.app/docs/features/core-features)**
+
+### Core Features (FREE)
 * Read a PDF from URL, blob, local file or asset and can cache it
 * Display horizontally or vertically
 * Drag and zoom
@@ -180,7 +233,7 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 * Support password protected PDF
 * Jump to a specific page in the PDF
 
-### 🚀 JSI Enhanced Features
+### 🚀 JSI Enhanced Features (FREE)
 * **Zero Bridge Overhead** - Direct JavaScript-to-Native communication
 * **Enhanced Caching** - Multi-level intelligent caching system
 * **Batch Operations** - Process multiple operations efficiently
@@ -193,166 +246,24 @@ Starting November 1, 2025, Google Play will require apps to support 16KB page si
 * **React Hooks** - Easy integration with `usePDFJSI` hook
 * **Enhanced Components** - Drop-in replacement with automatic JSI detection
 
+### 🎁 Advanced Features (100% FREE!)
+* **📚 Bookmarks with 10 Colors** - Create, edit, delete bookmarks with custom colors and notes
+* **📊 Reading Analytics** - Track reading sessions, progress, speed, and engagement scores
+* **🖼️ Export to Images** - Export pages to PNG/JPEG with quality control
+* **📝 Export to Text** - Extract text from PDFs with search capabilities
+* **✂️ PDF Operations** - Split, merge, extract, rotate, and delete pages
+* **🗜️ PDF Compression** - Reduce file sizes with 5 smart presets (EMAIL, WEB, MOBILE, PRINT, ARCHIVE)
+* **🔍 Text Extraction** - Extract and search text with statistics and context
+* **📥 File Management** (Android) - Download to public storage, open folders with MediaStore API
+* **🎨 Professional UI Components** - Ready-to-use bookmark, analytics, and export components
+
+**All features work immediately - no activation, no license keys, no restrictions!**
+
 ## 📱 Supported Platforms
 
 - ✅ **Android** (with full JSI acceleration - up to 80x faster)
 - ✅ **iOS** (enhanced bridge mode with smart caching and progressive loading)
 - ✅ **Windows** (standard bridge mode)
-
----
-
-## 🎬 Pro Features - Coming Soon!
-
-> **Production-ready PDF manipulation features launching in the next few weeks!**
-
-### Watch the Demo
-
-[![Pro Features Demo](https://img.youtube.com/vi/OmCUq9wLoHo/maxresdefault.jpg)](https://www.youtube.com/shorts/OmCUq9wLoHo)
-
-**[▶️ Watch on YouTube Shorts (60 seconds)](https://www.youtube.com/shorts/OmCUq9wLoHo)**
-
-*See bookmark management, export to images, PDF operations, and reading analytics in action!*
-
-### 🚀 Features Launching Soon
-
-#### 📚 Advanced Bookmark Management
-- ✅ Create bookmarks with custom names, colors (10 options), and notes
-- ✅ Swipeable list with tap-to-navigate functionality
-- ✅ Current page highlighting with visual indicators
-- ✅ Swipe-to-delete with confirmation dialogs
-- ✅ Persistent storage with AsyncStorage
-- ✅ Jump directly to any bookmarked page
-- ✅ Edit bookmarks with full metadata support
-
-#### 🖼️ Export to Images
-- ✅ Export PDF pages to PNG or JPEG formats
-- ✅ Three quality levels: High (90%), Medium (75%), Low (50%)
-- ✅ Single page or batch export with progress tracking
-- ✅ Automatic download to public storage (MediaStore API)
-- ✅ Android notifications with "Open Folder" action
-- ✅ Timestamped filenames to prevent overwrites
-- ✅ Share single or multiple exported files
-- ✅ Files immediately visible in file manager
-
-#### ✂️ PDF Operations
-- ✅ Split PDF into multiple parts with custom page ranges
-- ✅ Extract specific pages to create new PDF
-- ✅ Merge multiple PDFs (framework ready)
-- ✅ All operations with real-time progress indicators
-- ✅ Auto-save to Downloads/[YourApp] folder
-- ✅ Success dialogs with "Open Folder" and "Share" buttons
-- ✅ Proper file naming with timestamps
-
-#### 📊 Reading Analytics
-- ✅ Session tracking (start/end times, duration)
-- ✅ Total time spent reading per PDF
-- ✅ Pages read counter and progress percentage
-- ✅ Reading speed calculation (pages/minute)
-- ✅ Complete session history
-- ✅ AsyncStorage persistence across app restarts
-- ✅ Beautiful analytics panel with real-time stats
-
-#### 🔧 Technical Excellence
-- ✅ **JSI Integration** - Leverages existing JSI for native performance
-- ✅ **MediaStore API** - Proper Android file management (Android 10+)
-- ✅ **Runtime Permissions** - Handles Android 13+ notification permissions
-- ✅ **Gesture-Based UI** - PanResponder for swipe gestures
-- ✅ **Material Design** - Professional UI components
-- ✅ **Error Handling** - Comprehensive error recovery
-- ✅ **TypeScript Support** - Full type definitions included
-- ✅ **Production Logging** - Debug-friendly with detailed logs
-
-### 💰 Pricing
-
-| Plan | Target Users | India Price | Global Price | What's Included |
-|------|--------------|-------------|--------------|-----------------|
-| **Free** | Everyone | ₹0 | $0 | ✅ Basic PDF viewing<br>✅ All core features<br>✅ Community support |
-| **Indie** | Freelancers, Students | **₹2,999/year**<br>($36/year) | **$99/year** | ✅ All Pro features<br>✅ 1 app license<br>✅ Unlimited updates<br>✅ Email support<br>✅ Perfect for freelance projects |
-| **Startup** | Small Teams (2-10 devs) | **₹9,999/year**<br>($120/year) | **$299/year** | ✅ All Pro features<br>✅ Up to 5 apps<br>✅ Priority email support<br>✅ Team license<br>✅ Quarterly feature updates |
-| **Business** | Companies (10+ devs) | **₹24,999/year**<br>($300/year) | **$799/year** | ✅ All Pro features<br>✅ Unlimited apps<br>✅ Priority support (24h response)<br>✅ Custom feature development<br>✅ Source code access option |
-
-**🇮🇳 Regional Pricing Available** - Special rates for India, Southeast Asia, Latin America, and emerging markets.
-
-**🎁 Launch Offer:** First 50 customers get **30% OFF** any plan! Use code `EARLYBIRD30` at checkout.
-
-### 🎯 Early Access
-
-**🚀 Launching in the next few weeks!**
-
-Want early access or have questions about Pro features?
-
-- 📧 **Email:** punithm300@gmail.com (Subject: "Pro Features Early Access")
-- ⭐ **Star this repo** to get notified when we launch
-- 🔔 **Watch** the repository for release announcements
-- 📦 **GitHub:** [react-native-enhanced-pdf](https://github.com/126punith/react-native-enhanced-pdf)
-- 📥 **NPM:** [react-native-pdf-jsi](https://www.npmjs.com/package/react-native-pdf-jsi)
-
-### ✨ Why Choose Pro Features?
-
-> **Unlike other React Native PDF libraries**, we offer true production-grade features with professional UX patterns, proper file management, and enterprise-level performance.
-
-**What makes it different:**
-
-| Feature | react-native-pdf-jsi Pro | Other Libraries |
-|---------|--------------------------|-----------------|
-| **File Management** | MediaStore API (files visible immediately) | Cache only (files hidden) |
-| **Bookmarks** | Colors, notes, swipeable list | Basic or none |
-| **Export** | PNG/JPEG with quality control | Limited or none |
-| **PDF Operations** | Split, extract, merge with UI | None |
-| **Analytics** | Full session tracking & history | Page count only |
-| **Notifications** | Native Android notifications | None |
-| **Gestures** | Swipe-to-delete, tap-to-navigate | None |
-| **Share** | Batch sharing with dialogs | Basic or none |
-
-**Technical Advantages:**
-- 🚀 **Up to 80x faster** with existing JSI integration
-- 📱 **Proper file storage** - Files appear in Downloads immediately
-- 🎨 **Professional UI** - Material Design with animations
-- 🔔 **System integration** - Notifications, intents, MediaStore
-- 💪 **Battle-tested** - Production-ready code
-- 📖 **Complete docs** - Integration guides included
-
-### 🎬 Feature Highlights from Demo
-
-**What you'll see in the [60-second demo](https://www.youtube.com/shorts/OmCUq9wLoHo):**
-
-1. **Bookmark System** (0:00-0:20)
-   - Create bookmark with name, color & notes
-   - Swipeable list showing all bookmarks
-   - Tap to jump to page 4 → 11 instantly
-   - Swipe left to delete
-
-2. **Export to Images** (0:20-0:35)
-   - Export page as PNG (high quality)
-   - Android notification appears
-   - File visible in Downloads folder
-   - Share exported image
-
-3. **PDF Operations** (0:35-0:50)
-   - Split PDF into 2 parts (pages 1-10, 11-21)
-   - Files automatically downloaded
-   - "Open Folder" button works
-
-4. **Reading Analytics** (0:50-1:00)
-   - Session tracking active
-   - Progress percentage shown
-   - Reading stats displayed
-
-### 📢 Stay Updated
-
-**Coming Soon:**
-- 📖 Comprehensive documentation
-- 🎥 Tutorial videos
-- 📱 Example app repository
-- 🔌 Integration templates
-- 💬 Discord community
-
-**Follow the journey:**
-- 🐦 Twitter: Share your feedback!
-- ⭐ GitHub Stars help us reach more developers
-- 📧 Direct contact: punithm300@gmail.com
-
----
 
 ## 🛠 Installation
 
@@ -364,7 +275,11 @@ npm install react-native-pdf-jsi react-native-blob-util --save
 yarn add react-native-pdf-jsi react-native-blob-util
 ```
 
+**📚 Need help?** Check our [complete installation guide](https://euphonious-faun-24f4bc.netlify.app/docs/getting-started/installation) with platform-specific instructions.
+
 ## 🚀 **Quick Start**
+
+**📚 [See Quick Start Guide](https://euphonious-faun-24f4bc.netlify.app/docs/getting-started/quick-start)** for detailed instructions and more examples.
 
 ```jsx
 // Import the Pdf component from react-native-pdf-jsi
@@ -436,7 +351,7 @@ react-native link react-native-pdf-jsi
 
 ### Windows installation
 <details>
-  <summary>Windows details</summary>
+  <sumary>Windows details</summary>
 
 - Open your solution in Visual Studio 2019 (eg. `windows\yourapp.sln`)
 - Right-click Solution icon in Solution Explorer > Add > Existing Project...
@@ -499,6 +414,8 @@ protected List<ReactPackage> getPackages() {
 ```
 
 ## 📖 Usage
+
+**📚 [View Complete Documentation](https://euphonious-faun-24f4bc.netlify.app/)** - Detailed guides, API reference, and working examples
 
 ### Basic Usage
 
@@ -851,6 +768,213 @@ export default function AdvancedJSIExample() {
 }
 ```
 
+## 📥 **Android File Download & Management** (v2.2.8+)
+
+The new Android native modules provide seamless file download and folder management capabilities with full Android 10+ Scoped Storage support.
+
+### FileDownloader Module
+
+Download files to public storage with automatic MediaStore API integration for Android 10+ and legacy support for older versions.
+
+#### **Features:**
+- ✅ **MediaStore API Support** - Android 10+ Scoped Storage compliant
+- ✅ **Legacy Storage** - Backward compatible with Android 9 and below
+- ✅ **Instant Visibility** - Files appear immediately in file managers
+- ✅ **Smart Notifications** - Download completion notifications with "Open Folder" action
+- ✅ **Multiple Formats** - Supports PDF, PNG, and JPEG files
+
+#### **Usage:**
+
+```jsx
+import { NativeModules } from 'react-native';
+const { FileDownloader } = NativeModules;
+
+// Download a file to public Downloads/PDFDemoApp folder
+const downloadFile = async () => {
+  try {
+    const sourcePath = '/path/to/cached/file.pdf';
+    const fileName = 'my-document.pdf';
+    const mimeType = 'application/pdf'; // or 'image/png', 'image/jpeg'
+    
+    const publicPath = await FileDownloader.downloadToPublicFolder(
+      sourcePath,
+      fileName,
+      mimeType
+    );
+    
+    console.log('✅ File downloaded to:', publicPath);
+    // Android 10+: /storage/emulated/0/Download/PDFDemoApp/my-document.pdf
+    
+  } catch (error) {
+    console.error('❌ Download failed:', error);
+  }
+};
+```
+
+#### **API:**
+
+```typescript
+FileDownloader.downloadToPublicFolder(
+  sourcePath: string,  // Path to source file in app's cache/internal storage
+  fileName: string,    // Desired file name
+  mimeType: string     // MIME type: 'application/pdf', 'image/png', 'image/jpeg'
+): Promise<string>     // Returns public file path
+```
+
+#### **How It Works:**
+- **Android 10+**: Uses MediaStore API to create entries in the Downloads collection with proper visibility
+- **Android 9 and below**: Uses legacy `Environment.getExternalStoragePublicDirectory()` with media scanner
+- **Automatic folder creation**: Creates `Downloads/PDFDemoApp` folder if it doesn't exist
+- **Progress notifications**: Shows notification with "Open Folder" action when download completes
+
+### FileManager Module
+
+Open the Downloads folder with multiple fallback strategies for maximum compatibility across Android devices.
+
+#### **Features:**
+- ✅ **Multi-Strategy Opening** - 4 different fallback strategies
+- ✅ **Maximum Compatibility** - Works with various file manager apps
+- ✅ **Graceful Degradation** - Automatically tries next strategy if one fails
+- ✅ **User-Friendly** - Opens specific folder or general file manager
+
+#### **Usage:**
+
+```jsx
+import { NativeModules, Alert } from 'react-native';
+const { FileManager } = NativeModules;
+
+// Open Downloads/PDFDemoApp folder
+const openFolder = async () => {
+  try {
+    await FileManager.openDownloadsFolder();
+    console.log('✅ Folder opened successfully');
+  } catch (error) {
+    // All strategies failed - no file manager available
+    Alert.alert(
+      'Info',
+      'Please check Downloads/PDFDemoApp folder in your file manager'
+    );
+  }
+};
+```
+
+#### **API:**
+
+```typescript
+FileManager.openDownloadsFolder(): Promise<boolean>
+```
+
+#### **Fallback Strategies:**
+1. **Strategy 1**: Opens specific `Downloads/PDFDemoApp` folder via DocumentsUI
+2. **Strategy 2**: Opens system Downloads app
+3. **Strategy 3**: Opens generic Files app
+4. **Strategy 4**: Shows file picker to let user choose file manager
+
+### Complete Example: Export and Download PDF Pages
+
+```jsx
+import React, { useState } from 'react';
+import { View, Button, Alert, NativeModules } from 'react-native';
+
+const { PDFExporter, FileDownloader, FileManager } = NativeModules;
+
+const ExportAndDownload = () => {
+  const [exporting, setExporting] = useState(false);
+
+  const exportAndDownloadPages = async (pdfPath, pageNumbers) => {
+    setExporting(true);
+    
+    try {
+      // Step 1: Export pages to images
+      const exportedImages = [];
+      for (let page of pageNumbers) {
+        const imagePath = await PDFExporter.exportPageToImage(
+          pdfPath,
+          page - 1, // Convert to 0-indexed
+          {
+            format: 'png',
+            quality: 0.9,
+            scale: 2.0
+          }
+        );
+        exportedImages.push(imagePath);
+      }
+      
+      // Step 2: Download to public storage
+      const downloadedFiles = [];
+      for (let i = 0; i < exportedImages.length; i++) {
+        const publicPath = await FileDownloader.downloadToPublicFolder(
+          exportedImages[i],
+          `page-${pageNumbers[i]}.png`,
+          'image/png'
+        );
+        downloadedFiles.push(publicPath);
+      }
+      
+      setExporting(false);
+      
+      // Step 3: Show success and offer to open folder
+      Alert.alert(
+        '✅ Export Complete',
+        `${downloadedFiles.length} pages saved to Downloads/PDFDemoApp`,
+        [
+          { text: 'Done', style: 'cancel' },
+          {
+            text: 'Open Folder',
+            onPress: async () => {
+              try {
+                await FileManager.openDownloadsFolder();
+              } catch (e) {
+                Alert.alert('Info', 'Check Downloads/PDFDemoApp folder');
+              }
+            }
+          }
+        ]
+      );
+      
+    } catch (error) {
+      setExporting(false);
+      Alert.alert('Export Failed', error.message);
+    }
+  };
+
+  return (
+    <View>
+      <Button
+        title={exporting ? 'Exporting...' : 'Export Pages 1-3'}
+        onPress={() => exportAndDownloadPages('/path/to/file.pdf', [1, 2, 3])}
+        disabled={exporting}
+      />
+    </View>
+  );
+};
+
+export default ExportAndDownload;
+```
+
+### Android Permissions
+
+For Android 10+ (API 29+), the MediaStore API doesn't require `WRITE_EXTERNAL_STORAGE` permission for adding files to public Downloads folder. However, for Android 9 and below, you may need to add:
+
+```xml
+<!-- android/app/src/main/AndroidManifest.xml -->
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+```
+
+### Customization
+
+You can customize the folder name by modifying the `FOLDER_NAME` constant in the native modules:
+
+```java
+// android/src/main/java/org/wonday/pdf/FileDownloader.java
+private static final String FOLDER_NAME = "YourAppName"; // Change this
+```
+
+```java
+// android/src/main/java/org/wonday/pdf/FileManager.java
+private static final String FOLDER_NAME = "YourAppName"; // Change this
+```
+
 ## 🛡️ **ProGuard Configuration (Required for Production)**
 
 **IMPORTANT**: For production builds, you MUST add ProGuard rules to prevent obfuscation of JSI classes. Without these rules, your app will crash in release mode.
@@ -979,10 +1103,10 @@ This package is not available in the [Expo Go](https://expo.dev/client) app. Lea
   <summary>FAQ details</summary>
 
 Q1. After installation and running, I can not see the pdf file.  
-A1: maybe you forgot to execute ```react-native link``` or it does not run correctly.
+A1: maybe you forgot to excute ```react-native link``` or it does not run correctly.
 You can add it manually. For detail you can see the issue [`#24`](https://github.com/wonday/react-native-pdf/issues/24) and [`#2`](https://github.com/wonday/react-native-pdf/issues/2)
 
-Q2. When running, it shows ```'Pdf' has no propType for native prop RCTPdf.accessibilityLabel of native type 'String'```  
+Q2. When running, it shows ```'Pdf' has no propType for native prop RCTPdf.acessibilityLabel of native type 'String'```  
 A2. Your react-native version is too old, please upgrade it to 0.47.0+ see also [`#39`](https://github.com/wonday/react-native-pdf/issues/39)
 
 Q3. When I run the example app I get a white/gray screen / the loading bar isn't progressing .  
@@ -1625,10 +1749,10 @@ export default function LazyLoadingExample() {
 | style                          |                            object                             | {backgroundColor:"#eee"} | support normal view style, you can use this to set border/spacing color...                                                                                                    | ✔   | ✔       | ✔                           | <3.0 
 | progressContainerStyle         |                            object                             | {backgroundColor:"#eee"} | support normal view style, you can use this to set border/spacing color...                                                                                             | ✔   | ✔       | ✔                           | 6.9.0                     |
 | renderActivityIndicator        |                    (progress) => Component                    |      <ProgressBar/>      | when loading show it as an indicator, you can use your component                                                                                                              | ✔   | ✔       | ✖                           | <3.0                     |
-| enableAntialiasing             |                             bool                              |           true           | improve rendering a little bit on low-res screens, but may cause some problems on Android 4.4, so add a switch                                                              | ✖   | ✔       | ✖                           | <3.0                     |
+| enableAntialiasing             |                             bool                              |           true           | improve rendering a little bit on low-res screens, but maybe course some problem on Android 4.4, so add a switch                                                              | ✖   | ✔       | ✖                           | <3.0                     |
 | enablePaging                   |                             bool                              |          false           | only show one page in screen                                                                                                                                                  | ✔   | ✔       | ✔                           | 5.0.1                    |
 | enableRTL                      |                             bool                              |          false           | scroll page as "page3, page2, page1"                                                                                                                                          | ✔   | ✖       | ✔                           | 5.0.1                    |
-| enableAnnotationRendering      |                             bool                              |           true           | enable rendering annotation, notice: iOS only supports initial setting, not real-time changing                                                                            | ✔   | ✔       | ✖                           | 5.0.3                    |
+| enableAnnotationRendering      |                             bool                              |           true           | enable rendering annotation, notice:iOS only support initial setting,not support realtime changing                                                                            | ✔   | ✔       | ✖                           | 5.0.3                    |
 | enableDoubleTapZoom            |                             bool                              |           true           | Enable double tap to zoom gesture                                                                                                                                             | ✔   | ✔       | ✖                           | 6.8.0                    |
 | trustAllCerts                  |                             bool                              |           true           | Allow connections to servers with self-signed certification                                                                                                                   | ✔   | ✔       | ✖                           | 6.0.?                    |
 | singlePage                     |                             bool                              |          false           | Only show first page, useful for thumbnail views                                                                                                                              | ✔   | ✔       | ✔                           | 6.2.1                    |
@@ -1644,7 +1768,7 @@ export default function LazyLoadingExample() {
 
 | parameter    | Description | default | iOS | Android | Windows |
 | ------------ | ----------- | ------- | --- | ------- | ------- |
-| uri          | pdf source, see the following for detail.| required | ✔   | ✔ | ✔ |
+| uri          | pdf source, see the forllowing for detail.| required | ✔   | ✔ | ✔ |
 | cache        | use cache or not | false | ✔ | ✔ | ✖ |
 | cacheFileName | specific file name for cached pdf file | SHA1(uri) result | ✔ | ✔ | ✖ |
 | expiration   | cache file expired seconds (0 is not expired) | 0 | ✔ | ✔ | ✖ |
@@ -1734,11 +1858,20 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 📞 Support
 
-For issues and questions:
-- GitHub Issues: [react-native-enhanced-pdf](https://github.com/126punith/react-native-enhanced-pdf)
-- Performance Issues: Include JSI stats and performance history
-- Build Issues: Include CMake logs and Android NDK version
-- Contact: punithm300@gmail.com
+**📚 Documentation Website**: https://euphonious-faun-24f4bc.netlify.app/
+
+Get help with:
+- **📖 Complete Guides**: https://euphonious-faun-24f4bc.netlify.app/docs/getting-started/installation
+- **🔧 API Reference**: https://euphonious-faun-24f4bc.netlify.app/docs/api/pdf-component
+- **💡 Working Examples**: https://euphonious-faun-24f4bc.netlify.app/docs/examples/basic-viewer
+- **🐛 GitHub Issues**: https://github.com/126punith/react-native-enhanced-pdf/issues
+- **💬 Discussions**: https://github.com/126punith/react-native-enhanced-pdf/discussions
+- **📧 Email**: punithm300@gmail.com
+
+For bug reports, include:
+- JSI stats and performance history
+- CMake logs and Android NDK version
+- Platform and React Native version
 
 ---
 
@@ -1747,4 +1880,6 @@ For issues and questions:
 *Transform your PDF viewing experience with enterprise-grade performance and reliability.*
 
 **v2.2.7 - iOS Codegen Fix & New Architecture Support**  
-**Copyright (c) 2025-present, Punith M (punithm300@gmail.com). All rights reserved.**
+**Copyright (c) 2025-present, Punith M (punithm300@gmail.com). Enhanced PDF JSI Integration. All rights reserved.**
+
+*Original work Copyright (c) 2017-present, Wonday (@wonday.org). All rights reserved.*

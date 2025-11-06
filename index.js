@@ -601,3 +601,61 @@ const styles = StyleSheet.create({
         height: 2
     }
 });
+
+// ========================================
+// TIER 2: Low-Level API (Managers)
+// ========================================
+
+import ExportManager from './src/managers/ExportManager';
+import BookmarkManager from './src/managers/BookmarkManager';
+import AnalyticsManager from './src/managers/AnalyticsManager';
+import FileManager from './src/managers/FileManager';
+
+export {
+    ExportManager,
+    BookmarkManager,
+    AnalyticsManager,
+    FileManager
+};
+
+// ========================================
+// TIER 3: Pre-built UI Components
+// ========================================
+
+import Toolbar from './src/components/Toolbar';
+import BookmarkModal from './src/components/BookmarkModal';
+import BookmarkListModal from './src/components/BookmarkListModal';
+import BookmarkIndicator from './src/components/BookmarkIndicator';
+import ExportMenu from './src/components/ExportMenu';
+import OperationsMenu from './src/components/OperationsMenu';
+import AnalyticsPanel from './src/components/AnalyticsPanel';
+import Toast from './src/components/Toast';
+import LoadingOverlay from './src/components/LoadingOverlay';
+import BottomSheet from './src/components/BottomSheet';
+import SidePanel from './src/components/SidePanel';
+
+export {
+    Toolbar,
+    BookmarkModal,
+    BookmarkListModal,
+    BookmarkIndicator,
+    ExportMenu,
+    OperationsMenu,
+    AnalyticsPanel,
+    Toast,
+    LoadingOverlay,
+    BottomSheet,
+    SidePanel
+};
+
+// ========================================
+// TIER 4: Utility Modules
+// ========================================
+
+import ErrorHandler from './src/utils/ErrorHandler';
+import TestData from './src/utils/TestData';
+
+export {
+    ErrorHandler,
+    TestData
+};
