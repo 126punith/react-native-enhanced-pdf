@@ -1,8 +1,8 @@
 # react-native-pdf-jsi 🚀
 
 [![npm version](https://img.shields.io/npm/v/react-native-pdf-jsi?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
-[![npm](https://img.shields.io/npm/dt/react-native-pdf-jsi.svg?style=for-the-badge&logo=npm&color=cb3837&label=downloads)](https://www.npmjs.com/package/react-native-pdf-jsi)
-[![npm](https://img.shields.io/npm/dw/react-native-pdf-jsi.svg?style=for-the-badge&logo=npm&color=cb3837&label=weekly)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![total downloads](https://badgen.net/npm/dt/react-native-pdf-jsi?style=for-the-badge&icon=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![weekly downloads](https://img.shields.io/npm/dw/react-native-pdf-jsi?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
 [![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-enhanced-pdf?style=for-the-badge&logo=github&color=181717)](https://github.com/126punith/react-native-enhanced-pdf)
 [![license](https://img.shields.io/npm/l/react-native-pdf-jsi?style=for-the-badge&color=green)](https://github.com/126punith/react-native-enhanced-pdf/blob/main/LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-online-blue?style=for-the-badge&logo=readthedocs&logoColor=white)](https://euphonious-faun-24f4bc.netlify.app/)
