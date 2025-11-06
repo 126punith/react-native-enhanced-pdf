@@ -1,9 +1,10 @@
 # react-native-pdf-jsi 🚀
 
-[![npm](https://img.shields.io/npm/v/react-native-pdf-jsi.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pdf-jsi)
-[![Downloads](https://img.shields.io/npm/dm/react-native-pdf-jsi.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pdf-jsi)
-[![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-enhanced-pdf.svg?style=flat-square)](https://github.com/126punith/react-native-enhanced-pdf)
-[![Documentation](https://img.shields.io/badge/docs-online-blue.svg?style=flat-square)](https://euphonious-faun-24f4bc.netlify.app/)
+[![npm version](https://img.shields.io/npm/v/react-native-pdf-jsi?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![npm downloads](https://img.shields.io/npm/dt/react-native-pdf-jsi?style=for-the-badge&logo=npm&label=total%20downloads)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![weekly downloads](https://img.shields.io/npm/dw/react-native-pdf-jsi?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-enhanced-pdf?style=for-the-badge&logo=github)](https://github.com/126punith/react-native-enhanced-pdf)
+[![Documentation](https://img.shields.io/badge/docs-online-blue?style=for-the-badge&logo=readthedocs&logoColor=white)](https://euphonious-faun-24f4bc.netlify.app/)
 
 **The fastest React Native PDF viewer with JSI acceleration - up to 80x faster than traditional bridge!**
 
