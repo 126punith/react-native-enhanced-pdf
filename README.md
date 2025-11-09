@@ -1,10 +1,18 @@
 # react-native-pdf-jsi 🚀
 
+## 🎥 Watch the Demo
+
+[![Watch the demo](https://img.youtube.com/vi/OmCUq9wLoHo/maxresdefault.jpg)](https://www.youtube.com/shorts/OmCUq9wLoHo)
+
+**[▶️ Watch on YouTube Shorts](https://www.youtube.com/shorts/OmCUq9wLoHo)**
+
+---
+
 [![npm version](https://img.shields.io/npm/v/react-native-pdf-jsi?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
 [![total downloads](https://badgen.net/npm/dt/react-native-pdf-jsi?style=for-the-badge&icon=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
 [![weekly downloads](https://img.shields.io/npm/dw/react-native-pdf-jsi?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
-[![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-enhanced-pdf?style=for-the-badge&logo=github&color=181717)](https://github.com/126punith/react-native-enhanced-pdf)
-[![license](https://img.shields.io/npm/l/react-native-pdf-jsi?style=for-the-badge&color=green)](https://github.com/126punith/react-native-enhanced-pdf/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-pdf-jsi?style=for-the-badge&logo=github&color=181717)](https://github.com/126punith/react-native-pdf-jsi)
+[![license](https://img.shields.io/npm/l/react-native-pdf-jsi?style=for-the-badge&color=green)](https://github.com/126punith/react-native-pdf-jsi/blob/main/LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-online-blue?style=for-the-badge&logo=readthedocs&logoColor=white)](https://euphonious-faun-24f4bc.netlify.app/)
 
 **The fastest React Native PDF viewer with JSI acceleration - up to 80x faster than traditional bridge!**
@@ -1852,9 +1860,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🔗 Links
 
-- 📖 [Documentation](https://github.com/126punith/react-native-enhanced-pdf/wiki)
-- 🐛 [Report Issues](https://github.com/126punith/react-native-enhanced-pdf/issues)
-- 💬 [Discussions](https://github.com/126punith/react-native-enhanced-pdf/discussions)
+- 📖 [Documentation](https://github.com/126punith/react-native-pdf-jsi/wiki)
+- 🐛 [Report Issues](https://github.com/126punith/react-native-pdf-jsi/issues)
+- 💬 [Discussions](https://github.com/126punith/react-native-pdf-jsi/discussions)
 - 📦 [NPM Package](https://www.npmjs.com/package/react-native-pdf-jsi)
 - 🚀 [JSI Documentation](README_JSI.md)
 
@@ -1866,8 +1874,8 @@ Get help with:
 - **📖 Complete Guides**: https://euphonious-faun-24f4bc.netlify.app/docs/getting-started/installation
 - **🔧 API Reference**: https://euphonious-faun-24f4bc.netlify.app/docs/api/pdf-component
 - **💡 Working Examples**: https://euphonious-faun-24f4bc.netlify.app/docs/examples/basic-viewer
-- **🐛 GitHub Issues**: https://github.com/126punith/react-native-enhanced-pdf/issues
-- **💬 Discussions**: https://github.com/126punith/react-native-enhanced-pdf/discussions
+- **🐛 GitHub Issues**: https://github.com/126punith/react-native-pdf-jsi/issues
+- **💬 Discussions**: https://github.com/126punith/react-native-pdf-jsi/discussions
 - **📧 Email**: punithm300@gmail.com
 
 For bug reports, include:
