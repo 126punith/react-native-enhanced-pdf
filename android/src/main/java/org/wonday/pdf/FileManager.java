@@ -9,6 +9,8 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
 
 /**
  * FileManager - Native module for file operations like opening folders
@@ -115,9 +117,100 @@ public class FileManager extends ReactContextBaseJavaModule {
             promise.reject("OPEN_FOLDER_ERROR", e.getMessage());
         }
     }
+
+    /**
+     * Check if a file exists at the given path
+     */
+    @ReactMethod
+    public void fileExists(String filePath, Promise promise) {
+        long startTime = System.currentTimeMillis();
+        try {
+            Log.i(TAG, "[PERF] [fileExists] 🔵 ENTER - path: " + filePath);
+            
+            long validationStart = System.currentTimeMillis();
+            if (filePath == null || filePath.trim().isEmpty()) {
+                Log.e(TAG, "[PERF] [fileExists] ❌ Invalid path (empty)");
+                promise.reject("INVALID_PATH", "File path cannot be empty");
+                return;
+            }
+            long validationTime = System.currentTimeMillis() - validationStart;
+            Log.i(TAG, "[PERF] [fileExists]   Validation: " + validationTime + "ms");
+            
+            long fileAccessStart = System.currentTimeMillis();
+            File file = new File(filePath);
+            boolean exists = file.exists();
+            long fileAccessTime = System.currentTimeMillis() - fileAccessStart;
+            
+            long totalTime = System.currentTimeMillis() - startTime;
+            
+            Log.i(TAG, "[PERF] [fileExists]   File Access: " + fileAccessTime + "ms");
+            Log.i(TAG, "[PERF] [fileExists]   Result: " + exists);
+            Log.i(TAG, "[PERF] [fileExists] 🔴 EXIT - Total: " + totalTime + "ms");
+            
+            promise.resolve(exists);
+        } catch (Exception e) {
+            long totalTime = System.currentTimeMillis() - startTime;
+            Log.e(TAG, "[PERF] [fileExists] ❌ ERROR after " + totalTime + "ms", e);
+            promise.reject("FILE_EXISTS_ERROR", e.getMessage());
+        }
+    }
+
+    /**
+     * Get file size and metadata
+     */
+    @ReactMethod
+    public void getFileSize(String filePath, Promise promise) {
+        long startTime = System.currentTimeMillis();
+        try {
+            Log.i(TAG, "[PERF] [getFileSize] 🔵 ENTER");
+            Log.i(TAG, "[PERF] [getFileSize]   Path: " + filePath);
+            Log.i(TAG, "[PERF] [getFileSize]   Path length: " + (filePath != null ? filePath.length() : 0));
+            
+            long fileCreateStart = System.currentTimeMillis();
+            File file = new File(filePath);
+            long fileCreateTime = System.currentTimeMillis() - fileCreateStart;
+            Log.i(TAG, "[PERF] [getFileSize]   File object creation: " + fileCreateTime + "ms");
+            
+            long existsCheckStart = System.currentTimeMillis();
+            boolean exists = file.exists();
+            long existsCheckTime = System.currentTimeMillis() - existsCheckStart;
+            Log.i(TAG, "[PERF] [getFileSize]   Exists check: " + existsCheckTime + "ms, result: " + exists);
+            
+            if (!exists) {
+                long totalTime = System.currentTimeMillis() - startTime;
+                Log.w(TAG, "[PERF] [getFileSize] ⚠️ File not found after " + totalTime + "ms");
+                promise.reject("FILE_NOT_FOUND", "File does not exist: " + filePath);
+                return;
+            }
+            
+            long sizeCheckStart = System.currentTimeMillis();
+            long sizeBytes = file.length();
+            long sizeCheckTime = System.currentTimeMillis() - sizeCheckStart;
+            double sizeMB = sizeBytes / (1024.0 * 1024.0);
+            Log.i(TAG, "[PERF] [getFileSize]   Size retrieval: " + sizeCheckTime + "ms");
+            Log.i(TAG, "[PERF] [getFileSize]   Size: " + sizeBytes + " bytes (" + String.format("%.2f", sizeMB) + " MB)");
+            
+            long resultBuildStart = System.currentTimeMillis();
+            WritableMap result = Arguments.createMap();
+            result.putString("size", String.valueOf(sizeBytes));
+            result.putDouble("sizeMB", sizeMB);
+            result.putString("path", filePath);
+            result.putBoolean("exists", true);
+            long resultBuildTime = System.currentTimeMillis() - resultBuildStart;
+            Log.i(TAG, "[PERF] [getFileSize]   Result build: " + resultBuildTime + "ms");
+            
+            long totalTime = System.currentTimeMillis() - startTime;
+            Log.i(TAG, "[PERF] [getFileSize] 🔴 EXIT - Total: " + totalTime + "ms");
+            Log.i(TAG, "[PERF] [getFileSize]   Breakdown: create=" + fileCreateTime + "ms, exists=" + existsCheckTime + "ms, size=" + sizeCheckTime + "ms, build=" + resultBuildTime + "ms");
+            
+            promise.resolve(result);
+        } catch (Exception e) {
+            long totalTime = System.currentTimeMillis() - startTime;
+            Log.e(TAG, "[PERF] [getFileSize] ❌ ERROR after " + totalTime + "ms", e);
+            Log.e(TAG, "[PERF] [getFileSize]   Exception type: " + e.getClass().getName());
+            Log.e(TAG, "[PERF] [getFileSize]   Message: " + e.getMessage());
+            promise.reject("FILE_SIZE_ERROR", e.getMessage());
+        }
+    }
 }
-
-
-
-
 

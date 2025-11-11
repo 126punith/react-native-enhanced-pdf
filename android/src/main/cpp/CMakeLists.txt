@@ -58,16 +58,29 @@ target_compile_definitions(
     -DANDROID_16KB_PAGES=ON
 )
 
-# Optimization flags
+# Optimization flags - Enhanced for maximum performance
 target_compile_options(
     pdfjsi
     PRIVATE
-    -O3
-    -ffast-math
-    -funroll-loops
-    -fomit-frame-pointer
-    -fvisibility=hidden
+    -O3                      # Maximum optimization
+    -ffast-math             # Fast floating-point operations
+    -funroll-loops          # Loop unrolling
+    -fomit-frame-pointer    # Remove frame pointer
+    -fvisibility=hidden     # Hide symbols by default
+    -flto                   # Link-time optimization
+    -finline-functions      # Aggressive inlining
+    -fno-exceptions         # Disable exceptions (if not needed)
+    -fno-rtti              # Disable RTTI (if not needed)
 )
+
+# Architecture-specific optimizations (conditional to prevent ARMv7 build errors)
+if(ANDROID_ABI STREQUAL "arm64-v8a")
+    target_compile_options(
+        pdfjsi
+        PRIVATE
+        -march=armv8-a+simd    # ARM SIMD instructions (ARMv8 only)
+    )
+endif()
 
 # 16KB page size alignment for shared objects
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,max-page-size=16384")

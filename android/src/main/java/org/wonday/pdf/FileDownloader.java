@@ -22,8 +22,11 @@ import com.facebook.react.bridge.ReactMethod;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * FileDownloader - Native module for downloading files to public storage using MediaStore API
@@ -284,9 +287,191 @@ public class FileDownloader extends ReactContextBaseJavaModule {
             // Don't throw - notification is non-critical
         }
     }
+
+    /**
+     * Download file from URL to public storage
+     * 
+     * @param url URL to download from
+     * @param fileName Name for the downloaded file
+     * @param mimeType MIME type
+     * @param promise Promise to resolve with downloaded file path
+     */
+    @ReactMethod
+    public void downloadFile(String url, String fileName, String mimeType, Promise promise) {
+        new Thread(() -> {
+            long overallStart = System.currentTimeMillis();
+            try {
+                Log.i(TAG, "[PERF] [downloadFile] 🔵 ENTER");
+                Log.i(TAG, "[PERF] [downloadFile]   URL: " + url);
+                Log.i(TAG, "[PERF] [downloadFile]   FileName: " + fileName);
+                Log.i(TAG, "[PERF] [downloadFile]   MimeType: " + mimeType);
+                Log.i(TAG, "📥 [DOWNLOAD_URL] START - url: " + url);
+                
+                // Validate URL
+                long validationStart = System.currentTimeMillis();
+                if (url == null || url.trim().isEmpty()) {
+                    Log.e(TAG, "[PERF] [downloadFile] ❌ Validation failed - empty URL");
+                    Log.e(TAG, "❌ [DOWNLOAD_URL] Empty URL");
+                    promise.reject("INVALID_URL", "URL cannot be empty");
+                    return;
+                }
+                long validationTime = System.currentTimeMillis() - validationStart;
+                Log.i(TAG, "[PERF] [downloadFile]   URL validation: " + validationTime + "ms");
+                
+                // Check for special URL types
+                if (url.equals("duplicate-current")) {
+                    Log.e(TAG, "❌ [DOWNLOAD_URL] Special URL type not handled here");
+                    promise.reject("SPECIAL_URL", "PDF duplication must be handled in React Native layer");
+                    return;
+                }
+                
+                if (url.equals("custom-url")) {
+                    Log.e(TAG, "❌ [DOWNLOAD_URL] Custom URL requires user input");
+                    promise.reject("CUSTOM_URL_REQUIRED", "Please provide a custom URL");
+                    return;
+                }
+                
+                // Validate HTTP/HTTPS URL
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                    Log.e(TAG, "❌ [DOWNLOAD_URL] Invalid URL protocol: " + url);
+                    promise.reject("INVALID_PROTOCOL", "URL must start with http:// or https://");
+                    return;
+                }
+                
+                // Create cache file
+                File cacheDir = reactContext.getCacheDir();
+                File outputFile = new File(cacheDir, fileName);
+                
+                // Download from URL
+                long connectionStart = System.currentTimeMillis();
+                URL downloadUrl = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) downloadUrl.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(30000);
+                connection.setReadTimeout(30000);
+                long connectStart = System.currentTimeMillis();
+                connection.connect();
+                long connectionTime = System.currentTimeMillis() - connectionStart;
+                long connectTime = System.currentTimeMillis() - connectStart;
+                
+                Log.i(TAG, "[PERF] [downloadFile]   Connection setup: " + (connectionTime - connectTime) + "ms");
+                Log.i(TAG, "[PERF] [downloadFile]   Connect call: " + connectTime + "ms");
+                Log.i(TAG, "[PERF] [downloadFile]   Total connection: " + connectionTime + "ms");
+                
+                long responseStart = System.currentTimeMillis();
+                int responseCode = connection.getResponseCode();
+                long responseTime = System.currentTimeMillis() - responseStart;
+                Log.i(TAG, "[PERF] [downloadFile]   Response code retrieval: " + responseTime + "ms, code: " + responseCode);
+                if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+                    Log.e(TAG, "❌ [DOWNLOAD_URL] HTTP 404 - File not found");
+                    promise.reject("FILE_NOT_FOUND", "URL not accessible (404). The file may have been removed or the URL is incorrect. Try the Custom URL option with a different link.");
+                    return;
+                } else if (responseCode == HttpURLConnection.HTTP_FORBIDDEN) {
+                    Log.e(TAG, "❌ [DOWNLOAD_URL] HTTP 403 - Access forbidden");
+                    promise.reject("ACCESS_FORBIDDEN", "URL not accessible (403). The server is blocking access. Try the Custom URL option with a different link.");
+                    return;
+                } else if (responseCode != HttpURLConnection.HTTP_OK) {
+                    Log.e(TAG, "❌ [DOWNLOAD_URL] HTTP error: " + responseCode);
+                    promise.reject("DOWNLOAD_FAILED", "HTTP error " + responseCode + ". Try the Custom URL option with a different link.");
+                    return;
+                }
+                
+                long fileSizeStart = System.currentTimeMillis();
+                long fileSize = connection.getContentLength();
+                long fileSizeTime = System.currentTimeMillis() - fileSizeStart;
+                Log.i(TAG, "[PERF] [downloadFile]   Content length retrieval: " + fileSizeTime + "ms");
+                Log.i(TAG, "📁 [DOWNLOAD_URL] File size: " + fileSize + " bytes (" + (fileSize / 1024 / 1024) + " MB)");
+                
+                // Download to cache
+                long downloadStart = System.currentTimeMillis();
+                long lastProgressLog = downloadStart;
+                long chunkCount = 0;
+                
+                try (InputStream input = connection.getInputStream();
+                     FileOutputStream output = new FileOutputStream(outputFile)) {
+                    
+                    byte[] buffer = new byte[8192];
+                    long downloaded = 0;
+                    int bytesRead;
+                    long readStart = System.currentTimeMillis();
+                    
+                    while ((bytesRead = input.read(buffer)) != -1) {
+                        long writeStart = System.currentTimeMillis();
+                        output.write(buffer, 0, bytesRead);
+                        long writeTime = System.currentTimeMillis() - writeStart;
+                        
+                        downloaded += bytesRead;
+                        chunkCount++;
+                        
+                        // Log chunk performance every 1000 chunks or 10MB
+                        if (chunkCount % 1000 == 0 || downloaded % (10 * 1024 * 1024) < 8192) {
+                            long currentTime = System.currentTimeMillis();
+                            long chunkElapsed = currentTime - lastProgressLog;
+                            long progress = (downloaded * 100) / fileSize;
+                            double currentSpeedMBps = (downloaded / 1024.0 / 1024.0) / ((currentTime - downloadStart) / 1000.0);
+                            
+                            Log.i(TAG, "[PERF] [downloadFile]   Chunk #" + chunkCount + " - write: " + writeTime + "ms");
+                            Log.i(TAG, "📥 [DOWNLOAD_URL] Progress: " + progress + "% (" + (downloaded / 1024 / 1024) + " MB)");
+                            Log.i(TAG, "[PERF] [downloadFile]   Speed: " + String.format("%.2f", currentSpeedMBps) + " MB/s");
+                            
+                            lastProgressLog = currentTime;
+                        }
+                    }
+                    
+                    long downloadTime = System.currentTimeMillis() - downloadStart;
+                    double avgSpeedMBps = (downloaded / 1024.0 / 1024.0) / (downloadTime / 1000.0);
+                    Log.i(TAG, "[PERF] [downloadFile]   Download complete: " + downloadTime + "ms");
+                    Log.i(TAG, "[PERF] [downloadFile]   Total chunks: " + chunkCount);
+                    Log.i(TAG, "[PERF] [downloadFile]   Avg speed: " + String.format("%.2f", avgSpeedMBps) + " MB/s");
+                }
+                
+                Log.i(TAG, "✅ [DOWNLOAD_URL] Downloaded to cache: " + outputFile.getAbsolutePath());
+                Log.i(TAG, "📁 [DOWNLOAD_URL] File size: " + outputFile.length() + " bytes");
+                
+                // Now move to public storage
+                long mediaStoreStart = System.currentTimeMillis();
+                String publicPath = downloadUsingMediaStore(outputFile, fileName, mimeType);
+                long mediaStoreTime = System.currentTimeMillis() - mediaStoreStart;
+                Log.i(TAG, "[PERF] [downloadFile]   MediaStore copy: " + mediaStoreTime + "ms");
+                
+                // Return public path
+                long resultBuildStart = System.currentTimeMillis();
+                com.facebook.react.bridge.WritableMap result = com.facebook.react.bridge.Arguments.createMap();
+                result.putString("path", outputFile.getAbsolutePath()); // Return cache path for compression test
+                result.putString("publicPath", publicPath);
+                result.putString("size", String.valueOf(outputFile.length()));
+                long resultBuildTime = System.currentTimeMillis() - resultBuildStart;
+                Log.i(TAG, "[PERF] [downloadFile]   Result build: " + resultBuildTime + "ms");
+                
+                long totalTime = System.currentTimeMillis() - overallStart;
+                Log.i(TAG, "[PERF] [downloadFile] 🔴 EXIT - Total: " + totalTime + "ms");
+                Log.i(TAG, "✅ [DOWNLOAD_URL] SUCCESS - Cache: " + outputFile.getAbsolutePath());
+                
+                promise.resolve(result);
+                
+            } catch (java.net.UnknownHostException e) {
+                long totalTime = System.currentTimeMillis() - overallStart;
+                Log.e(TAG, "[PERF] [downloadFile] ❌ Network ERROR after " + totalTime + "ms");
+                Log.e(TAG, "❌ [DOWNLOAD_URL] Network error: " + e.getMessage());
+                promise.reject("NETWORK_ERROR", "Check your internet connection. Unable to reach: " + url);
+            } catch (java.net.SocketTimeoutException e) {
+                long totalTime = System.currentTimeMillis() - overallStart;
+                Log.e(TAG, "[PERF] [downloadFile] ❌ TIMEOUT after " + totalTime + "ms");
+                Log.e(TAG, "❌ [DOWNLOAD_URL] Timeout: " + e.getMessage());
+                promise.reject("TIMEOUT", "Download timed out. The file may be too large or connection too slow.");
+            } catch (java.net.MalformedURLException e) {
+                long totalTime = System.currentTimeMillis() - overallStart;
+                Log.e(TAG, "[PERF] [downloadFile] ❌ URL ERROR after " + totalTime + "ms");
+                Log.e(TAG, "❌ [DOWNLOAD_URL] Invalid URL format: " + e.getMessage());
+                promise.reject("INVALID_URL", "Invalid URL format. Please check the URL and try again.");
+            } catch (Exception e) {
+                long totalTime = System.currentTimeMillis() - overallStart;
+                Log.e(TAG, "[PERF] [downloadFile] ❌ ERROR after " + totalTime + "ms");
+                Log.e(TAG, "[PERF] [downloadFile]   Exception: " + e.getClass().getName());
+                Log.e(TAG, "[PERF] [downloadFile]   Message: " + e.getMessage());
+                Log.e(TAG, "❌ [DOWNLOAD_URL] Error: " + e.getMessage(), e);
+                promise.reject("DOWNLOAD_ERROR", "Download failed: " + e.getMessage());
+            }
+        }).start();
+    }
 }
-
-
-
-
-
