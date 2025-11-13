@@ -75,9 +75,15 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
     private FitPolicy fitPolicy = FitPolicy.WIDTH;
     private boolean singlePage = false;
     private boolean scrollEnabled = true;
+    
+    private String decelerationRate = "normal"; // "normal", "fast", "slow"
 
     private float originalWidth = 0;
     private float lastPageWidth = 0;
+    
+    // Track if document needs reload (FIX: Prevent recreation on prop changes)
+    private boolean needsReload = true;
+    private String lastLoadedPath = null;
     private float lastPageHeight = 0;
 
     // used to store the parameters for `super.onSizeChanged`
@@ -279,6 +285,17 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
     }
 
     public void drawPdf() {
+        
+        // FIX: Check if we actually need to reload the document
+        // Only reload if path changed or this is first load
+        if (!needsReload && this.path != null && this.path.equals(lastLoadedPath)) {
+            showLog(format("drawPdf: Skipping reload, path unchanged: %s", this.path));
+            // Just jump to the page if needed, dont reload entire document
+            if (this.page > 0 && !this.isRecycled()) {
+                this.jumpTo(this.page - 1, false);
+            }
+            return;
+        }
         showLog(format("drawPdf path:%s %s", this.path, this.page));
 
         if (this.path != null){
@@ -333,6 +350,10 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
             }
 
             configurator.load();
+            
+            // Mark as loaded, clear reload flag
+            lastLoadedPath = this.path;
+            needsReload = false;
         }
     }
 
@@ -341,6 +362,8 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
     }
 
     public void setPath(String path) {
+        // Path changed - need to reload document
+        needsReload = true;
         this.path = path;
     }
 
@@ -419,6 +442,12 @@ public class PdfView extends PDFView implements OnPageChangeListener,OnLoadCompl
     public void setSinglePage(boolean singlePage) {
         this.singlePage = singlePage;
     }
+    
+    /**
+    
+    /**
+    
+    /**
 
     /**
      * @see https://github.com/barteksc/AndroidPdfViewer/blob/master/android-pdf-viewer/src/main/java/com/github/barteksc/pdfviewer/link/DefaultLinkHandler.java

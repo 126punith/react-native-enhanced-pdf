@@ -39,6 +39,9 @@ export interface PdfProps {
     showsHorizontalScrollIndicator?: boolean,
     showsVerticalScrollIndicator?: boolean,
     scrollEnabled?: boolean,
+    /**
+    /**
+    /**
     spacing?: number,
     password?: string,
     renderActivityIndicator?: (progress: number) => React.ReactElement,
@@ -70,3 +73,127 @@ declare class Pdf extends React.Component<PdfProps, any> {
 }
 
 export default Pdf;
+
+// ========================================
+// PDFCache (Streaming Base64 Decoder)
+// ========================================
+
+/**
+ * Cache info returned from storage operations
+ */
+export interface CacheInfo {
+    cacheId: string;
+    filePath: string;
+    fileSize: number;
+    createdAt: number;
+    lastAccessed?: number;
+    expired?: boolean;
+}
+
+/**
+ * Options for storing base64 PDF with streaming decoder
+ */
+export interface StoreBase64Options {
+    /**
+     * Base64 PDF data (with or without data URI prefix)
+     */
+    base64: string;
+    /**
+     * Custom cache identifier (optional, auto-generated if not provided)
+     */
+    identifier?: string;
+    /**
+     * Cache TTL in milliseconds
+     * @default 2592000000 (30 days)
+     */
+    maxAge?: number;
+    /**
+     * Maximum cache size in bytes
+     * @default 524288000 (500MB)
+     */
+    maxSize?: number;
+    /**
+     * Progress callback (0.0 to 1.0)
+     */
+    onProgress?: (progress: number) => void;
+}
+
+/**
+ * Cache statistics
+ */
+export interface CacheStats {
+    totalSize: number;
+    fileCount: number;
+    hitRate: number;
+    cacheHits: number;
+    cacheMisses: number;
+    averageLoadTime: number;
+}
+
+/**
+ * PDFCache Manager for streaming base64 decoding
+ * Eliminates OOM crashes with large PDFs (60MB-200MB+)
+ */
+export interface PDFCacheManager {
+    /**
+     * Store base64 PDF with streaming decoder (O(1) constant memory)
+     * @param options Storage options
+     * @returns Promise resolving to cache info
+     */
+    storeBase64(options: StoreBase64Options): Promise<CacheInfo>;
+    
+    /**
+     * Get cached PDF by identifier
+     * @param identifier Cache identifier
+     * @returns Promise resolving to cache info or null if not found
+     */
+    get(identifier: string): Promise<CacheInfo | null>;
+    
+    /**
+     * Check if PDF is cached and not expired
+     * @param identifier Cache identifier
+     * @returns Promise resolving to true if cached and valid
+     */
+    has(identifier: string): Promise<boolean>;
+    
+    /**
+     * Remove cached PDF
+     * @param identifier Cache identifier
+     * @returns Promise resolving to true if removed successfully
+     */
+    remove(identifier: string): Promise<boolean>;
+    
+    /**
+     * Clear all cached PDFs
+     */
+    clear(): Promise<void>;
+    
+    /**
+     * Clear expired PDFs only
+     * @returns Promise resolving to number of entries removed
+     */
+    clearExpired(): Promise<number>;
+    
+    /**
+     * Get cache statistics
+     * @returns Promise resolving to cache stats
+     */
+    getStats(): Promise<CacheStats>;
+    
+    /**
+     * Estimate decoded size from base64 length
+     * @param base64Length Length of base64 string
+     * @returns Estimated decoded size in bytes
+     */
+    estimateDecodedSize(base64Length: number): number;
+}
+
+/**
+ * PDFCache singleton instance
+ */
+export const PDFCache: PDFCacheManager;
+
+/**
+ * CacheManager (alias for PDFCache)
+ */
+export const CacheManager: PDFCacheManager;

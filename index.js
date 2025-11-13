@@ -610,12 +610,17 @@ import ExportManager from './src/managers/ExportManager';
 import BookmarkManager from './src/managers/BookmarkManager';
 import AnalyticsManager from './src/managers/AnalyticsManager';
 import FileManager from './src/managers/FileManager';
+import CacheManager from './src/managers/CacheManager';
+
+// Alias for backward compatibility and intuitive naming
+export const PDFCache = CacheManager;
 
 export {
     ExportManager,
     BookmarkManager,
     AnalyticsManager,
-    FileManager
+    FileManager,
+    CacheManager
 };
 
 // ========================================

@@ -153,7 +153,7 @@ public class PdfManager extends SimpleViewManager<PdfView> implements RNPDFPdfVi
     public void setSinglePage(PdfView pdfView, boolean singlePage) {
         pdfView.setSinglePage(singlePage);
     }
-
+    
     // It seems funny, but this method is called through delegate on Paper, but on Fabric we need to
     // use `receiveCommand` method and call this one there
     @Override
@@ -174,7 +174,8 @@ public class PdfManager extends SimpleViewManager<PdfView> implements RNPDFPdfVi
     @Override
     public void onAfterUpdateTransaction(PdfView pdfView) {
         super.onAfterUpdateTransaction(pdfView);
-        pdfView.drawPdf();
+        // Removed pdfView.drawPdf() - PdfView now manages reload internally
+        // to prevent unnecessary document recreation on scroll/prop updates
     }
 
 }

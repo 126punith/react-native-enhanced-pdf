@@ -195,6 +195,20 @@ using namespace facebook::react;
         _scrollEnabled = newProps.scrollEnabled;
         [updatedPropNames addObject:@"scrollEnabled"];
     }
+    
+    // Scroll control properties (Issue #607)
+    if (_scrollVelocity != newProps.scrollVelocity) {
+        _scrollVelocity = newProps.scrollVelocity;
+        [updatedPropNames addObject:@"scrollVelocity"];
+    }
+    if (_enableMomentum != newProps.enableMomentum) {
+        _enableMomentum = newProps.enableMomentum;
+        [updatedPropNames addObject:@"enableMomentum"];
+    }
+    if (_decelerationRate != RCTNSStringFromStringNilIfEmpty(newProps.decelerationRate)) {
+        _decelerationRate = RCTNSStringFromStringNilIfEmpty(newProps.decelerationRate);
+        [updatedPropNames addObject:@"decelerationRate"];
+    }
 
     [super updateProps:props oldProps:oldProps];
     [self didSetProps:updatedPropNames];
@@ -284,6 +298,11 @@ using namespace facebook::react;
     _showsHorizontalScrollIndicator = YES;
     _showsVerticalScrollIndicator = YES;
     _scrollEnabled = YES;
+    
+    // Scroll control properties (Issue #607)
+    _scrollVelocity = 1.0f;
+    _enableMomentum = YES;
+    _decelerationRate = @"normal";
 
     // Enhanced properties
     _enableCaching = YES;
@@ -537,6 +556,33 @@ using namespace facebook::react;
                         UIScrollView *scrollView = (UIScrollView *)subview;
                         scrollView.scrollEnabled = NO;
                     }
+                }
+            }
+        }
+        
+        // Apply scroll control properties (Issue #607)
+        if (_pdfDocument && ([changedProps containsObject:@"path"] || 
+                             [changedProps containsObject:@"enableMomentum"] || 
+                             [changedProps containsObject:@"decelerationRate"])) {
+            for (UIView *subview in _pdfView.subviews) {
+                if ([subview isKindOfClass:[UIScrollView class]]) {
+                    UIScrollView *scrollView = (UIScrollView *)subview;
+                    
+                    // Apply momentum (bounces)
+                    scrollView.bounces = _enableMomentum;
+                    scrollView.alwaysBounceVertical = _enableMomentum;
+                    scrollView.alwaysBounceHorizontal = _enableMomentum;
+                    
+                    // Apply deceleration rate
+                    if ([_decelerationRate isEqualToString:@"fast"]) {
+                        scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+                    } else if ([_decelerationRate isEqualToString:@"slow"]) {
+                        scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+                    } else {
+                        scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+                    }
+                    
+                    NSLog(@"[RNPDFPdf] Applied scroll controls: momentum=%d, deceleration=%@", _enableMomentum, _decelerationRate);
                 }
             }
         }

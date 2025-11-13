@@ -2,16 +2,14 @@
 #import <PDFKit/PDFKit.h>
 #import <UIKit/UIKit.h>
 
-@implementation PDFExporter {
-    LicenseVerifier *_licenseVerifier;
-}
+@implementation PDFExporter
 
 RCT_EXPORT_MODULE();
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _licenseVerifier = [[LicenseVerifier alloc] init];
+        // All features are FREE - no license verification needed
     }
     return self;
 }
@@ -22,11 +20,7 @@ RCT_EXPORT_METHOD(exportToImages:(NSString *)filePath
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     
-    
-    if (![_licenseVerifier isProActive]) {
-        reject(@"LICENSE_REQUIRED", @"Export to Images requires a Pro license", nil);
-        return;
-    }
+    // All features are FREE - no license verification needed
     
     if (!filePath || filePath.length == 0) {
         reject(@"INVALID_PATH", @"File path is required", nil);
@@ -200,11 +194,7 @@ RCT_EXPORT_METHOD(mergePDFs:(NSArray *)filePaths
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     
-    // Check Pro license
-    if (![_licenseVerifier isProActive]) {
-        reject(@"LICENSE_REQUIRED", @"PDF Operations requires a Pro license", nil);
-        return;
-    }
+    // All features are FREE - no license verification needed
     
     if (!filePaths || filePaths.count < 2) {
         reject(@"INVALID_INPUT", @"At least 2 PDF files are required for merging", nil);
@@ -251,15 +241,7 @@ RCT_EXPORT_METHOD(splitPDF:(NSString *)filePath
     
     NSLog(@"✂️ [SPLIT] splitPDF - START - file: %@, ranges: %lu", filePath, (unsigned long)pageRanges.count);
     
-    // Check Pro license
-    BOOL licenseActive = [_licenseVerifier isProActive];
-    NSLog(@"🔑 [LICENSE] isProActive: %d", licenseActive);
-    
-    if (!licenseActive) {
-        NSLog(@"❌ [SPLIT] License required");
-        reject(@"LICENSE_REQUIRED", @"PDF Operations requires a Pro license", nil);
-        return;
-    }
+    // All features are FREE - no license verification needed
     
     if (!filePath || filePath.length == 0) {
         NSLog(@"❌ [SPLIT] Invalid path");
@@ -341,15 +323,7 @@ RCT_EXPORT_METHOD(extractPages:(NSString *)filePath
     
     NSLog(@"✂️ [EXTRACT] extractPages - START - file: %@, pages: %lu", filePath, (unsigned long)pageNumbers.count);
     
-    // Check Pro license
-    BOOL licenseActive = [_licenseVerifier isProActive];
-    NSLog(@"🔑 [LICENSE] isProActive: %d", licenseActive);
-    
-    if (!licenseActive) {
-        NSLog(@"❌ [EXTRACT] License required");
-        reject(@"LICENSE_REQUIRED", @"PDF Operations requires a Pro license", nil);
-        return;
-    }
+    // All features are FREE - no license verification needed
     
     if (!filePath || filePath.length == 0) {
         NSLog(@"❌ [EXTRACT] Invalid path");
@@ -420,11 +394,7 @@ RCT_EXPORT_METHOD(rotatePage:(NSString *)filePath
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     
-    // Check Pro license
-    if (![_licenseVerifier isProActive]) {
-        reject(@"LICENSE_REQUIRED", @"PDF Operations requires a Pro license", nil);
-        return;
-    }
+    // All features are FREE - no license verification needed
     
     if (!filePath || filePath.length == 0) {
         reject(@"INVALID_PATH", @"File path is required", nil);
@@ -473,11 +443,7 @@ RCT_EXPORT_METHOD(deletePage:(NSString *)filePath
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     
-    // Check Pro license
-    if (![_licenseVerifier isProActive]) {
-        reject(@"LICENSE_REQUIRED", @"PDF Operations requires a Pro license", nil);
-        return;
-    }
+    // All features are FREE - no license verification needed
     
     if (!filePath || filePath.length == 0) {
         reject(@"INVALID_PATH", @"File path is required", nil);
