@@ -42,9 +42,7 @@ UIView
 @property(nonatomic) BOOL showsHorizontalScrollIndicator;
 @property(nonatomic) BOOL scrollEnabled;
 @property(nonatomic) BOOL enablePaging;
-@property(nonatomic) float scrollVelocity;
 @property(nonatomic) BOOL enableMomentum;
-@property(nonatomic, strong) NSString *decelerationRate;
 @property(nonatomic) BOOL enableRTL;
 @property(nonatomic) BOOL enableAnnotationRendering;
 @property(nonatomic) BOOL enableDoubleTapZoom;

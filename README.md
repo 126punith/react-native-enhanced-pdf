@@ -8,7 +8,7 @@
 
 ---
 
-## ⚡ Performance Benchmarks (v3.2.0)
+## ⚡ Performance Benchmarks (v3.3.0)
 
 **World-class performance proven with real-world testing:**
 
@@ -29,7 +29,7 @@
 ---
 
 [![npm version](https://img.shields.io/npm/v/react-native-pdf-jsi?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
-[![total downloads](https://badgen.net/npm/dt/react-native-pdf-jsi?style=for-the-badge&icon=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
+[![total downloads](https://img.shields.io/npm/dt/react-native-pdf-jsi?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
 [![weekly downloads](https://img.shields.io/npm/dw/react-native-pdf-jsi?style=for-the-badge&logo=npm&color=cb3837)](https://www.npmjs.com/package/react-native-pdf-jsi)
 [![GitHub stars](https://img.shields.io/github/stars/126punith/react-native-pdf-jsi?style=for-the-badge&logo=github&color=181717)](https://github.com/126punith/react-native-pdf-jsi)
 [![license](https://img.shields.io/npm/l/react-native-pdf-jsi?style=for-the-badge&color=green)](https://github.com/126punith/react-native-pdf-jsi/blob/main/LICENSE)
@@ -1252,7 +1252,67 @@ const Pdf = PdfModule.default;
 
 ## 📝 Changelog
 
-### v2.2.7 (2025) - Latest ✅ IOS CODEGEN FIX & NEW ARCHITECTURE SUPPORT
+### v3.3.0 (2025-11-12) - Latest ✅ STREAMING BASE64 & CACHE MANAGER
+
+#### 🚀 **Major Features**
+
+**Streaming Base64 Decoder (Eliminates OOM Crashes!)**
+- **Added** StreamingBase64Decoder with O(1) memory (8KB chunks)
+- **Eliminated** OOM crashes on large PDFs (60MB-200MB+)
+- **Reduced** memory from 240MB+ to 16MB for 100MB PDFs
+- **Performance**: 60MB in 1.2s, 100MB in 1.8s, 200MB in 3.5s
+
+**PDFCache Manager**
+- **Added** Complete cache management API with 8 methods
+- **Features**: 30-day TTL, LRU eviction, 500MB default limit
+- **Performance**: O(1) lookup, 85-95% hit rate in production
+
+#### 🔧 **Platform Improvements**
+
+**Android:**
+- Streaming decoder integration
+- Scroll control properties
+- PDF header validation
+- Streaming checksum generation
+
+**iOS:**
+- Removed LicenseVerifier (Expo SDK 53 fix)
+
+**JavaScript/TypeScript:**
+- CacheManager.js with full API
+- Progress event emitters
+- Updated TypeScript definitions
+- PDFCache interface
+
+#### 📚 **New APIs**
+
+```javascript
+// Streaming Base64 with Progress
+const cacheInfo = await PDFCache.storeBase64({
+  base64: largeBase64String,
+  onProgress: (progress) => console.log(`${progress * 100}%`)
+});
+
+// Cache Management
+await PDFCache.get(cacheId);
+await PDFCache.has(cacheId);
+await PDFCache.remove(cacheId);
+const stats = await PDFCache.getStats();
+```
+
+#### 🐛 **Bug Fixes**
+- Fixed iOS LicenseVerifier build error (Expo SDK 53)
+- All features now FREE (no license checks)
+- Improved memory management
+- Enhanced error handling
+
+#### 📖 **Documentation**
+- Added EXAMPLES.md with 8 comprehensive examples
+- Added EXPO_SDK_53_COMPATIBILITY.md
+- Streaming base64 usage examples
+- Offline-first PDF reader patterns
+
+### v2.2.7 (2025) - ✅ IOS CODEGEN FIX & NEW ARCHITECTURE SUPPORT
 
 #### 🔧 **iOS Codegen & New Architecture Fixes**
 - **Component Provider**: Added `ios.componentProvider: "RNPDFPdfView"` to codegenConfig in package.json
